@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Arte Web</string>
+    <string name="aba_jogos">Artists</string>
+    <string name="aba_favoritos">Favorites</string>
+    <string name="detalhe_jogo">Details of the artists</string>
+    <string name="compartilhar">Share</string>
+    <string name="falha_conexao">Without connection at this moment.</string>
+    <string name="sem_conteudo">Without content to show at this moment.</string>
+    <string name="texto_detalhe_produtora"> its a game from the producer </string>
+    <string name="texto_detalhe_genero">, and has a style game </string>
+</resources>

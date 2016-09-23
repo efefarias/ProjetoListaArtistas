@@ -1,0 +1,304 @@
+package br.com.projeto.projetolistajogos;
+
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.ShareActionProvider;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import org.parceler.Parcels;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.projeto.projetolistajogos.database.PessoaDAO;
+import br.com.projeto.projetolistajogos.model.ListPessoas;
+import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistajogos.Util.SimpleDialog;
+
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class DetalhePessoaFragment extends Fragment {
+
+    private static final String EXTRA_PESSOA = "param1";
+
+    @Bind(R.id.text_jogo)
+    TextView txtJogo;
+    @Bind(R.id.img_capa)
+    ImageView imgView;
+    @Bind(R.id.fab_favorito)
+    FloatingActionButton fabFavorito;
+    @Bind(R.id.fab_favorito2)
+    FloatingActionButton fabFavorito2;
+    @Bind(R.id.list_obras)
+    ListView mlistObras;
+    @Bind(R.id.swipe_jogos)
+    SwipeRefreshLayout swipeJogos;
+
+    private ShareActionProvider mShareActionProvider;
+    List<Pessoa> listObras;
+    PessoaDAO pessoaDAO;
+    ArrayAdapter<Pessoa> adapterObras;
+    private Pessoa pessoa;
+    PessoaTask pessoaTask;
+
+    private void showProgress(){
+        swipeJogos.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeJogos.setRefreshing(true);
+            }
+        });
+    }
+
+    public static DetalhePessoaFragment newInstance(Pessoa pessoa) {
+        DetalhePessoaFragment fragment = new DetalhePessoaFragment();
+        Bundle args = new Bundle();
+        Parcelable p = Parcels.wrap(pessoa);
+        args.putParcelable(EXTRA_PESSOA, p);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        pessoaDAO = new PessoaDAO(getActivity());
+        if (getArguments() != null) {
+            Parcelable p = getArguments().getParcelable(EXTRA_PESSOA);
+            pessoa = Parcels.unwrap(p);
+        }
+
+        listObras = new ArrayList<>();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_detalhe, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.putExtra(Intent.EXTRA_TEXT, pessoa.getNome_pessoa());
+        it.setType("text/plain");
+        mShareActionProvider.setShareIntent(it);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(listObras.size() == 0 || listObras == null) {
+            baixarJson();
+        }else if(listObras != null && pessoaTask.getStatus() == AsyncTask.Status.RUNNING){
+            swipeJogos.setRefreshing(true);
+            showProgress();
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_detalhe_pessoa, container, false);
+
+        ButterKnife.bind(this, view);
+        txtJogo.setText(pessoa.getNome_pessoa() + " " + getResources().getString(R.string.texto_detalhe_produtora) + " " +
+                pessoa.getEmail_pessoa() + getResources().getString(R.string.texto_detalhe_genero) + " " +
+                pessoa.getBio_pessoa());
+        //Foto do artista
+        Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
+
+        //Obras
+        adapterObras = new ObraPessoaAdapter(getContext(), listObras);
+        mlistObras.setEmptyView(view.findViewById(R.id.empty));
+        mlistObras.setAdapter(adapterObras);
+
+        swipeJogos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                baixarJson();
+            }
+        });
+
+        alteraFavorito();
+
+        return view;
+    }
+
+    //FASF - 20/09/2016 - Método que verifica a imagem que será atribuida ao botão, dependendo se o jogo é favorito
+    private void alteraFavorito(){
+        Boolean favorito = pessoaDAO.isfavorito(pessoa);
+
+        fabFavorito.setImageResource(favorito ? R.drawable.ic_remove : R.drawable.ic_add);
+        fabFavorito.setBackgroundTintList(favorito ? ColorStateList.valueOf(Color.parseColor("#C62828")) :
+                ColorStateList.valueOf(Color.parseColor("#2E7D32")));
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.fab_favorito)
+    public void favoritoClick(){
+        if(pessoaDAO.isfavorito(pessoa)){
+            //remove
+            pessoaDAO.excluir(pessoa);
+        }else{
+            //add
+            pessoaDAO.inserir(pessoa);
+        }
+
+        fabFavorito.animate()
+                .scaleX(0)
+                .scaleY(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        alteraFavorito();
+                        fabFavorito.animate()
+                                .scaleX(1)
+                                .scaleY(1)
+                                .setListener(null);
+                    }
+                });
+
+        alteraFavorito();
+
+
+
+        //FASF 15/05/2016 - Enviando um post, e assim definindo ao portador da escuta, que atualize a página
+        ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
+    }
+
+    @OnClick(R.id.fab_favorito2)
+    public void abrirSimpleDialog() {
+        SimpleDialog dialog = SimpleDialog.newDialog(
+                0, // Id do dialog
+                "Avalie!", // título
+                "Mensagem", // mensagem
+                new int[] { // texto dos botões
+                        android.R.string.ok,
+                        android.R.string.cancel });
+        // Segredo do sucesso! :)
+        // 1 = RequestCode
+        dialog.setTargetFragment(this, 1);
+        dialog.openDialog(
+                getActivity().getSupportFragmentManager());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,
+                                 int resultCode, Intent data) {
+
+        super.onActivityResult(
+                requestCode, resultCode, data);
+
+        int which = data.getIntExtra("which", -1);
+        // Tratar dialog
+    }
+
+    //Baixando dados das pessoas(Obras)
+    public void baixarJson(){
+        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        if(info != null && info.isConnected()) {
+            PessoaTask pessoaTask = new PessoaTask();
+            new PessoaTask().execute();
+        }else{
+            swipeJogos.setRefreshing(false);
+            Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
+
+        @Override
+        public void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
+        }
+
+
+        @Override
+        public ListPessoas doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+
+            ListPessoas pessoas = null;
+
+            Request request = new Request.Builder()
+                    .url("https://dl.dropboxusercontent.com/s/tic0mahjasbsij0/testepessoas2.json?dl=0")
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                String jsonString = response.body().string();
+
+                Gson gson = new Gson();
+                pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                return pessoas;
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onPostExecute(ListPessoas pessoas) {
+            super.onPostExecute(pessoas);
+
+            if(pessoas != null){
+                listObras.clear();
+                listObras.addAll(pessoas.getPessoas());
+            }
+            adapterObras.notifyDataSetChanged();
+
+            //if(getResources().getBoolean(R.bool.tablet)
+            //        && listObras.size() > 0){
+                //onItemSelected(0);
+            //}
+
+            swipeJogos.setRefreshing(false);
+        }
+    }
+
+}
