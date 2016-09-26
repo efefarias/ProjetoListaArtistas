@@ -75,6 +75,11 @@ public class ListaFavoritoFragment extends Fragment {
         ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
     }
 
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
     @Subscribe
     public void atualizar(Pessoa pessoa){
         listPessoa.clear();

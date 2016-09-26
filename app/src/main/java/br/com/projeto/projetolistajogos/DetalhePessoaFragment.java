@@ -162,7 +162,7 @@ public class DetalhePessoaFragment extends Fragment {
         return view;
     }
 
-    //FASF - 20/09/2016 - Método que verifica a imagem que será atribuida ao botão, dependendo se o jogo é favorito
+    //FASF - 20/09/2016 - Método que verifica a imagem que será atribuida ao botão, dependendo se a pessoa é favorita
     private void alteraFavorito(){
         Boolean favorito = pessoaDAO.isfavorito(pessoa);
 
