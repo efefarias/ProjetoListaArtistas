@@ -57,7 +57,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
         @Override
         public CharSequence getPageTitle(int position) {
-            if(position == 0) return getString(R.string.aba_jogos);
+            if(position == 0) return getString(R.string.aba_pessoas);
             return getString(R.string.aba_favoritos);
         }
     }

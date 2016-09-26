@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.projeto.projetolistaartistas.DetalhePessoaActivity"
-            android:label="@string/detalhe_jogo"
+            android:label="@string/detalhe_pessoa"
             android:parentActivityName="br.com.projeto.projetolistaartistas.PessoasActivity">
             <meta-data android:name="parentActivityName"
                 android:value=".PessoasActivity"/>

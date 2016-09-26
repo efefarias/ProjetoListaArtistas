@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">ArteWeb</string>
-    <string name="aba_jogos">Artistas</string>
+    <string name="aba_pessoas">Artistas</string>
     <string name="aba_favoritos">Favoritos</string>
-    <string name="detalhe_jogo">Detalhes do artista</string>
+    <string name="detalhe_pessoa">Detalhes do artista</string>
     <string name="compartilhar">Compartilhar</string>
     <string name="falha_conexao">Sem conexão no momento.</string>
     <string name="sem_conteudo">Sem conteúdo para exibir no momento.</string>
-    <string name="texto_detalhe_produtora"> é um jogo da produtora </string>
-    <string name="texto_detalhe_genero">, e tem o estilo de jogo </string>
+    <string name="texto_detalhe_produtora"> é um artista da região </string>
+    <string name="texto_detalhe_genero">, e tem o estilo de arte </string>
 </resources>

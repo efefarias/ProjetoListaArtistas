@@ -14,7 +14,7 @@ public class DetalhePessoaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhe_jogo);
+        setContentView(R.layout.activity_detalhe_pessoa);
 
         Pessoa pessoa = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_PESSOA));
 
