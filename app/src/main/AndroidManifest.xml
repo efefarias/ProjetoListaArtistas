@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PessoasActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoTitle"
             android:launchMode="singleTop">
             <intent-filter>
@@ -24,7 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetalhePessoaActivity"
-            android:screenOrientation="portrait"
             android:label="@string/detalhe_jogo"
             android:parentActivityName=".PessoasActivity">
             <meta-data android:name="parentActivityName"

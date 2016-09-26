@@ -80,6 +80,7 @@ public class DetalhePessoaFragment extends Fragment {
         swipeJogos.post(new Runnable() {
             @Override
             public void run() {
+                if (!(swipeJogos == null))
                 swipeJogos.setRefreshing(true);
             }
         });
@@ -169,6 +170,12 @@ public class DetalhePessoaFragment extends Fragment {
         fabFavorito.setImageResource(favorito ? R.drawable.ic_remove : R.drawable.ic_add);
         fabFavorito.setBackgroundTintList(favorito ? ColorStateList.valueOf(Color.parseColor("#C62828")) :
                 ColorStateList.valueOf(Color.parseColor("#2E7D32")));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
     }
 
     @Override public void onDestroyView() {
@@ -297,6 +304,7 @@ public class DetalhePessoaFragment extends Fragment {
                 //onItemSelected(0);
             //}
 
+            if(!(swipeJogos == null))
             swipeJogos.setRefreshing(false);
         }
     }
