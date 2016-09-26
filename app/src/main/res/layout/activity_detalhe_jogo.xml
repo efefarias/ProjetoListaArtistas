@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3a3131"
-    tools:context="br.com.projeto.projetolistajogos.DetalheJogoActivity">
+    tools:context="br.com.projeto.projetolistaartistas.DetalheJogoActivity">
 
 </FrameLayout>

@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos.database;
+package br.com.projeto.projetolistaartistas.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

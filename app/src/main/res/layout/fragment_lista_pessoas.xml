@@ -8,13 +8,13 @@
     <include layout="@layout/empty_list"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_jogos"
+        android:id="@+id/swipe_pessoas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#3a3131">
 
     <ListView
-        android:id="@+id/list_jogos"
+        android:id="@+id/list_pessoas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#3a3131"/>

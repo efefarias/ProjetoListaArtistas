@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos.database;
+package br.com.projeto.projetolistaartistas.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 
 /**
  * Created by Felipe on 15/09/2016.

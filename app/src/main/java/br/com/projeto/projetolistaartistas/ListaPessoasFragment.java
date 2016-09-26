@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 
 import android.content.Context;
@@ -21,8 +21,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.projeto.projetolistajogos.model.ListPessoas;
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.ListPessoas;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
@@ -33,20 +33,20 @@ import okhttp3.Response;
 
 public class ListaPessoasFragment extends Fragment {
 
-    @Bind(R.id.list_jogos)
+    @Bind(R.id.list_pessoas)
     ListView mListView;
-    @Bind(R.id.swipe_jogos)
-    SwipeRefreshLayout swipeJogos;
+    @Bind(R.id.swipe_pessoas)
+    SwipeRefreshLayout swipePessoas;
 
     List<Pessoa> listPessoas;
     ArrayAdapter<Pessoa> adapterPessoas;
     PessoaTask pessoaTask;
 
     private void showProgress(){
-        swipeJogos.post(new Runnable() {
+        swipePessoas.post(new Runnable() {
             @Override
             public void run() {
-                swipeJogos.setRefreshing(true);
+                swipePessoas.setRefreshing(true);
             }
         });
     }
@@ -70,7 +70,7 @@ public class ListaPessoasFragment extends Fragment {
         mListView.setEmptyView(layout.findViewById(R.id.empty));
 
         mListView.setAdapter(adapterPessoas);
-        swipeJogos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipePessoas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 baixarJson();
@@ -85,7 +85,7 @@ public class ListaPessoasFragment extends Fragment {
         if(listPessoas.size() == 0 || listPessoas == null) {
             baixarJson();
         }else if(listPessoas != null && pessoaTask.getStatus() == AsyncTask.Status.RUNNING){
-            swipeJogos.setRefreshing(true);
+            swipePessoas.setRefreshing(true);
             //showProgress();
         }
     }
@@ -97,12 +97,12 @@ public class ListaPessoasFragment extends Fragment {
             pessoaTask = new PessoaTask();
             new PessoaTask().execute();
         }else{
-            swipeJogos.setRefreshing(false);
+            swipePessoas.setRefreshing(false);
             Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
         }
     }
 
-    @OnItemClick(R.id.list_jogos)
+    @OnItemClick(R.id.list_pessoas)
     void onItemSelected(int p) {
 
         Pessoa pessoa = listPessoas.get(p);
@@ -162,7 +162,7 @@ public class ListaPessoasFragment extends Fragment {
                 //onItemSelected(0);
             }
 
-            swipeJogos.setRefreshing(false);
+            swipePessoas.setRefreshing(false);
         }
     }
 }

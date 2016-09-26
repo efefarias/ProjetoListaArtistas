@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos.Util;
+package br.com.projeto.projetolistaartistas.Util;
 
 import android.app.Activity;
 import android.app.AlertDialog;

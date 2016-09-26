@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 
 import android.animation.Animator;
@@ -39,10 +39,10 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.projeto.projetolistajogos.database.PessoaDAO;
-import br.com.projeto.projetolistajogos.model.ListPessoas;
-import br.com.projeto.projetolistajogos.model.Pessoa;
-import br.com.projeto.projetolistajogos.Util.SimpleDialog;
+import br.com.projeto.projetolistaartistas.database.PessoaDAO;
+import br.com.projeto.projetolistaartistas.model.ListPessoas;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
+import br.com.projeto.projetolistaartistas.Util.SimpleDialog;
 
 
 import butterknife.Bind;
@@ -66,8 +66,8 @@ public class DetalhePessoaFragment extends Fragment {
     FloatingActionButton fabFavorito2;
     @Bind(R.id.list_obras)
     ListView mlistObras;
-    @Bind(R.id.swipe_jogos)
-    SwipeRefreshLayout swipeJogos;
+    @Bind(R.id.swipe_pessoas)
+    SwipeRefreshLayout swipePessoas;
 
     private ShareActionProvider mShareActionProvider;
     List<Pessoa> listObras;
@@ -77,11 +77,11 @@ public class DetalhePessoaFragment extends Fragment {
     PessoaTask pessoaTask;
 
     private void showProgress(){
-        swipeJogos.post(new Runnable() {
+        swipePessoas.post(new Runnable() {
             @Override
             public void run() {
-                if (!(swipeJogos == null))
-                swipeJogos.setRefreshing(true);
+                if (!(swipePessoas == null))
+                    swipePessoas.setRefreshing(true);
             }
         });
     }
@@ -129,7 +129,7 @@ public class DetalhePessoaFragment extends Fragment {
         if(listObras.size() == 0 || listObras == null) {
             baixarJson();
         }else if(listObras != null && pessoaTask.getStatus() == AsyncTask.Status.RUNNING){
-            swipeJogos.setRefreshing(true);
+            swipePessoas.setRefreshing(true);
             showProgress();
         }
     }
@@ -151,7 +151,7 @@ public class DetalhePessoaFragment extends Fragment {
         mlistObras.setEmptyView(view.findViewById(R.id.empty));
         mlistObras.setAdapter(adapterObras);
 
-        swipeJogos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipePessoas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 baixarJson();
@@ -251,7 +251,7 @@ public class DetalhePessoaFragment extends Fragment {
             PessoaTask pessoaTask = new PessoaTask();
             new PessoaTask().execute();
         }else{
-            swipeJogos.setRefreshing(false);
+            swipePessoas.setRefreshing(false);
             Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
         }
     }
@@ -304,8 +304,8 @@ public class DetalhePessoaFragment extends Fragment {
                 //onItemSelected(0);
             //}
 
-            if(!(swipeJogos == null))
-            swipeJogos.setRefreshing(false);
+            if(!(swipePessoas == null))
+            swipePessoas.setRefreshing(false);
         }
     }
 

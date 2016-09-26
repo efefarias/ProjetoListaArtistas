@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#3a3131"
-            tools:context="br.com.projeto.projetolistajogos.DetalheJogoFragment"
+            tools:context="br.com.projeto.projetolistaartistas.DetalheJogoFragment"
             android:clickable="false">
 
                 <TextView
@@ -43,7 +43,7 @@
         android:layout_margin="8dp" />
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_jogos"
+        android:id="@+id/swipe_pessoas"
         android:layout_width="112dp"
         android:layout_height="match_parent"
         android:layout_marginTop="180dp"

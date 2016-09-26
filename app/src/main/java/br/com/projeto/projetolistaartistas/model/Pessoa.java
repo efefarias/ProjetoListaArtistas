@@ -1,6 +1,4 @@
-package br.com.projeto.projetolistajogos.model;
-
-import android.os.Parcel;
+package br.com.projeto.projetolistaartistas.model;
 
 /**
  * Created by Felipe on 12/04/2016.

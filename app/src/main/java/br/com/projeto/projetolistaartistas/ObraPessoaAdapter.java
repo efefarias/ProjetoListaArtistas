@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 
 /**
  * Created by f.soares.de.farias on 9/22/2016.

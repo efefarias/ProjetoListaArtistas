@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.projeto.projetolistajogos">
+    package="br.com.projeto.projetolistaartistas">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".PessoaApp"
+        android:name="br.com.projeto.projetolistaartistas.PessoaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_laucher_art"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PessoasActivity"
+        <activity android:name="br.com.projeto.projetolistaartistas.PessoasActivity"
             android:theme="@style/AppTheme.NoTitle"
             android:launchMode="singleTop">
             <intent-filter>
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetalhePessoaActivity"
+        <activity android:name="br.com.projeto.projetolistaartistas.DetalhePessoaActivity"
             android:label="@string/detalhe_jogo"
-            android:parentActivityName=".PessoasActivity">
+            android:parentActivityName="br.com.projeto.projetolistaartistas.PessoasActivity">
             <meta-data android:name="parentActivityName"
                 android:value=".PessoasActivity"/>
 

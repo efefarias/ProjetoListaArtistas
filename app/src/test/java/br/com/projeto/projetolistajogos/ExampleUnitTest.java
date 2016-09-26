@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 import org.junit.Test;
 

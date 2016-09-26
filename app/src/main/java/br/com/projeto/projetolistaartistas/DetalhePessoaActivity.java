@@ -1,19 +1,11 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import org.parceler.Parcels;
 
-import br.com.projeto.projetolistajogos.Util.SimpleDialog;
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 
 public class DetalhePessoaActivity extends AppCompatActivity {
 

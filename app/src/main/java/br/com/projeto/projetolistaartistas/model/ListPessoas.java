@@ -1,6 +1,4 @@
-package br.com.projeto.projetolistajogos.model;
-
-import com.google.gson.annotations.SerializedName;
+package br.com.projeto.projetolistaartistas.model;
 
 import java.util.List;
 

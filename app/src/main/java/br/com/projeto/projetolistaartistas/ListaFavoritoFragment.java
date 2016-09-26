@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-import br.com.projeto.projetolistajogos.database.PessoaDAO;
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.database.PessoaDAO;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
@@ -23,7 +23,7 @@ import butterknife.OnItemClick;
 
 public class ListaFavoritoFragment extends Fragment {
 
-    @Bind(R.id.list_jogos)
+    @Bind(R.id.list_pessoas)
     ListView mListView;
 
     List<Pessoa> listPessoa;
@@ -58,7 +58,7 @@ public class ListaFavoritoFragment extends Fragment {
         return layout;
     }
 
-    @OnItemClick(R.id.list_jogos)
+    @OnItemClick(R.id.list_pessoas)
     void onItemSelected(int p) {
 
         Pessoa pessoa = listPessoa.get(p);

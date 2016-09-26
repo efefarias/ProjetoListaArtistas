@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#3a3131"
-    tools:context="br.com.projeto.projetolistajogos.JogosActivity">
+    tools:context="br.com.projeto.projetolistaartistas.JogosActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

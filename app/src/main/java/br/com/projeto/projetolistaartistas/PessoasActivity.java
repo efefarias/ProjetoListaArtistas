@@ -1,4 +1,4 @@
-package br.com.projeto.projetolistajogos;
+package br.com.projeto.projetolistaartistas;
 
 import android.content.Intent;
 import android.os.Parcelable;
@@ -12,7 +12,7 @@ import android.os.Bundle;
 
 import org.parceler.Parcels;
 
-import br.com.projeto.projetolistajogos.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

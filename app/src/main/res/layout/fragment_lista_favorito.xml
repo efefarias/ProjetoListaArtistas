@@ -8,7 +8,7 @@
     <include layout="@layout/empty_list"/>
 
     <ListView
-        android:id="@+id/list_jogos"
+        android:id="@+id/list_pessoas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
