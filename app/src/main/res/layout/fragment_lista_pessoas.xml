@@ -1,8 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="470dp"
+    android:layout_marginTop="43dp"
     tools:context=".ListaPessoasFragment"
+
     android:background="#3a3131">
 
     <include layout="@layout/empty_list"/>
@@ -11,6 +18,7 @@
         android:id="@+id/swipe_pessoas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="bottom"
         android:background="#3a3131">
 
     <ListView
@@ -20,3 +28,35 @@
         android:background="#3a3131"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="50dp"
+android:background="#3a3131"
+android:orientation="horizontal">
+
+<EditText
+    android:layout_width="310dp"
+    android:layout_height="40dp"
+    android:inputType="textPersonName"
+    android:hint="Procure um Artista!"
+    android:background="@android:color/transparent"
+    android:textColor="@color/colorWhite"
+    android:textColorHint="@color/colorWhite"
+    android:layout_margin="8dp"
+    android:id="@+id/edt_nome_artista"/>
+
+<Button
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:layout_alignRight="@+id/edt_nome_artista"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="-40dp"
+    android:background="@drawable/ic_buscar_artista"
+    android:src="@drawable/ic_buscar_artista"
+    android:id="@+id/btn_busca_artista"
+    android:layout_gravity="right" />
+</RelativeLayout>
+
+</RelativeLayout>

@@ -9,32 +9,45 @@
     android:background="#3a3131"
     tools:context="br.com.projeto.projetolistaartistas.JogosActivity">
 
+
+    <LinearLayout
+        android:id="@+id/linear_tema"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorWhite"
+        android:gravity="right">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@drawable/fundo_taipa">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@drawable/background2"/>
+            app:titleTextColor="@color/colorWhite"
+            android:titleTextAppearance="@color/colorAccent"
+            app:subtitleTextColor="@color/colorAccent"
+            android:layout_height="?actionBarSize" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabTextColor="@color/colorWhite"
+            android:layout_marginBottom="-17dp"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
-            app:tabGravity="fill"
-            android:background="@drawable/background2"/>
+            app:tabGravity="fill"/>
 
     </android.support.design.widget.AppBarLayout>
 
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="#3a3131"/>
 
 </LinearLayout>
