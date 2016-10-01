@@ -52,7 +52,7 @@ public class ListaPessoasFragment extends Fragment {
     ArrayAdapter<Pessoa> adapterPessoasFiltro;
     PessoaTask pessoaTask;
     PessoaDAO dao;
-    Boolean foiFiltrado = false;
+    Boolean foiFiltrado;
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -70,6 +70,7 @@ public class ListaPessoasFragment extends Fragment {
         listPessoasFiltro = new ArrayList<>();
         listPessoas = new ArrayList<>();
         dao = new PessoaDAO(getActivity());
+        foiFiltrado = false;
     }
 
     @Override
@@ -79,6 +80,8 @@ public class ListaPessoasFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_lista_pessoas, container, false);
         ButterKnife.bind(this, layout);
 
+        foiFiltrado = false;
+
         adapterPessoas = new PessoasAdapter(getContext(), listPessoas);
 
         mListView.setEmptyView(layout.findViewById(R.id.empty));
@@ -87,6 +90,7 @@ public class ListaPessoasFragment extends Fragment {
         swipePessoas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                foiFiltrado = false;
                 baixarJson();
             }
         });
@@ -119,8 +123,16 @@ public class ListaPessoasFragment extends Fragment {
     @OnItemClick(R.id.list_pessoas)
     void onItemSelected(int p) {
 
-        Pessoa pessoa = listPessoas.get(p);
+        Pessoa pessoa;
 
+        if(foiFiltrado)
+        {
+            pessoa = listPessoasFiltro.get(p);
+        }
+        else
+        {
+            pessoa = listPessoas.get(p);
+        }
         if(getActivity() instanceof CliqueiNaPessoaListener){
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
             listener.PessoaFoiClicada(pessoa);
@@ -131,6 +143,7 @@ public class ListaPessoasFragment extends Fragment {
     public void buscarArtista(){
 
         String nome = edtNomeArtista.getText().toString();
+        listPessoasFiltro.clear();
 
         if(nome.toString().equals("")){
             Toast.makeText(getActivity(), "Preencha um nome para pesquisar",
@@ -155,8 +168,19 @@ public class ListaPessoasFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        //foiFiltrado = false;
+        super.onDestroy();
+    }
 
-     class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
+    @Override
+    public void onDestroyView() {
+        //foiFiltrado = false;
+        super.onDestroyView();
+    }
+
+    class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
 
         @Override
         public void onPreExecute() {
@@ -172,7 +196,7 @@ public class ListaPessoasFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/tic0mahjasbsij0/testepessoas2.json?dl=0")
+                    .url("https://dl.dropboxusercontent.com/s/9b57aw69af02ung/pessoasfinal.json?dl=0")
                     .build();
 
             try {

@@ -1,5 +1,8 @@
 package br.com.projeto.projetolistaartistas.model;
 
+import java.util.List;
+import br.com.projeto.projetolistaartistas.model.Obra;
+
 /**
  * Created by Felipe on 12/04/2016.
  */
@@ -18,11 +21,12 @@ public class Pessoa{
     private String id_tipo_pessoa;
     private String bio_pessoa;
     private String img_pessoa;
+    private List<Obra> obras;
 
     public Pessoa() {
     }
 
-    public Pessoa(long id_pessoa, String nome_pessoa , String cpf_pessoa, String sexo_pessoa, String ddd_pessoa, String telefone_pessoa, String favorito_pessoa, String email_pessoa, String id_endereco_pessoa, String id_tipo_pessoa, String bio_pessoa, String img_pessoa) {
+    public Pessoa(long id_pessoa, String nome_pessoa , String cpf_pessoa, String sexo_pessoa, String ddd_pessoa, String telefone_pessoa, String favorito_pessoa, String email_pessoa, String id_endereco_pessoa, String id_tipo_pessoa, String bio_pessoa, String img_pessoa, List<Obra> obras) {
         this.id_pessoa = id_pessoa;
         this.nome_pessoa = nome_pessoa;
         this.cpf_pessoa = cpf_pessoa;
@@ -35,7 +39,7 @@ public class Pessoa{
         this.id_tipo_pessoa = id_tipo_pessoa;
         this.bio_pessoa = bio_pessoa;
         this.img_pessoa = img_pessoa;
-
+        this.obras = obras;
     }
 
     public long getId_pessoa() {
@@ -132,5 +136,13 @@ public class Pessoa{
 
     public void setImg_pessoa(String img_pessoa) {
         this.img_pessoa = img_pessoa;
+    }
+
+    public List<Obra> getObras() {
+        return obras;
+    }
+
+    public void setObras(List<Obra> obras) {
+        this.obras = obras;
     }
 }
