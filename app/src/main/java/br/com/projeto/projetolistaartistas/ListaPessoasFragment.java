@@ -49,8 +49,10 @@ public class ListaPessoasFragment extends Fragment {
     List<Pessoa> listPessoas;
     List<Pessoa> listPessoasFiltro;
     ArrayAdapter<Pessoa> adapterPessoas;
+    ArrayAdapter<Pessoa> adapterPessoasFiltro;
     PessoaTask pessoaTask;
     PessoaDAO dao;
+    Boolean foiFiltrado = false;
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -142,17 +144,15 @@ public class ListaPessoasFragment extends Fragment {
             }
 
             if(listPessoasFiltro.size() != 0) {
-                adapterPessoas = new PessoasAdapter(getContext(), listPessoasFiltro);
-                mListView.setAdapter(adapterPessoas);
+                adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+                mListView.setAdapter(adapterPessoasFiltro);
                 adapterPessoas.notifyDataSetChanged();
+                foiFiltrado = true;
             }else{
                 Toast.makeText(getActivity(), "Artista não localizado",
                         Toast.LENGTH_LONG).show();
                  }
-
         }
-
-
     }
 
 
@@ -197,6 +197,7 @@ public class ListaPessoasFragment extends Fragment {
                 listPessoas.clear();
                 listPessoas.addAll(pessoas.getPessoas());
             }
+            mListView.setAdapter(adapterPessoas);
             adapterPessoas.notifyDataSetChanged();
 
             if(getResources().getBoolean(R.bool.tablet)
