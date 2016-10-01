@@ -28,7 +28,7 @@ public class ListaFavoritoFragment extends Fragment {
 
     List<Pessoa> listPessoa;
     ArrayAdapter<Pessoa> adapterPessoa;
-    //ArrayAdapter<Jogo> adapterJogos;
+
     PessoaDAO dao;
 
     @Override

@@ -26,7 +26,6 @@ public class PessoaDAO {
         PessoaDbHelper helper = new PessoaDbHelper(contexto);
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        //ContentValues values = valuesFromJogo(pessoa);
         ContentValues values = valuesFromPessoa(pessoa);
 
         long id = db.insert(PessoaContract.TABLE_NAME, null, values);
@@ -73,6 +72,64 @@ public class PessoaDAO {
         SQLiteDatabase db = helper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + PessoaContract.TABLE_NAME, null);
+
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        if(cursor.getCount() > 0) {
+
+            int indexId             = cursor.getColumnIndex(PessoaContract._ID);
+            int indexBio            = cursor.getColumnIndex(PessoaContract.BIO);
+            int indexNome           = cursor.getColumnIndex(PessoaContract.NOME);
+            int indexCpf            = cursor.getColumnIndex(PessoaContract.CPF);
+            int indexSexo           = cursor.getColumnIndex(PessoaContract.SEXO);
+            int indexDDD            = cursor.getColumnIndex(PessoaContract.DDD);
+            int indexTelefone       = cursor.getColumnIndex(PessoaContract.TELEFONE);
+            int indexFavorito       = cursor.getColumnIndex(PessoaContract.FAVORITO);
+            int indexEmail          = cursor.getColumnIndex(PessoaContract.EMAIL);
+            int indexId_Endereco    = cursor.getColumnIndex(PessoaContract.ID_ENDERECO);
+            int indexId_tipo_pessoa = cursor.getColumnIndex(PessoaContract.ID_TIPO_PESSOA);
+            int indexImagem         = cursor.getColumnIndex(PessoaContract.IMAGEM);
+
+
+            while (cursor.moveToNext()) {
+                Pessoa pessoa = new Pessoa();
+
+                pessoa.setId_pessoa(cursor.getLong(indexId));     //setId(cursor.getLong(indexId));
+                pessoa.setBio_pessoa(cursor.getString(indexBio));     //setId(cursor.getLong(indexId));
+                pessoa.setNome_pessoa(cursor.getString(indexNome));
+                pessoa.setCpf_pessoa(cursor.getString(indexCpf));
+                pessoa.setSexo_pessoa(cursor.getString(indexSexo));
+                pessoa.setDdd_pessoa(cursor.getString(indexDDD));
+                pessoa.setTelefone_pessoa(cursor.getString(indexTelefone));
+                pessoa.setFavorito_pessoa(cursor.getString(indexFavorito));
+                pessoa.setEmail_pessoa(cursor.getString(indexEmail));
+                pessoa.setId_endereco_pessoa(cursor.getString(indexId_Endereco));
+                pessoa.setId_tipo_pessoa(cursor.getString(indexId_tipo_pessoa));
+                pessoa.setImg_pessoa(cursor.getString(indexImagem));
+
+                pessoas.add(pessoa);
+            }
+        }
+
+        cursor.close();
+
+        db.close();
+
+        return pessoas;
+    }
+
+    public List<Pessoa> listarComFiltro(String nomeArtista){
+
+        PessoaDbHelper helper = new PessoaDbHelper(contexto);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        //Cursor cursor = db.rawQuery("SELECT * FROM " + PessoaContract.TABLE_NAME, null );
+
+        //Cursor cursor = db.rawQuery("SELECT * FROM pessoas WHERE nome=?", new String[] { nomeArtista + "%" });
+
+        String query = "SELECT * FROM " + PessoaContract.TABLE_NAME + " WHERE " + PessoaContract.NOME + " = '" + nomeArtista + "'";
+
+        Cursor cursor = db.rawQuery(query, null);
 
         List<Pessoa> pessoas = new ArrayList<>();
 

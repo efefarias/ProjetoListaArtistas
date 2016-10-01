@@ -1,6 +1,8 @@
 package br.com.projeto.projetolistaartistas;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,12 +11,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener {
 
@@ -35,7 +46,9 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
         viewPager.setAdapter(new JogoPager(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+
     }
+
 
     //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
     class JogoPager extends FragmentPagerAdapter{
@@ -61,6 +74,8 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             return getString(R.string.aba_favoritos);
         }
     }
+
+
 
     @Override
     public void PessoaFoiClicada(Pessoa pessoa) {

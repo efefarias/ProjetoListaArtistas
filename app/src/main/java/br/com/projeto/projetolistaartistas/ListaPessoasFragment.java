@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,10 +23,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,10 +41,16 @@ public class ListaPessoasFragment extends Fragment {
     ListView mListView;
     @Bind(R.id.swipe_pessoas)
     SwipeRefreshLayout swipePessoas;
+    @Bind(R.id.btn_busca_artista)
+    Button btnBuscaArtista;
+    @Bind(R.id.edt_nome_artista)
+    EditText edtNomeArtista;
 
     List<Pessoa> listPessoas;
+    List<Pessoa> listPessoasFiltro;
     ArrayAdapter<Pessoa> adapterPessoas;
     PessoaTask pessoaTask;
+    PessoaDAO dao;
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -55,7 +65,9 @@ public class ListaPessoasFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        listPessoasFiltro = new ArrayList<>();
         listPessoas = new ArrayList<>();
+        dao = new PessoaDAO(getActivity());
     }
 
     @Override
@@ -111,6 +123,36 @@ public class ListaPessoasFragment extends Fragment {
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
             listener.PessoaFoiClicada(pessoa);
         }
+    }
+
+    @OnClick(R.id.btn_busca_artista)
+    public void buscarArtista(){
+
+        String nome = edtNomeArtista.getText().toString();
+
+        if(nome.toString().equals("")){
+            Toast.makeText(getActivity(), "Preencha um nome para pesquisar",
+                    Toast.LENGTH_LONG).show();
+        }else{
+
+            for(int i = 0; i < listPessoas.size(); i++){
+                if(nome.toString().equals(listPessoas.get(i).getNome_pessoa())){
+                    listPessoasFiltro.add(listPessoas.get(i));
+                }
+            }
+
+            if(listPessoasFiltro.size() != 0) {
+                adapterPessoas = new PessoasAdapter(getContext(), listPessoasFiltro);
+                mListView.setAdapter(adapterPessoas);
+                adapterPessoas.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getActivity(), "Artista não localizado",
+                        Toast.LENGTH_LONG).show();
+                 }
+
+        }
+
+
     }
 
 
