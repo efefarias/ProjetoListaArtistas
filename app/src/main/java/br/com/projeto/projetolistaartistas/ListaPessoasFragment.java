@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
@@ -53,6 +54,7 @@ public class ListaPessoasFragment extends Fragment {
     PessoaTask pessoaTask;
     PessoaDAO dao;
     Boolean foiFiltrado;
+    FuncoesGenericas fg = new FuncoesGenericas();
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -149,9 +151,8 @@ public class ListaPessoasFragment extends Fragment {
             Toast.makeText(getActivity(), "Preencha um nome para pesquisar",
                     Toast.LENGTH_LONG).show();
         }else{
-
             for(int i = 0; i < listPessoas.size(); i++){
-                if(nome.toString().equals(listPessoas.get(i).getNome_pessoa())){
+                if(fg.verificarNome(listPessoas.get(i).getNome_pessoa(), nome)) {
                     listPessoasFiltro.add(listPessoas.get(i));
                 }
             }
@@ -196,7 +197,7 @@ public class ListaPessoasFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/9b57aw69af02ung/pessoasfinal.json?dl=0")
+                    .url("https://dl.dropboxusercontent.com/s/gwbnbmdfqkd27gc/pessoasfinal.json?dl=0")
                     .build();
 
             try {

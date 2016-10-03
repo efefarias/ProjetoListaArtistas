@@ -32,7 +32,16 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
                 PessoaContract.EMAIL            +" TEXT NOT NULL, " +
                 PessoaContract.ID_ENDERECO      +" TEXT NOT NULL, " +
                 PessoaContract.ID_TIPO_PESSOA   +" TEXT NOT NULL, " +
-                PessoaContract.IMAGEM           +" TEXT NOT NULL)");
+                PessoaContract.IMAGEM           +" TEXT NOT NULL, " +
+                PessoaContract.OBRA1            +" TEXT, " +
+                PessoaContract.OBRA2            +" TEXT, " +
+                PessoaContract.OBRA3            +" TEXT, " +
+                PessoaContract.OBRA4            +" TEXT, " +
+                PessoaContract.OBRA5            +" TEXT, " +
+                PessoaContract.OBRA6            +" TEXT, " +
+                PessoaContract.OBRA7            +" TEXT, " +
+                PessoaContract.OBRA8            +" TEXT, " +
+                PessoaContract.OBRA9            +" TEXT)");
     }
 
     @Override

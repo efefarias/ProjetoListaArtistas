@@ -11,21 +11,21 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import br.com.projeto.projetolistaartistas.model.Pessoa;
+import br.com.projeto.projetolistaartistas.model.Obra;
 
 /**
  * Created by f.soares.de.farias on 9/22/2016.
  */
-public class ObraPessoaAdapter extends ArrayAdapter<Pessoa> {
+public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
 
-    public ObraPessoaAdapter(Context context, List<Pessoa> pessoas) {
-        super(context, 0, pessoas);
+    public ObraPessoaAdapter(Context context, List<Obra> obras) {
+        super(context, 0, obras);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Pessoa pessoa = getItem(position);
+        Obra obra = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
@@ -34,7 +34,7 @@ public class ObraPessoaAdapter extends ArrayAdapter<Pessoa> {
 
         ImageView imgObra = (ImageView)convertView.findViewById(R.id.imgObra);
 
-        Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgObra);
+        Glide.with(getContext()).load(obra.getImg_obra()).into(imgObra);
 
         return convertView;
     }

@@ -41,6 +41,7 @@ import java.util.List;
 
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
+import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import br.com.projeto.projetolistaartistas.Util.SimpleDialog;
 
@@ -70,9 +71,9 @@ public class DetalhePessoaFragment extends Fragment {
     SwipeRefreshLayout swipePessoas;
 
     private ShareActionProvider mShareActionProvider;
-    List<Pessoa> listObras;
+    List<Obra> listObras;
     PessoaDAO pessoaDAO;
-    ArrayAdapter<Pessoa> adapterObras;
+    ArrayAdapter<Obra> adapterObras;
     private Pessoa pessoa;
     PessoaTask pessoaTask;
 
@@ -143,11 +144,13 @@ public class DetalhePessoaFragment extends Fragment {
         txtJogo.setText(pessoa.getNome_pessoa() + " " + getResources().getString(R.string.texto_detalhe_produtora) + " " +
                 pessoa.getEmail_pessoa() + getResources().getString(R.string.texto_detalhe_genero) + " " +
                 pessoa.getBio_pessoa());
+
         //Foto do artista
         Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
 
         //Obras
-        adapterObras = new ObraPessoaAdapter(getContext(), listObras);
+        //adapterObras = new ObraPessoaAdapter(getContext(), listObras);
+        adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
         mlistObras.setEmptyView(view.findViewById(R.id.empty));
         mlistObras.setAdapter(adapterObras);
 
@@ -272,7 +275,7 @@ public class DetalhePessoaFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/tic0mahjasbsij0/testepessoas2.json?dl=0")
+                    .url("https://dl.dropboxusercontent.com/s/gwbnbmdfqkd27gc/pessoasfinal.json?dl=0")
                     .build();
 
             try {
@@ -293,10 +296,10 @@ public class DetalhePessoaFragment extends Fragment {
         public void onPostExecute(ListPessoas pessoas) {
             super.onPostExecute(pessoas);
 
-            if(pessoas != null){
-                listObras.clear();
-                listObras.addAll(pessoas.getPessoas());
-            }
+            //if(pessoas != null){
+            //    listObras.clear();
+            //    listObras.addAll(pessoas.getPessoas());
+            //}
             adapterObras.notifyDataSetChanged();
 
             //if(getResources().getBoolean(R.bool.tablet)

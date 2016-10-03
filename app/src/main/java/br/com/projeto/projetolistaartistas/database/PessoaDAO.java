@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 
 /**
@@ -89,7 +90,16 @@ public class PessoaDAO {
             int indexId_Endereco    = cursor.getColumnIndex(PessoaContract.ID_ENDERECO);
             int indexId_tipo_pessoa = cursor.getColumnIndex(PessoaContract.ID_TIPO_PESSOA);
             int indexImagem         = cursor.getColumnIndex(PessoaContract.IMAGEM);
-
+            //Obras
+            int indexObra1         = cursor.getColumnIndex(PessoaContract.OBRA1);
+            int indexObra2         = cursor.getColumnIndex(PessoaContract.OBRA2);
+            int indexObra3         = cursor.getColumnIndex(PessoaContract.OBRA3);
+            int indexObra4         = cursor.getColumnIndex(PessoaContract.OBRA4);
+            int indexObra5         = cursor.getColumnIndex(PessoaContract.OBRA5);
+            int indexObra6         = cursor.getColumnIndex(PessoaContract.OBRA6);
+            int indexObra7         = cursor.getColumnIndex(PessoaContract.OBRA7);
+            int indexObra8         = cursor.getColumnIndex(PessoaContract.OBRA8);
+            int indexObra9         = cursor.getColumnIndex(PessoaContract.OBRA9);
 
             while (cursor.moveToNext()) {
                 Pessoa pessoa = new Pessoa();
@@ -106,6 +116,9 @@ public class PessoaDAO {
                 pessoa.setId_endereco_pessoa(cursor.getString(indexId_Endereco));
                 pessoa.setId_tipo_pessoa(cursor.getString(indexId_tipo_pessoa));
                 pessoa.setImg_pessoa(cursor.getString(indexImagem));
+                //Obras
+
+
 
                 pessoas.add(pessoa);
             }
