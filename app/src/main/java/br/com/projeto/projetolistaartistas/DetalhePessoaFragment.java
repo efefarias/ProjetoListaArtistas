@@ -117,6 +117,7 @@ public class DetalhePessoaFragment extends Fragment {
 
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
+
     }
 
     @Override
@@ -172,6 +173,8 @@ public class DetalhePessoaFragment extends Fragment {
         imgFullObra.setClickable(false);
 
         alteraFavorito();
+
+        fabFavorito2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2E7D32")));
 
         return view;
     }
