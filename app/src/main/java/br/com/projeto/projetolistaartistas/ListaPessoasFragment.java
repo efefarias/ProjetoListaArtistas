@@ -152,7 +152,7 @@ public class ListaPessoasFragment extends Fragment {
                     Toast.LENGTH_LONG).show();
         }else{
             for(int i = 0; i < listPessoas.size(); i++){
-                if(fg.verificarNome(listPessoas.get(i).getNome_pessoa(), nome)) {
+                if(fg.verificarNome(listPessoas.get(i).getNome_pessoa().toLowerCase(), nome.toLowerCase())) {
                     listPessoasFiltro.add(listPessoas.get(i));
                 }
             }

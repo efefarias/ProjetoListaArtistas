@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -73,6 +74,10 @@ public class DetalhePessoaFragment extends Fragment {
     SwipeRefreshLayout swipePessoas;
     @Bind(R.id.img_full)
     ImageView imgFullObra;
+    @Bind(R.id.txt_nome_obra)
+    TextView txtNomeObra;
+    @Bind(R.id.layout_conteudo)
+    FrameLayout frameConteudo;
 
     private ShareActionProvider mShareActionProvider;
     List<Obra> listObras;
@@ -320,9 +325,17 @@ public class DetalhePessoaFragment extends Fragment {
     @OnItemClick(R.id.list_obras)
     void onItemSelected(int p) {
 
-        imgFullObra.setMaxWidth(450);
-        imgFullObra.setMaxHeight(450);
-        Picasso.with(getContext()).load(pessoa.getObras().get(p).getImg_obra()).resize(450, 450).into(imgFullObra);
+        //Fade out no layout de fundo
+        frameConteudo.animate().alpha((float) 0.15);
+
+        //Nome da obra sendo expandida
+        txtNomeObra.setText(pessoa.getObras().get(p).getNome_obra());
+        //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
+        txtNomeObra.animate().scaleX(1).scaleY(1);
+
+
+        //Imagem da Obra sendo expandida
+        Picasso.with(getContext()).load(pessoa.getObras().get(p).getImg_obra()).into(imgFullObra);
         imgFullObra.animate().scaleX(1).scaleY(1);
         imgFullObra.setClickable(true);
 
@@ -332,9 +345,15 @@ public class DetalhePessoaFragment extends Fragment {
     void onClick(){
         if(imgFullObra.isClickable())
         {
+            //Fade in no layout de fundo
+            frameConteudo.animate().alpha((float) 1);
+
+            //Nome da obra sendo recolhido
+            txtNomeObra.animate().scaleX(0).scaleY(0);
+
+            //Imagem da obra sendo recolhida
             imgFullObra.animate().scaleX(0).scaleY(0);
-            imgFullObra.setMinimumHeight(0);
-            imgFullObra.setMinimumWidth(0);
+
             imgFullObra.setClickable(false);
         }
 
