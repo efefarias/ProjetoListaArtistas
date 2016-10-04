@@ -6,6 +6,4 @@
     <string name="compartilhar">Compartilhar</string>
     <string name="falha_conexao">Sem conexão no momento.</string>
     <string name="sem_conteudo">Sem conteúdo para exibir no momento.</string>
-    <string name="texto_detalhe_produtora"> é um artista da região </string>
-    <string name="texto_detalhe_genero">, e tem o estilo de arte </string>
 </resources>

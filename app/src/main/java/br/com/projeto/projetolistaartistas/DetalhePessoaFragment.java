@@ -57,8 +57,8 @@ public class DetalhePessoaFragment extends Fragment {
 
     private static final String EXTRA_PESSOA = "param1";
 
-    @Bind(R.id.text_jogo)
-    TextView txtJogo;
+    @Bind(R.id.text_detalhes_pessoa)
+    TextView txtDetalhesPessoa;
     @Bind(R.id.img_capa)
     ImageView imgView;
     @Bind(R.id.fab_favorito)
@@ -141,9 +141,7 @@ public class DetalhePessoaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detalhe_pessoa, container, false);
 
         ButterKnife.bind(this, view);
-        txtJogo.setText(pessoa.getNome_pessoa() + " " + getResources().getString(R.string.texto_detalhe_produtora) + " " +
-                pessoa.getEmail_pessoa() + getResources().getString(R.string.texto_detalhe_genero) + " " +
-                pessoa.getBio_pessoa());
+        txtDetalhesPessoa.setText("           " + pessoa.getNome_pessoa() + ", nessa versão do aplicativo possui "+ pessoa.getObras().size() + " obras de arte, clique para obter detalhes. "  + pessoa.getBio_pessoa());
 
         //Foto do artista
         Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);

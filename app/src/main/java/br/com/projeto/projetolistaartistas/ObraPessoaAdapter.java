@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.model.Obra;
+import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 
 /**
  * Created by f.soares.de.farias on 9/22/2016.
@@ -34,7 +36,10 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
 
         ImageView imgObra = (ImageView)convertView.findViewById(R.id.imgObra);
 
-        Glide.with(getContext()).load(obra.getImg_obra()).into(imgObra);
+        Picasso.with(getContext()).load(obra.getImg_obra()).resize(450, 450).into(imgObra);
+
+        //Glide.with(getContext()).load(obra.getImg_obra()).into(imgObra);
+        //Glide.with(getContext()).load(imgObra).into(imgObra);
 
         return convertView;
     }
