@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -49,6 +50,7 @@ import br.com.projeto.projetolistaartistas.Util.SimpleDialog;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -69,6 +71,8 @@ public class DetalhePessoaFragment extends Fragment {
     ListView mlistObras;
     @Bind(R.id.swipe_pessoas)
     SwipeRefreshLayout swipePessoas;
+    @Bind(R.id.img_full)
+    ImageView imgFullObra;
 
     private ShareActionProvider mShareActionProvider;
     List<Obra> listObras;
@@ -107,6 +111,7 @@ public class DetalhePessoaFragment extends Fragment {
         }
 
         listObras = new ArrayList<>();
+        imgFullObra = new ImageView(getActivity());
     }
 
     @Override
@@ -158,6 +163,8 @@ public class DetalhePessoaFragment extends Fragment {
                 baixarJson();
             }
         });
+
+        imgFullObra.setClickable(false);
 
         alteraFavorito();
 
@@ -310,4 +317,26 @@ public class DetalhePessoaFragment extends Fragment {
         }
     }
 
+    @OnItemClick(R.id.list_obras)
+    void onItemSelected(int p) {
+
+        imgFullObra.setMaxWidth(450);
+        imgFullObra.setMaxHeight(450);
+        Picasso.with(getContext()).load(pessoa.getObras().get(p).getImg_obra()).resize(450, 450).into(imgFullObra);
+        imgFullObra.animate().scaleX(1).scaleY(1);
+        imgFullObra.setClickable(true);
+
+    }
+
+    @OnClick(R.id.img_full)
+    void onClick(){
+        if(imgFullObra.isClickable())
+        {
+            imgFullObra.animate().scaleX(0).scaleY(0);
+            imgFullObra.setMinimumHeight(0);
+            imgFullObra.setMinimumWidth(0);
+            imgFullObra.setClickable(false);
+        }
+
+    }
 }
