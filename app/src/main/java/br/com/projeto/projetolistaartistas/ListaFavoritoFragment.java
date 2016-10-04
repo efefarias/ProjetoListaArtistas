@@ -21,8 +21,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.database.ObraDAO;
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
+import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,21 +40,34 @@ public class ListaFavoritoFragment extends Fragment {
     ListView mListView;
 
     List<Pessoa> listPessoa;
+    List<Obra> listObra;
     ArrayAdapter<Pessoa> adapterPessoa;
 
     Pessoa pessoa = new Pessoa();
 
-    PessoaDAO dao;
+    PessoaDAO daoPessoa;
+    ObraDAO daoObra;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        dao = new PessoaDAO(getActivity());
+        daoPessoa = new PessoaDAO(getActivity());
+        daoObra = new ObraDAO(getActivity());
         //todo
-        listPessoa = dao.listar();
+        listPessoa = daoPessoa.listar();
+        listObra = daoObra.listar();
 
-        baixarJson();
+        //Verificando se as imagens estão carregadas para cada Artista
+        for(int i = 0; i < listPessoa.size(); i++)
+        {
+            if(listPessoa.get(i).getObras() == null)
+            {
+                baixarJson();
+            }
+        }
+
+
 
         ((PessoaApp)getActivity().getApplication()).getEventBus().register(this);
     }
@@ -73,20 +88,16 @@ public class ListaFavoritoFragment extends Fragment {
         return layout;
     }
 
-    /*@OnItemClick(R.id.list_pessoas)
-    void onItemSelected(int p) {
-
-        pessoa = listPessoa.get(p);
-
-        if(pessoa.getObras() == null) {
-            baixarJson();
-        }
-
-        if(getActivity() instanceof CliqueiNaPessoaListener){
-            CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
-            listener.PessoaFoiClicada(pessoa);
-        }
-    }*/
+    //@OnItemClick(R.id.list_pessoas)
+    //void onItemSelected(int p) {
+    //
+    //    pessoa = listPessoa.get(p);
+    //
+    //    if(getActivity() instanceof CliqueiNaPessoaListener){
+    //        CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
+    //        listener.PessoaFoiClicada(pessoa);
+    //    }
+    //}
 
     @Override
     public void onDestroy() {
@@ -103,7 +114,7 @@ public class ListaFavoritoFragment extends Fragment {
     public void atualizar(Pessoa pessoa){
         listPessoa.clear();
         //todo
-        listPessoa.addAll(dao.listar());
+        listPessoa.addAll(daoPessoa.listar());
         adapterPessoa.notifyDataSetChanged();
     }
 
@@ -155,9 +166,9 @@ public class ListaFavoritoFragment extends Fragment {
         public void onPostExecute(ListPessoas pessoas) {
             super.onPostExecute(pessoas);
 
-            for(int i = 0; i < pessoas.getPessoas().size(); i++) {
-                if(pessoa.getId_pessoa() == pessoas.getPessoas().get(i).getId_pessoa()){
-                    pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+            for(int i = 0; i < listPessoa.size(); i++) {
+                if(listPessoa.get(i).getId_pessoa() == pessoas.getPessoas().get(i).getId_pessoa()){
+                    listPessoa.get(i).setObras(pessoas.getPessoas().get(i).getObras());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
                 }
             }
         }

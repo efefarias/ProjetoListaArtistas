@@ -32,16 +32,34 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
                 PessoaContract.EMAIL            +" TEXT NOT NULL, " +
                 PessoaContract.ID_ENDERECO      +" TEXT NOT NULL, " +
                 PessoaContract.ID_TIPO_PESSOA   +" TEXT NOT NULL, " +
-                PessoaContract.IMAGEM           +" TEXT NOT NULL, " +
-                PessoaContract.OBRA1            +" TEXT, " +
-                PessoaContract.OBRA2            +" TEXT, " +
-                PessoaContract.OBRA3            +" TEXT, " +
-                PessoaContract.OBRA4            +" TEXT, " +
-                PessoaContract.OBRA5            +" TEXT, " +
-                PessoaContract.OBRA6            +" TEXT, " +
-                PessoaContract.OBRA7            +" TEXT, " +
-                PessoaContract.OBRA8            +" TEXT, " +
-                PessoaContract.OBRA9            +" TEXT)");
+                PessoaContract.IMAGEM           +" TEXT NOT NULL)");
+
+        db.execSQL("CREATE TABLE "+ ObraContract.TABLE_NAME +" (" +
+                ObraContract._ID                +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ObraContract.NOME               +" TEXT NOT NULL, " +
+                ObraContract.IMG_OBRA           +" TEXT NOT NULL)");
+
+        String query = "CREATE TABLE "+ PessoaObraContract.TABLE_NAME +" (" +
+                PessoaObraContract._ID                   +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PessoaObraContract.ID_OBRA   + " INTEGER, " +
+                PessoaObraContract.ID_PESSOA + " INTEGER, " +
+                " FOREIGN KEY (" + PessoaObraContract.ID_OBRA + ") REFERENCES " + ObraContract.TABLE_NAME + " (" + ObraContract._ID +"), " +
+                " FOREIGN KEY (" + PessoaObraContract.ID_PESSOA + ") REFERENCES " + PessoaContract.TABLE_NAME + " (" + PessoaContract._ID +"))";
+
+
+        db.execSQL("CREATE TABLE "+ PessoaObraContract.TABLE_NAME +" (" +
+                PessoaObraContract._ID                   +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PessoaObraContract.ID_OBRA   + " INTEGER, " +
+                PessoaObraContract.ID_PESSOA + " INTEGER, " +
+                " FOREIGN KEY (" + PessoaObraContract.ID_OBRA + ") REFERENCES " + ObraContract.TABLE_NAME + " (" + ObraContract._ID +"), " +
+                " FOREIGN KEY (" + PessoaObraContract.ID_PESSOA + ") REFERENCES " + PessoaContract.TABLE_NAME + " (" + PessoaContract._ID +"))");
+
+
+
+
+                //PessoaObraContract.ID_OBRA                  +" TEXT NOT NULL, " +
+                //PessoaObraContract.ID_PESSOA                +" TEXT NOT NULL");
+
     }
 
     @Override
