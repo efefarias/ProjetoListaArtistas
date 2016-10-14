@@ -174,7 +174,7 @@ public class DetalhePessoaFragment extends Fragment {
 
         alteraFavorito();
 
-        fabFavorito2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2E7D32")));
+        //fabFavorito2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2E7D32")));
 
         return view;
     }
@@ -184,8 +184,8 @@ public class DetalhePessoaFragment extends Fragment {
         Boolean favorito = pessoaDAO.isfavorito(pessoa);
 
         fabFavorito.setImageResource(favorito ? R.drawable.ic_remove : R.drawable.ic_add);
-        fabFavorito.setBackgroundTintList(favorito ? ColorStateList.valueOf(Color.parseColor("#C62828")) :
-                ColorStateList.valueOf(Color.parseColor("#2E7D32")));
+        //fabFavorito.setBackgroundTintList(favorito ? ColorStateList.valueOf(Color.parseColor("#C62828")) :
+        //        ColorStateList.valueOf(Color.parseColor("#2E7D32")));
     }
 
     @Override

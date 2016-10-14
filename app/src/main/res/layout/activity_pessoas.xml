@@ -14,7 +14,6 @@
         android:id="@+id/linear_tema"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorWhite"
         android:gravity="right">
 
     <android.support.design.widget.AppBarLayout
@@ -25,7 +24,6 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:titleTextColor="@color/colorWhite"
             android:titleTextAppearance="@color/colorAccent"
             app:subtitleTextColor="@color/colorAccent"
             android:layout_height="?actionBarSize" />
@@ -34,7 +32,6 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextColor="@color/colorWhite"
             android:layout_marginBottom="-17dp"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
@@ -47,7 +44,6 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#3a3131"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

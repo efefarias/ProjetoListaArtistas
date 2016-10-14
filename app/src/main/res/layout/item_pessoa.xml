@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="#3a3131">
+    android:padding="10dp">
 
     <ImageView
         android:layout_width="112dp"
@@ -24,9 +23,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/txt_nome"
-        android:textColor="#ffffff"
         android:layout_marginLeft="8dp"/>
-        <!--android:layout_toRightOf="@+id/img_capa"-->
+
  </LinearLayout>
 
     <TextView
@@ -38,8 +36,7 @@
         android:layout_marginTop="-24dp"
         android:id="@+id/txt_estado_cidade"
         android:layout_marginLeft="8dp"
-        android:layout_below="@+id/linear1"
-        android:textColor="#ffffff" />
+        android:layout_below="@+id/linear1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,8 +49,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="@+id/img_capa"
-        android:layout_below="@+id/txt_estado_cidade"
-        android:textColor="#ffffff" />
+        android:layout_below="@+id/txt_estado_cidade"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,8 +63,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="@+id/img_capa"
-        android:layout_below="@+id/txt_bio"
-        android:textColor="#ffffff" />
+        android:layout_below="@+id/txt_bio"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,8 +75,7 @@
         android:layout_below="@+id/imgAvalie"
         android:layout_marginLeft="72dp"
         android:layout_toRightOf="@+id/img_capa"
-        android:layout_toEndOf="@+id/img_capa"
-        android:textColor="#ffffff" />
+        android:layout_toEndOf="@+id/img_capa"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,8 +85,7 @@
         android:id="@+id/txt_quantidade_votos"
         android:layout_below="@+id/txt_nota"
         android:layout_alignLeft="@+id/txt_nota"
-        android:layout_alignStart="@+id/txt_nota"
-        android:textColor="#ffffff" />
+        android:layout_alignStart="@+id/txt_nota"/>
 
     <ImageView
         android:layout_width="45dp"
@@ -125,7 +118,6 @@
         android:id="@+id/textView4"
         android:layout_alignTop="@+id/imgAvalie"
         android:layout_toRightOf="@+id/imgAvalie"
-        android:layout_toEndOf="@+id/imgAvalie"
-        android:textColor="#ffffff" />
+        android:layout_toEndOf="@+id/imgAvalie"/>
 
 </RelativeLayout>

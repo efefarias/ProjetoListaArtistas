@@ -13,6 +13,5 @@
         android:text="@string/sem_conteudo"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:textColor="#ffffff" />
+        android:gravity="center"/>
 </LinearLayout>
