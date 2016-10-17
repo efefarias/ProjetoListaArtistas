@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#3a3131"
     tools:context="br.com.projeto.projetolistaartistas.JogosActivity">
 
 
@@ -18,8 +17,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/fundo_taipa">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -32,7 +30,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-17dp"
+            android:layout_marginBottom="0dp"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
             app:tabGravity="fill"/>

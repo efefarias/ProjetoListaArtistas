@@ -3,9 +3,9 @@
     <color name="colorPrimary">#EEEEEE</color>
     <color name="colorPrimaryDark">#E0E0E0</color>
     <color name="colorAccent">#764c5a</color>
-    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite">#000000</color>
     <color name="colorBlack">#000000</color>
 
-    <color name="colorVerdeVivo">#76FF03</color>
+    <color name="colorVerdeVivo">#64DD17</color>
 
 </resources>
