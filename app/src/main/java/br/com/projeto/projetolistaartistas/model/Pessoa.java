@@ -22,11 +22,12 @@ public class Pessoa{
     private String bio_pessoa;
     private String img_pessoa;
     private List<Obra> obras;
+    private List<Avaliacao> avaliacoes;
 
     public Pessoa() {
     }
 
-    public Pessoa(long id_pessoa, String nome_pessoa , String cpf_pessoa, String sexo_pessoa, String ddd_pessoa, String telefone_pessoa, String favorito_pessoa, String email_pessoa, String id_endereco_pessoa, String id_tipo_pessoa, String bio_pessoa, String img_pessoa, List<Obra> obras) {
+    public Pessoa(long id_pessoa, String nome_pessoa, String cpf_pessoa, String sexo_pessoa, String ddd_pessoa, String telefone_pessoa, String favorito_pessoa, String email_pessoa, String id_endereco_pessoa, String id_tipo_pessoa, String bio_pessoa, String img_pessoa, List<Obra> obras, List<Avaliacao> avaliacoes) {
         this.id_pessoa = id_pessoa;
         this.nome_pessoa = nome_pessoa;
         this.cpf_pessoa = cpf_pessoa;
@@ -40,6 +41,7 @@ public class Pessoa{
         this.bio_pessoa = bio_pessoa;
         this.img_pessoa = img_pessoa;
         this.obras = obras;
+        this.avaliacoes = avaliacoes;
     }
 
     public long getId_pessoa() {
@@ -144,5 +146,13 @@ public class Pessoa{
 
     public void setObras(List<Obra> obras) {
         this.obras = obras;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }
