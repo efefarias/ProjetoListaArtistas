@@ -2,22 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
     <TextView
         android:id="@+id/lblRateMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rate Me"
+        android:text="Avaliar "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
     <RatingBar
+        android:layout_marginTop="50dp"
         android:id="@+id/ratingBar"
         style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:numStars="10"
         android:isIndicator="false"
         android:stepSize="1.0"
@@ -26,11 +27,13 @@
 
     <Button
         android:id="@+id/btnSubmit"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:layout_gravity="center"
+        android:text="Avaliar" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -49,6 +52,6 @@
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    </LinearLayout>
+    </LinearLayout> -->
 
 </LinearLayout>

@@ -34,9 +34,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                     R.layout.item_pessoa, null);
         }
 
-        float qtdVotos = 0;
-        float somaVotos = 0;
-        float mediaVotos = 0;
+        double qtdVotos = 0;
+        double somaVotos = 0;
+        double mediaVotos = 0;
 
         ImageView imgCapa     = (ImageView)convertView.findViewById(R.id.img_capa);
         TextView txtNome      = (TextView)convertView.findViewById(R.id.txt_nome);

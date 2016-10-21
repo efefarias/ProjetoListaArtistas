@@ -2,6 +2,7 @@ package br.com.projeto.projetolistaartistas;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +34,7 @@ public class AvaliacaoActivity extends Activity {
     public void addListenerOnRatingBar() {
 
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
+        //txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
 
         //if rating value is changed,
         //display the current rating value in the result (textview) automatically
@@ -41,7 +42,7 @@ public class AvaliacaoActivity extends Activity {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
-                txtRatingValue.setText(String.valueOf(rating));
+                //txtRatingValue.setText(String.valueOf(rating));
 
             }
         });
@@ -58,9 +59,14 @@ public class AvaliacaoActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(AvaliacaoActivity.this,
-                        String.valueOf(ratingBar.getRating()),
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AvaliacaoActivity.this,
+                //        String.valueOf(ratingBar.getRating()),
+                //        Toast.LENGTH_SHORT).show();
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",String.valueOf(ratingBar.getRating()));
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
 
             }
 

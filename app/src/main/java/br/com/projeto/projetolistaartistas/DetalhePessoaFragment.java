@@ -3,6 +3,7 @@ package br.com.projeto.projetolistaartistas;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
+import br.com.projeto.projetolistaartistas.model.Avaliacao;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
@@ -60,6 +62,8 @@ import okhttp3.Response;
 public class DetalhePessoaFragment extends Fragment {
 
     private static final String EXTRA_PESSOA = "param1";
+
+    static final int PICK_CONTACT_REQUEST = 1;  // The request code
 
     @Bind(R.id.text_detalhes_pessoa)
     TextView txtDetalhesPessoa;
@@ -233,38 +237,30 @@ public class DetalhePessoaFragment extends Fragment {
         ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
     }
 
-    /*@OnClick(R.id.fab_favorito2)
-    public void abrirSimpleDialog() {
-        SimpleDialog dialog = SimpleDialog.newDialog(
-                0, // Id do dialog
-                "Avalie!", // título
-                "Mensagem", // mensagem
-                new int[] { // texto dos botões
-                        android.R.string.ok,
-                        android.R.string.cancel });
-        // Segredo do sucesso! :)
-        // 1 = RequestCode
-        dialog.setTargetFragment(this, 1);
-        dialog.openDialog(
-                getActivity().getSupportFragmentManager());
-    }*/
-
     @OnClick(R.id.fab_favorito2)
     public void abrirAvaliacao() {
         Intent intent = new Intent(getActivity(), AvaliacaoActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
     @Override
-    public void onActivityResult(int requestCode,
-                                 int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(
-                requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result = data.getStringExtra("result");
+                Avaliacao a = new Avaliacao();
+                a.setFlag_nota_usuario('S');
+                a.setId_nota("15");
+                a.setNota(Double.valueOf(result));
 
-        int which = data.getIntExtra("which", -1);
-        // Tratar dialog
-    }
+                pessoa.getAvaliacoes().add(a);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
     //Baixando dados das pessoas(Obras)
     public void baixarJson(){
