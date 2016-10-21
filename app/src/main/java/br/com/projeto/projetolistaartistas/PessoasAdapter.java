@@ -34,17 +34,39 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                     R.layout.item_pessoa, null);
         }
 
-        ImageView imgCapa    = (ImageView)convertView.findViewById(R.id.img_capa);
-        TextView txtNome     = (TextView)convertView.findViewById(R.id.txt_nome);
-        TextView txtEmail    = (TextView)convertView.findViewById(R.id.txt_estado_cidade);
-        TextView txtTelefone = (TextView)convertView.findViewById(R.id.txt_bio);
-        TextView txtResumo   = (TextView)convertView.findViewById(R.id.txt_resumo);
+        float qtdVotos = 0;
+        float somaVotos = 0;
+        float mediaVotos = 0;
+
+        ImageView imgCapa     = (ImageView)convertView.findViewById(R.id.img_capa);
+        TextView txtNome      = (TextView)convertView.findViewById(R.id.txt_nome);
+        TextView txtEmail     = (TextView)convertView.findViewById(R.id.txt_estado_cidade);
+        TextView txtTelefone  = (TextView)convertView.findViewById(R.id.txt_bio);
+        TextView txtResumo    = (TextView)convertView.findViewById(R.id.txt_resumo);
+        TextView txtMediaNota = (TextView)convertView.findViewById(R.id.txt_media_votos);
+
+        qtdVotos = pessoa.getAvaliacoes().size();
+
+        for(int i = 0; i < qtdVotos; i++)
+        {
+            somaVotos = somaVotos + pessoa.getAvaliacoes().get(i).getNota();
+
+            if(i == (qtdVotos - 1))
+            {
+                mediaVotos = somaVotos / qtdVotos;
+            }
+        }
+
 
         txtNome.setText(pessoa.getNome_pessoa());
         txtEmail.setText(pessoa.getEmail_pessoa());
         txtTelefone.setText("("+pessoa.getDdd_pessoa()+") "+pessoa.getTelefone_pessoa());
         txtResumo.setText("      "+pessoa.getBio_pessoa());
+        txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
+
+        //img do artista
         Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgCapa);
+
 
         return convertView;
     }

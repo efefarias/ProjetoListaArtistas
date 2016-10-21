@@ -69,8 +69,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Quantidade de Votos"
-        android:id="@+id/txt_nota"
+        android:text="Média Geral"
+        android:id="@+id/txt_media_geral"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/imgAvalie"
         android:layout_marginLeft="72dp"
@@ -82,10 +82,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="7.5/10"
-        android:id="@+id/txt_quantidade_votos"
-        android:layout_below="@+id/txt_nota"
-        android:layout_alignLeft="@+id/txt_nota"
-        android:layout_alignStart="@+id/txt_nota"/>
+        android:id="@+id/txt_media_votos"
+        android:layout_below="@+id/txt_media_geral"
+        android:layout_alignLeft="@+id/txt_media_geral"
+        android:layout_alignStart="@+id/txt_media_geral"/>
 
     <ImageView
         android:layout_width="45dp"
@@ -115,7 +115,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Sua nota: 8"
         android:layout_marginTop="14dp"
-        android:id="@+id/textView4"
+        android:id="@+id/txt_nota"
         android:layout_alignTop="@+id/imgAvalie"
         android:layout_toRightOf="@+id/imgAvalie"
         android:layout_toEndOf="@+id/imgAvalie"/>

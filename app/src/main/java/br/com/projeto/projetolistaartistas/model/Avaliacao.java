@@ -7,14 +7,14 @@ package br.com.projeto.projetolistaartistas.model;
 public class Avaliacao {
 
     private String id_nota;
-    private String nota;
+    private Integer nota;
     private char flag_nota_usuario;
 
     public Avaliacao(){
 
     }
 
-    public Avaliacao(String id_nota, String nota, char flag_nota_usuario) {
+    public Avaliacao(String id_nota, Integer nota, char flag_nota_usuario) {
         this.id_nota = id_nota;
         this.nota = nota;
         this.flag_nota_usuario = flag_nota_usuario;
@@ -28,11 +28,11 @@ public class Avaliacao {
         this.id_nota = id_nota;
     }
 
-    public String getNota() {
+    public Integer getNota() {
         return nota;
     }
 
-    public void setNota(String nota) {
+    public void setNota(Integer nota) {
         this.nota = nota;
     }
 

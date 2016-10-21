@@ -197,7 +197,7 @@ public class ListaPessoasFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/f7qtu7vfqkvezpa/pessoasfinal.json?dl=0")
+                    .url("https://dl.dropboxusercontent.com/s/rtbu87agivpmret/pessoasfinal.json?dl=0")
                     .build();
 
             try {
