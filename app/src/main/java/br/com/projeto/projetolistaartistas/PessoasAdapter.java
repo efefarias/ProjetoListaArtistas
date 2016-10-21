@@ -45,15 +45,15 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         TextView txtResumo    = (TextView)convertView.findViewById(R.id.txt_resumo);
         TextView txtMediaNota = (TextView)convertView.findViewById(R.id.txt_media_votos);
 
-        qtdVotos = pessoa.getAvaliacoes().size();
+        if(pessoa.getAvaliacoes() != null) {
+            qtdVotos = pessoa.getAvaliacoes().size();
 
-        for(int i = 0; i < qtdVotos; i++)
-        {
-            somaVotos = somaVotos + pessoa.getAvaliacoes().get(i).getNota();
+            for (int i = 0; i < qtdVotos; i++) {
+                somaVotos = somaVotos + pessoa.getAvaliacoes().get(i).getNota();
 
-            if(i == (qtdVotos - 1))
-            {
-                mediaVotos = somaVotos / qtdVotos;
+                if (i == (qtdVotos - 1)) {
+                    mediaVotos = somaVotos / qtdVotos;
+                }
             }
         }
 
@@ -62,8 +62,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         txtEmail.setText(pessoa.getEmail_pessoa());
         txtTelefone.setText("("+pessoa.getDdd_pessoa()+") "+pessoa.getTelefone_pessoa());
         txtResumo.setText("      "+pessoa.getBio_pessoa());
-        txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
-
+        if(mediaVotos != 0) {
+            txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
+        }
         //img do artista
         Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgCapa);
 
