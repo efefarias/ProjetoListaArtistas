@@ -29,6 +29,14 @@
                 android:value=".PessoasActivity"/>
 
         </activity>
+
+        <activity android:name="br.com.projeto.projetolistaartistas.AvaliacaoActivity"
+            android:label="Avaliação Artista"
+            android:parentActivityName="br.com.projeto.projetolistaartistas.PessoasActivity">
+            <meta-data android:name="parentActivityName"
+                android:value=".PessoasActivity"/>
+
+        </activity>
     </application>
 
 </manifest>

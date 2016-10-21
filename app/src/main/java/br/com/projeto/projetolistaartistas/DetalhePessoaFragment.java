@@ -15,6 +15,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
@@ -30,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import br.com.projeto.projetolistaartistas.AvaliacaoActivity;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -232,7 +233,7 @@ public class DetalhePessoaFragment extends Fragment {
         ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
     }
 
-    @OnClick(R.id.fab_favorito2)
+    /*@OnClick(R.id.fab_favorito2)
     public void abrirSimpleDialog() {
         SimpleDialog dialog = SimpleDialog.newDialog(
                 0, // Id do dialog
@@ -246,6 +247,12 @@ public class DetalhePessoaFragment extends Fragment {
         dialog.setTargetFragment(this, 1);
         dialog.openDialog(
                 getActivity().getSupportFragmentManager());
+    }*/
+
+    @OnClick(R.id.fab_favorito2)
+    public void abrirAvaliacao() {
+        Intent intent = new Intent(getActivity(), AvaliacaoActivity.class);
+        startActivity(intent);
     }
 
     @Override
