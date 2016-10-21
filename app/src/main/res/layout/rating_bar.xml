@@ -11,13 +11,18 @@
         android:text="Rate Me"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
     <RatingBar
         android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="4"
+
+        android:numStars="10"
+        android:isIndicator="false"
         android:stepSize="1.0"
-        android:rating="2.0" />
+        android:clickable="true"
+        android:rating="5" />
 
     <Button
         android:id="@+id/btnSubmit"
