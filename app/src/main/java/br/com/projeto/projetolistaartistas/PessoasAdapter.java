@@ -1,6 +1,8 @@
 package br.com.projeto.projetolistaartistas;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +41,13 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         double somaVotos = 0;
         double mediaVotos = 0;
 
-        ImageView imgCapa       = (ImageView) convertView.findViewById(R.id.img_capa);
-        TextView txtNome        = (TextView) convertView.findViewById(R.id.txt_nome);
-        TextView txtEmail       = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
-        TextView txtTelefone    = (TextView) convertView.findViewById(R.id.txt_bio);
-        TextView txtResumo      = (TextView) convertView.findViewById(R.id.txt_resumo);
-        TextView txtMediaNota   = (TextView) convertView.findViewById(R.id.txt_media_votos);
-        TextView txt_nota       = (TextView) convertView.findViewById(R.id.txt_nota);
+        ImageView imgCapa               = (ImageView) convertView.findViewById(R.id.img_capa);
+        TextView txtNome                = (TextView) convertView.findViewById(R.id.txt_nome);
+        TextView txtEmail               = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
+        TextView txtTelefone            = (TextView) convertView.findViewById(R.id.txt_bio);
+        TextView txtResumo              = (TextView) convertView.findViewById(R.id.txt_resumo);
+        TextView txtMediaNota           = (TextView) convertView.findViewById(R.id.txt_media_votos);
+        TextView txt_nota               = (TextView) convertView.findViewById(R.id.txt_nota);
 
         Calendar c = Calendar.getInstance();
 
@@ -78,7 +80,6 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
 
         //img do artista
         Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgCapa);
-
 
         return convertView;
     }

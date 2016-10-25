@@ -357,7 +357,6 @@ public class DetalhePessoaFragment extends Fragment {
         //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
         txtNomeObra.animate().scaleX(1).scaleY(1);
 
-
         //Imagem da Obra sendo expandida
         Picasso.with(getContext()).load(pessoa.getObras().get(p).getImg_obra()).into(imgFullObra);
         imgFullObra.animate().scaleX(1).scaleY(1);
