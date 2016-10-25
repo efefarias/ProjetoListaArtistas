@@ -65,15 +65,13 @@ public class ListaFavoritoFragment extends Fragment {
         listObra = daoObra.listar();
 
         //Verificando se as imagens estão carregadas para cada Artista
-        for(int i = 0; i < listPessoa.size(); i++)
-        {
-            if(listPessoa.get(i).getObras() == null)
-            {
-                baixarJson();
-            }
-        }
-
-
+        //for(int i = 0; i < listPessoa.size(); i++)
+        //{
+        //    if(listPessoa.get(i).getObras() == null)
+        //    {
+        //        baixarJson();
+        //    }
+        //}
 
         ((PessoaApp)getActivity().getApplication()).getEventBus().register(this);
     }
@@ -85,12 +83,19 @@ public class ListaFavoritoFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_lista_favorito, container, false);
         ButterKnife.bind(this, layout);
 
-        //adapterPessoa = new PessoasAdapter(getContext(), listPessoa);
+        //Verificando se as imagens estão carregadas para cada Artista
+        for(int i = 0; i < listPessoa.size(); i++)
+        {
+            if(listPessoa.get(i).getObras() == null)
+            {
+                baixarJson();
+            }
+        }
+
         adapterPessoaFavorito = new PessoaFavoritoAdapter(getContext(), listPessoa);
 
         mListView.setEmptyView(layout.findViewById(R.id.empty));
 
-        //mListView.setAdapter(adapterPessoa);
         mListView.setAdapter(adapterPessoaFavorito);
 
         return layout;
@@ -197,6 +202,7 @@ public class ListaFavoritoFragment extends Fragment {
                 }
             }
 
+            //adapterPessoaFavorito.notifyDataSetChanged();
         }
     }
 }

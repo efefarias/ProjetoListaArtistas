@@ -95,6 +95,7 @@ public class DetalhePessoaFragment extends Fragment {
 
     int j = 0;
     int k = 0;
+    boolean entrou = false;
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -183,7 +184,7 @@ public class DetalhePessoaFragment extends Fragment {
         swipePessoas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                baixarJson();
+                //baixarJson();
             }
         });
 
@@ -343,8 +344,6 @@ public class DetalhePessoaFragment extends Fragment {
             //    listObras.addAll(pessoas.getPessoas());
             //}
 
-
-
             //Obras
             for(j = 0 ;j < pessoas.getPessoas().size(); j++)
             {
@@ -362,9 +361,13 @@ public class DetalhePessoaFragment extends Fragment {
                 }
             }
 
-            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+            if(entrou == false) {
+                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+                adapterObras.notifyDataSetChanged();
+                entrou = true;
+            }
 
-            adapterObras.notifyDataSetChanged();
+            mlistObras.setAdapter(adapterObras);
 
             if(!(swipePessoas == null))
             swipePessoas.setRefreshing(false);
