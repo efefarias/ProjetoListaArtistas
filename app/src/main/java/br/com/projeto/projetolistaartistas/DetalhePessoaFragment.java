@@ -41,6 +41,8 @@ import org.parceler.Parcels;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
@@ -122,8 +124,9 @@ public class DetalhePessoaFragment extends Fragment {
 
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
-
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -157,7 +160,8 @@ public class DetalhePessoaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detalhe_pessoa, container, false);
 
         ButterKnife.bind(this, view);
-        txtDetalhesPessoa.setText("           " + pessoa.getNome_pessoa() + ", nessa versão do aplicativo possui "+ pessoa.getObras().size() + " obras de arte, clique para obter detalhes. "  + pessoa.getBio_pessoa());
+
+        txtDetalhesPessoa.setText("           " + pessoa.getNome_pessoa() + ", clique nas obras para obter detalhes. "  + pessoa.getBio_pessoa());
 
         //Foto do artista
         Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
@@ -196,6 +200,13 @@ public class DetalhePessoaFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        int i = 1;
+        Fragment fragment = new Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("1", i);
+        fragment.setArguments(bundle);
+
         ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
     }
 
@@ -250,17 +261,24 @@ public class DetalhePessoaFragment extends Fragment {
             if(resultCode == Activity.RESULT_OK){
                 String result = data.getStringExtra("result");
                 Avaliacao a = new Avaliacao();
+
+                Calendar c = Calendar.getInstance();
+
+                a.setDataVoto(c.getTime());
                 a.setFlag_nota_usuario('S');
                 a.setId_nota("15");
                 a.setNota(Double.valueOf(result));
 
                 pessoa.getAvaliacoes().add(a);
+                ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
+
+                //getActivity().onBackPressed(pessoa);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
-    }//onActivityResult
+    }
 
     //Baixando dados das pessoas(Obras)
     public void baixarJson(){

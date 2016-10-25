@@ -1,5 +1,7 @@
 package br.com.projeto.projetolistaartistas.model;
 
+import java.util.Date;
+
 /**
  * Created by f.soares.de.farias on 10/20/2016.
  */
@@ -9,16 +11,19 @@ public class Avaliacao {
     private String id_nota;
     private Double nota;
     private char flag_nota_usuario;
+    private Date dataVoto;
 
     public Avaliacao(){
 
     }
 
-    public Avaliacao(String id_nota, Double nota, char flag_nota_usuario) {
+    public Avaliacao(String id_nota, Double nota, char flag_nota_usuario, Date dataVoto) {
         this.id_nota = id_nota;
         this.nota = nota;
         this.flag_nota_usuario = flag_nota_usuario;
+        this.dataVoto = dataVoto;
     }
+
 
     public String getId_nota() {
         return id_nota;
@@ -42,5 +47,13 @@ public class Avaliacao {
 
     public void setFlag_nota_usuario(char flag_nota_usuario) {
         this.flag_nota_usuario = flag_nota_usuario;
+    }
+
+    public Date getDataVoto() {
+        return dataVoto;
+    }
+
+    public void setDataVoto(Date dataVoto) {
+        this.dataVoto = dataVoto;
     }
 }

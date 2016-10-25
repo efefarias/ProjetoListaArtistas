@@ -87,10 +87,14 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
                     .replace(R.id.detalhe_jogo, dpf, "detalhe")
                     .commit();
         }else {
+            //Intent it = new Intent(this, DetalhePessoaActivity.class);
+            //Parcelable p = Parcels.wrap(pessoa);
+            //it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
+            //startActivity(it);
             Intent it = new Intent(this, DetalhePessoaActivity.class);
             Parcelable p = Parcels.wrap(pessoa);
             it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
-            startActivity(it);
+            startActivityForResult(it, 1);
         }
     }
 }

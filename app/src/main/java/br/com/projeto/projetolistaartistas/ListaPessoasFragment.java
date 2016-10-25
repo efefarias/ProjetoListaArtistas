@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,12 +69,19 @@ public class ListaPessoasFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            int myInt = bundle.getInt("1");
+        }
+
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         listPessoasFiltro = new ArrayList<>();
         listPessoas = new ArrayList<>();
         dao = new PessoaDAO(getActivity());
         foiFiltrado = false;
+        ((PessoaApp)getActivity().getApplication()).getEventBus().register(this);
     }
 
     @Override
@@ -110,6 +119,17 @@ public class ListaPessoasFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            int myInt = bundle.getInt("1");
+        }
+
+    }
+
     public void baixarJson(){
         ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
@@ -138,6 +158,7 @@ public class ListaPessoasFragment extends Fragment {
         if(getActivity() instanceof CliqueiNaPessoaListener){
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
             listener.PessoaFoiClicada(pessoa);
+            //getActivity().onBackPressed();
         }
     }
 
@@ -173,8 +194,23 @@ public class ListaPessoasFragment extends Fragment {
     public void onDestroy() {
         //foiFiltrado = false;
         super.onDestroy();
+        ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
     }
+    @Subscribe
+    public void atualizar(Pessoa pessoa){
+        //listPessoas.clear();
+        //todo
+        //listPessoas.addAll(dao.listar());
+        //listPessoas.get(0).setAvaliacoes(pessoa.getAvaliacoes());
 
+        for(int i = 0; i < listPessoas.size(); i++){
+            if(listPessoas.get(i).getId_pessoa() == pessoa.getId_pessoa()){
+                listPessoas.get(i).setAvaliacoes(pessoa.getAvaliacoes());
+            }
+        }
+
+        adapterPessoas.notifyDataSetChanged();
+    }
     @Override
     public void onDestroyView() {
         //foiFiltrado = false;
