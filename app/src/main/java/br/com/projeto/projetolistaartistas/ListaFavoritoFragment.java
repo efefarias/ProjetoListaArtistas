@@ -48,6 +48,11 @@ public class ListaFavoritoFragment extends Fragment {
     PessoaDAO daoPessoa;
     ObraDAO daoObra;
 
+    int j = 0;
+    int x = 0;
+    int i = 0;
+    int k = 0;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,16 +93,16 @@ public class ListaFavoritoFragment extends Fragment {
         return layout;
     }
 
-    //@OnItemClick(R.id.list_pessoas)
-    //void onItemSelected(int p) {
-    //
-    //    pessoa = listPessoa.get(p);
-    //
-    //    if(getActivity() instanceof CliqueiNaPessoaListener){
-    //        CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
-    //        listener.PessoaFoiClicada(pessoa);
-    //    }
-    //}
+    @OnItemClick(R.id.list_pessoas)
+    void onItemSelected(int p) {
+
+        pessoa = listPessoa.get(p);
+
+        if(getActivity() instanceof CliqueiNaPessoaListener){
+            CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
+            listener.PessoaFoiClicada(pessoa);
+        }
+    }
 
     @Override
     public void onDestroy() {
@@ -166,11 +171,29 @@ public class ListaFavoritoFragment extends Fragment {
         public void onPostExecute(ListPessoas pessoas) {
             super.onPostExecute(pessoas);
 
-            for(int i = 0; i < listPessoa.size(); i++) {
-                if(listPessoa.get(i).getId_pessoa() == pessoas.getPessoas().get(i).getId_pessoa()){
-                    listPessoa.get(i).setObras(pessoas.getPessoas().get(i).getObras());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+            //Obras
+            for(i = 0; i < listPessoa.size(); i++)
+            {
+                for(j = 0 ;j < pessoas.getPessoas().size(); j++)
+                {
+                    if(listPessoa.get(i).getNome_pessoa().equals(pessoas.getPessoas().get(j).getNome_pessoa())){
+                        listPessoa.get(i).setObras(pessoas.getPessoas().get(j).getObras());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                    }
                 }
             }
+
+
+            //Avaliações
+            for(k = 0; k < listPessoa.size(); k++)
+            {
+                for(x = 0; x < pessoas.getPessoas().size(); x++)
+                {
+                    if (listPessoa.get(k).getNome_pessoa().equals(pessoas.getPessoas().get(x).getNome_pessoa())) {
+                        listPessoa.get(k).setAvaliacoes(pessoas.getPessoas().get(x).getAvaliacoes());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                    }
+                }
+            }
+
         }
     }
 }

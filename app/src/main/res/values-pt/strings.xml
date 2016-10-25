@@ -2,6 +2,7 @@
     <string name="app_name">ArteWeb</string>
     <string name="aba_pessoas">Artistas</string>
     <string name="aba_favoritos">Favoritos</string>
+    <string name="aba_melhor_avaliados">Melhor Avaliados</string>
     <string name="detalhe_pessoa">Detalhes do artista</string>
     <string name="compartilhar">Compartilhar</string>
     <string name="falha_conexao">Sem conexão no momento.</string>

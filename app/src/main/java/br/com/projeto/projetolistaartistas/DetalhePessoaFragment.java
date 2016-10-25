@@ -93,6 +93,9 @@ public class DetalhePessoaFragment extends Fragment {
     private Pessoa pessoa;
     PessoaTask pessoaTask;
 
+    int j = 0;
+    int k = 0;
+
     private void showProgress(){
         swipePessoas.post(new Runnable() {
             @Override
@@ -168,7 +171,12 @@ public class DetalhePessoaFragment extends Fragment {
 
         //Obras
         //adapterObras = new ObraPessoaAdapter(getContext(), listObras);
-        adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+        if(pessoa.getObras() != null) {
+            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+            adapterObras.notifyDataSetChanged();
+        }else{
+            baixarJson();
+        }
         mlistObras.setEmptyView(view.findViewById(R.id.empty));
         mlistObras.setAdapter(adapterObras);
 
@@ -334,12 +342,29 @@ public class DetalhePessoaFragment extends Fragment {
             //    listObras.clear();
             //    listObras.addAll(pessoas.getPessoas());
             //}
-            adapterObras.notifyDataSetChanged();
 
-            //if(getResources().getBoolean(R.bool.tablet)
-            //        && listObras.size() > 0){
-                //onItemSelected(0);
-            //}
+
+
+            //Obras
+            for(j = 0 ;j < pessoas.getPessoas().size(); j++)
+            {
+                if(pessoa.getNome_pessoa().equals(pessoas.getPessoas().get(j).getNome_pessoa())){
+                    pessoa.setObras(pessoas.getPessoas().get(j).getObras());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                }
+            }
+
+
+            //Avaliações
+            for(k = 0; k < pessoas.getPessoas().size(); k++)
+            {
+                if (pessoa.getNome_pessoa().equals(pessoas.getPessoas().get(k).getNome_pessoa())) {
+                    pessoa.setAvaliacoes(pessoas.getPessoas().get(k).getAvaliacoes());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                }
+            }
+
+            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+
+            adapterObras.notifyDataSetChanged();
 
             if(!(swipePessoas == null))
             swipePessoas.setRefreshing(false);

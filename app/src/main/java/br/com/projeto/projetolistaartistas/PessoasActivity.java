@@ -50,7 +50,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
     }
 
 
-    //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
+    /*//FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
     class JogoPager extends FragmentPagerAdapter{
 
         public JogoPager(FragmentManager fm) {
@@ -72,6 +72,39 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         public CharSequence getPageTitle(int position) {
             if(position == 0) return getString(R.string.aba_pessoas);
             return getString(R.string.aba_favoritos);
+        }
+    }*/
+
+    //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
+    class JogoPager extends FragmentPagerAdapter{
+
+        public JogoPager(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if(position == 0) return new ListaPessoasFragment();
+            return new ListaFavoritoFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if(position == 0) {
+                return getString(R.string.aba_pessoas);
+            }
+            else if(position == 1) {
+                return getString(R.string.aba_favoritos);
+            }
+            else if(position == 2) {
+                return getString(R.string.aba_melhor_avaliados);
+            }
+            return getString(R.string.aba_melhor_avaliados);
         }
     }
 
