@@ -41,7 +41,8 @@ public class ListaFavoritoFragment extends Fragment {
 
     List<Pessoa> listPessoa;
     List<Obra> listObra;
-    ArrayAdapter<Pessoa> adapterPessoa;
+    //ArrayAdapter<Pessoa> adapterPessoa;
+    ArrayAdapter<Pessoa> adapterPessoaFavorito;
 
     Pessoa pessoa = new Pessoa();
 
@@ -84,11 +85,13 @@ public class ListaFavoritoFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_lista_favorito, container, false);
         ButterKnife.bind(this, layout);
 
-        adapterPessoa = new PessoasAdapter(getContext(), listPessoa);
+        //adapterPessoa = new PessoasAdapter(getContext(), listPessoa);
+        adapterPessoaFavorito = new PessoaFavoritoAdapter(getContext(), listPessoa);
 
         mListView.setEmptyView(layout.findViewById(R.id.empty));
 
-        mListView.setAdapter(adapterPessoa);
+        //mListView.setAdapter(adapterPessoa);
+        mListView.setAdapter(adapterPessoaFavorito);
 
         return layout;
     }
@@ -120,7 +123,7 @@ public class ListaFavoritoFragment extends Fragment {
         listPessoa.clear();
         //todo
         listPessoa.addAll(daoPessoa.listar());
-        adapterPessoa.notifyDataSetChanged();
+        adapterPessoaFavorito.notifyDataSetChanged();
     }
 
     //Baixando dados das pessoas(Obras)
