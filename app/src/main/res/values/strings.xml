@@ -7,4 +7,6 @@
     <string name="compartilhar">Share</string>
     <string name="falha_conexao">Without connection at this moment.</string>
     <string name="sem_conteudo">Without content to show at this moment.</string>
+    <string name="json_find">{\"pessoas\":{</string>
+    <string name="json_replace">{\"pessoas\":[</string>
 </resources>

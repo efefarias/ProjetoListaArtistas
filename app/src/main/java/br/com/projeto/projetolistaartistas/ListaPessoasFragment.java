@@ -175,7 +175,7 @@ public class ListaPessoasFragment extends Fragment {
                     Toast.LENGTH_LONG).show();
         }else{
             for(int i = 0; i < listPessoas.size(); i++){
-                if(fg.verificarNome(listPessoas.get(i).getNome_pessoa().toLowerCase(), nome.toLowerCase())) {
+                if(fg.verificarNome(listPessoas.get(i).getUsu_nome().toLowerCase(), nome.toLowerCase())) {
                     listPessoasFiltro.add(listPessoas.get(i));
                 }
             }
@@ -206,8 +206,8 @@ public class ListaPessoasFragment extends Fragment {
         //listPessoas.get(0).setAvaliacoes(pessoa.getAvaliacoes());
 
         for(int i = 0; i < listPessoas.size(); i++){
-            if(listPessoas.get(i).getId_pessoa() == pessoa.getId_pessoa()){
-                listPessoas.get(i).setAvaliacoes(pessoa.getAvaliacoes());
+            if(listPessoas.get(i).getUsu_id() == pessoa.getUsu_id()){
+                listPessoas.get(i).setAvaliacao(pessoa.getAvaliacao());
             }
         }
 
@@ -235,15 +235,22 @@ public class ListaPessoasFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    //.url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
                     .build();
 
             try {
                 Response response = client.newCall(request).execute();
                 String jsonString = response.body().string();
 
+                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
+                jsonString = jsonString.replace("}}}", "}]}");
+
+                String jsonFormatada = fg.formataJson(jsonString);
+
                 Gson gson = new Gson();
-                pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
                 return pessoas;
 
             }catch(Exception e){

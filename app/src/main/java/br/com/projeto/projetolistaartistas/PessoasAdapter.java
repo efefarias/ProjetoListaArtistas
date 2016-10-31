@@ -51,16 +51,16 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
 
         Calendar c = Calendar.getInstance();
 
-        if (pessoa.getAvaliacoes() != null) {
-            qtdVotos = pessoa.getAvaliacoes().size();
+        if (pessoa.getAvaliacao() != null) {
+            qtdVotos = pessoa.getAvaliacao().size();
 
             for (int i = 0; i < qtdVotos; i++) {
-                somaVotos = somaVotos + pessoa.getAvaliacoes().get(i).getNota();
-                if (pessoa.getAvaliacoes().get(i).getNota() != null) {
-                    if (pessoa.getAvaliacoes().get(i).getNota() != 0)
-                        if (pessoa.getAvaliacoes().get(i).getFlag_nota_usuario() == 'S' &&
-                           (pessoa.getAvaliacoes().get(i).getDataVoto().before(c.getTime())))
-                            txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacoes().get(i).getNota()));
+                somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
+                if (pessoa.getAvaliacao().get(i).getAva_nota() != 0) {
+                    if (pessoa.getAvaliacao().get(i).getAva_nota() != 0)
+                        //if (pessoa.getAvaliacao().get(i).getFlag_nota_usuario() == 'S' &&
+                        //   (pessoa.getAvaliacoes().get(i).getDataVoto().before(c.getTime())))
+                            txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
                 }
                 if (i == (qtdVotos - 1)) {
                     mediaVotos = somaVotos / qtdVotos;
@@ -69,9 +69,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         }
 
 
-        txtNome.setText(pessoa.getNome_pessoa());
-        txtEmail.setText(pessoa.getEmail_pessoa());
-        txtTelefone.setText("(" + pessoa.getDdd_pessoa() + ") " + pessoa.getTelefone_pessoa());
+        txtNome.setText(pessoa.getUsu_nome());
+        txtEmail.setText(pessoa.getUsu_email());
+        txtTelefone.setText("(81) " + pessoa.getUsu_telefone());
         //txtResumo.setText("      " + pessoa.getBio_pessoa());
         txtResumo.setText("");
         if (mediaVotos != 0) {
@@ -79,7 +79,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         }
 
         //img do artista
-        Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgCapa);
+        Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(imgCapa);
 
         return convertView;
     }

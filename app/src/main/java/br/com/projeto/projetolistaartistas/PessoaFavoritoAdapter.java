@@ -40,10 +40,10 @@ public class PessoaFavoritoAdapter extends ArrayAdapter<Pessoa> {
         ImageView imgCapa               = (ImageView) convertView.findViewById(R.id.img_capa);
         TextView txtNome                = (TextView) convertView.findViewById(R.id.txt_nome_artista_favorito);
 
-        txtNome.setText(pessoa.getNome_pessoa());
+        txtNome.setText(pessoa.getUsu_nome());
 
         //img do artista
-        Glide.with(getContext()).load(pessoa.getImg_pessoa()).into(imgCapa);
+        Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(imgCapa);
 
         return convertView;
     }

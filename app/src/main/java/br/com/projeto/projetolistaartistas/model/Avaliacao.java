@@ -8,52 +8,89 @@ import java.util.Date;
 @org.parceler.Parcel
 public class Avaliacao {
 
-    private String id_nota;
-    private Double nota;
-    private char flag_nota_usuario;
-    private Date dataVoto;
+    private String ava_id;
+    private String ava_email;
+    private String ava_titulo;
+    private String ava_descricao;
+    private String ava_nome;
+    private int ava_nota;
+    private String ava_ativo;
+    private String usu_id_artista;
 
-    public Avaliacao(){
+    public Avaliacao(){}
 
+    public Avaliacao(String ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, int ava_nota, String ava_ativo, String usu_id_artista) {
+        this.ava_id = ava_id;
+        this.ava_email = ava_email;
+        this.ava_titulo = ava_titulo;
+        this.ava_descricao = ava_descricao;
+        this.ava_nome = ava_nome;
+        this.ava_nota = ava_nota;
+        this.ava_ativo = ava_ativo;
+        this.usu_id_artista = usu_id_artista;
     }
 
-    public Avaliacao(String id_nota, Double nota, char flag_nota_usuario, Date dataVoto) {
-        this.id_nota = id_nota;
-        this.nota = nota;
-        this.flag_nota_usuario = flag_nota_usuario;
-        this.dataVoto = dataVoto;
+    public String getAva_id() {
+        return ava_id;
     }
 
-
-    public String getId_nota() {
-        return id_nota;
+    public void setAva_id(String ava_id) {
+        this.ava_id = ava_id;
     }
 
-    public void setId_nota(String id_nota) {
-        this.id_nota = id_nota;
+    public String getAva_email() {
+        return ava_email;
     }
 
-    public Double getNota() {
-        return nota;
+    public void setAva_email(String ava_email) {
+        this.ava_email = ava_email;
     }
 
-    public void setNota(Double nota) {
-        this.nota = nota;
+    public String getAva_titulo() {
+        return ava_titulo;
     }
 
-    public char getFlag_nota_usuario() {
-        return flag_nota_usuario;
+    public void setAva_titulo(String ava_titulo) {
+        this.ava_titulo = ava_titulo;
     }
 
-    public void setFlag_nota_usuario(char flag_nota_usuario) {
-        this.flag_nota_usuario = flag_nota_usuario;
+    public String getAva_descricao() {
+        return ava_descricao;
     }
 
-    public Date getDataVoto() {
-        return dataVoto;
+    public void setAva_descricao(String ava_descricao) {
+        this.ava_descricao = ava_descricao;
     }
 
-    public void setDataVoto(Date dataVoto) {
-        this.dataVoto = dataVoto;
+    public String getAva_nome() {
+        return ava_nome;
+    }
+
+    public void setAva_nome(String ava_nome) {
+        this.ava_nome = ava_nome;
+    }
+
+    public int getAva_nota() {
+        return ava_nota;
+    }
+
+    public void setAva_nota(int ava_nota) {
+        this.ava_nota = ava_nota;
+    }
+
+    public String getAva_ativo() {
+        return ava_ativo;
+    }
+
+    public void setAva_ativo(String ava_ativo) {
+        this.ava_ativo = ava_ativo;
+    }
+
+    public String getUsu_id_artista() {
+        return usu_id_artista;
+    }
+
+    public void setUsu_id_artista(String usu_id_artista) {
+        this.usu_id_artista = usu_id_artista;
     }
 }

@@ -31,7 +31,7 @@ public class PessoaDAO {
 
         long id = db.insert(PessoaContract.TABLE_NAME, null, values);
 
-        pessoa.setId_pessoa(id);
+        pessoa.setUsu_id(id);
         db.close();
 
         return id;
@@ -46,7 +46,7 @@ public class PessoaDAO {
 
         int rowsAffected = db.update(PessoaContract.TABLE_NAME, values,
                 PessoaContract._ID + " = ?",
-                new String[]{String.valueOf(pessoa.getId_pessoa())});
+                new String[]{String.valueOf(pessoa.getUsu_id())});
 
         db.close();
 
@@ -59,8 +59,8 @@ public class PessoaDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         int rowsAffected = db.delete(PessoaContract.TABLE_NAME,
-                PessoaContract.NOME + " = ?",
-                new String[]{pessoa.getNome_pessoa()});
+                PessoaContract.USU_NOME + " = ?",
+                new String[]{pessoa.getUsu_nome()});
 
         db.close();
 
@@ -79,37 +79,28 @@ public class PessoaDAO {
         if(cursor.getCount() > 0) {
 
             int indexId             = cursor.getColumnIndex(PessoaContract._ID);
-            int indexBio            = cursor.getColumnIndex(PessoaContract.BIO);
-            int indexNome           = cursor.getColumnIndex(PessoaContract.NOME);
-            int indexCpf            = cursor.getColumnIndex(PessoaContract.CPF);
-            int indexSexo           = cursor.getColumnIndex(PessoaContract.SEXO);
-            int indexDDD            = cursor.getColumnIndex(PessoaContract.DDD);
-            int indexTelefone       = cursor.getColumnIndex(PessoaContract.TELEFONE);
-            int indexFavorito       = cursor.getColumnIndex(PessoaContract.FAVORITO);
-            int indexEmail          = cursor.getColumnIndex(PessoaContract.EMAIL);
-            int indexId_Endereco    = cursor.getColumnIndex(PessoaContract.ID_ENDERECO);
-            int indexId_tipo_pessoa = cursor.getColumnIndex(PessoaContract.ID_TIPO_PESSOA);
-            int indexImagem         = cursor.getColumnIndex(PessoaContract.IMAGEM);
+            int indexEmail           = cursor.getColumnIndex(PessoaContract.USU_EMAIL);
+            int indexCPF           = cursor.getColumnIndex(PessoaContract.USU_CPF);
+            int indexGenero           = cursor.getColumnIndex(PessoaContract.USU_GENERO);
+            int indexNome           = cursor.getColumnIndex(PessoaContract.USU_NOME);
+            int indexDataNascimento           = cursor.getColumnIndex(PessoaContract.USU_DATA_NASCIMENTO);
+            int indexImagem           = cursor.getColumnIndex(PessoaContract.USU_IMAGEM);
+            int indexTelefone           = cursor.getColumnIndex(PessoaContract.USU_TELEFONE);
+            int indexCelular           = cursor.getColumnIndex(PessoaContract.USU_CELULAR);
 
 
             while (cursor.moveToNext()) {
                 Pessoa pessoa = new Pessoa();
 
-                pessoa.setId_pessoa(cursor.getLong(indexId));     //setId(cursor.getLong(indexId));
-                pessoa.setBio_pessoa(cursor.getString(indexBio));     //setId(cursor.getLong(indexId));
-                pessoa.setNome_pessoa(cursor.getString(indexNome));
-                pessoa.setCpf_pessoa(cursor.getString(indexCpf));
-                pessoa.setSexo_pessoa(cursor.getString(indexSexo));
-                pessoa.setDdd_pessoa(cursor.getString(indexDDD));
-                pessoa.setTelefone_pessoa(cursor.getString(indexTelefone));
-                pessoa.setFavorito_pessoa(cursor.getString(indexFavorito));
-                pessoa.setEmail_pessoa(cursor.getString(indexEmail));
-                pessoa.setId_endereco_pessoa(cursor.getString(indexId_Endereco));
-                pessoa.setId_tipo_pessoa(cursor.getString(indexId_tipo_pessoa));
-                pessoa.setImg_pessoa(cursor.getString(indexImagem));
-                //Obras
-
-
+                pessoa.setUsu_id(cursor.getLong(indexId));
+                pessoa.setUsu_email(cursor.getString(indexEmail));
+                pessoa.setUsu_cpf(cursor.getString(indexCPF));
+                pessoa.setUsu_genero(cursor.getString(indexGenero));
+                pessoa.setUsu_nome(cursor.getString(indexNome));
+                pessoa.setUsu_data_nascimento(cursor.getString(indexDataNascimento));
+                pessoa.setUsu_imagem(cursor.getString(indexImagem));
+                pessoa.setUsu_telefone(cursor.getString(indexTelefone));
+                pessoa.setUsu_celular(cursor.getString(indexCelular));
 
                 pessoas.add(pessoa);
             }
@@ -131,7 +122,7 @@ public class PessoaDAO {
 
         //Cursor cursor = db.rawQuery("SELECT * FROM pessoas WHERE nome=?", new String[] { nomeArtista + "%" });
 
-        String query = "SELECT * FROM " + PessoaContract.TABLE_NAME + " WHERE " + PessoaContract.NOME + " = '" + nomeArtista + "'";
+        String query = "SELECT * FROM " + PessoaContract.TABLE_NAME + " WHERE " + PessoaContract.USU_NOME + " = '" + nomeArtista + "'";
 
         Cursor cursor = db.rawQuery(query, null);
 
@@ -140,34 +131,28 @@ public class PessoaDAO {
         if(cursor.getCount() > 0) {
 
             int indexId             = cursor.getColumnIndex(PessoaContract._ID);
-            int indexBio            = cursor.getColumnIndex(PessoaContract.BIO);
-            int indexNome           = cursor.getColumnIndex(PessoaContract.NOME);
-            int indexCpf            = cursor.getColumnIndex(PessoaContract.CPF);
-            int indexSexo           = cursor.getColumnIndex(PessoaContract.SEXO);
-            int indexDDD            = cursor.getColumnIndex(PessoaContract.DDD);
-            int indexTelefone       = cursor.getColumnIndex(PessoaContract.TELEFONE);
-            int indexFavorito       = cursor.getColumnIndex(PessoaContract.FAVORITO);
-            int indexEmail          = cursor.getColumnIndex(PessoaContract.EMAIL);
-            int indexId_Endereco    = cursor.getColumnIndex(PessoaContract.ID_ENDERECO);
-            int indexId_tipo_pessoa = cursor.getColumnIndex(PessoaContract.ID_TIPO_PESSOA);
-            int indexImagem         = cursor.getColumnIndex(PessoaContract.IMAGEM);
+            int indexEmail           = cursor.getColumnIndex(PessoaContract.USU_EMAIL);
+            int indexCPF           = cursor.getColumnIndex(PessoaContract.USU_CPF);
+            int indexGenero           = cursor.getColumnIndex(PessoaContract.USU_GENERO);
+            int indexNome           = cursor.getColumnIndex(PessoaContract.USU_NOME);
+            int indexDataNascimento           = cursor.getColumnIndex(PessoaContract.USU_DATA_NASCIMENTO);
+            int indexImagem           = cursor.getColumnIndex(PessoaContract.USU_IMAGEM);
+            int indexTelefone           = cursor.getColumnIndex(PessoaContract.USU_TELEFONE);
+            int indexCelular           = cursor.getColumnIndex(PessoaContract.USU_CELULAR);
 
 
             while (cursor.moveToNext()) {
                 Pessoa pessoa = new Pessoa();
 
-                pessoa.setId_pessoa(cursor.getLong(indexId));     //setId(cursor.getLong(indexId));
-                pessoa.setBio_pessoa(cursor.getString(indexBio));     //setId(cursor.getLong(indexId));
-                pessoa.setNome_pessoa(cursor.getString(indexNome));
-                pessoa.setCpf_pessoa(cursor.getString(indexCpf));
-                pessoa.setSexo_pessoa(cursor.getString(indexSexo));
-                pessoa.setDdd_pessoa(cursor.getString(indexDDD));
-                pessoa.setTelefone_pessoa(cursor.getString(indexTelefone));
-                pessoa.setFavorito_pessoa(cursor.getString(indexFavorito));
-                pessoa.setEmail_pessoa(cursor.getString(indexEmail));
-                pessoa.setId_endereco_pessoa(cursor.getString(indexId_Endereco));
-                pessoa.setId_tipo_pessoa(cursor.getString(indexId_tipo_pessoa));
-                pessoa.setImg_pessoa(cursor.getString(indexImagem));
+                pessoa.setUsu_id(cursor.getLong(indexId));     //setId(cursor.getLong(indexId));
+                pessoa.setUsu_email(cursor.getString(indexEmail));     //setId(cursor.getLong(indexId));
+                pessoa.setUsu_cpf(cursor.getString(indexCPF));
+                pessoa.setUsu_genero(cursor.getString(indexGenero));
+                pessoa.setUsu_nome(cursor.getString(indexNome));
+                pessoa.setUsu_data_nascimento(cursor.getString(indexDataNascimento));
+                pessoa.setUsu_imagem(cursor.getString(indexImagem));
+                pessoa.setUsu_telefone(cursor.getString(indexTelefone));
+                pessoa.setUsu_celular(cursor.getString(indexCelular));
 
                 pessoas.add(pessoa);
             }
@@ -184,17 +169,15 @@ public class PessoaDAO {
         ContentValues values = new ContentValues();
 
         //values.put(JogoContract.NOME,             jogo.getNome());
-        values.put(PessoaContract.NOME,             pessoa.getNome_pessoa());
-        values.put(PessoaContract.BIO,              pessoa.getBio_pessoa());
-        values.put(PessoaContract.CPF,              pessoa.getCpf_pessoa());
-        values.put(PessoaContract.SEXO,             pessoa.getSexo_pessoa());
-        values.put(PessoaContract.DDD,              pessoa.getDdd_pessoa());
-        values.put(PessoaContract.TELEFONE,         pessoa.getTelefone_pessoa());
-        values.put(PessoaContract.FAVORITO,         pessoa.getFavorito_pessoa());
-        values.put(PessoaContract.EMAIL,            pessoa.getEmail_pessoa());
-        values.put(PessoaContract.ID_ENDERECO,      pessoa.getId_endereco_pessoa());
-        values.put(PessoaContract.ID_TIPO_PESSOA,   pessoa.getId_tipo_pessoa());
-        values.put(PessoaContract.IMAGEM,           pessoa.getImg_pessoa());
+        values.put(PessoaContract.USU_EMAIL,             pessoa.getUsu_email());
+        values.put(PessoaContract.USU_CPF,              pessoa.getUsu_cpf());
+        values.put(PessoaContract.USU_GENERO,              pessoa.getUsu_genero());
+        values.put(PessoaContract.USU_NOME,             pessoa.getUsu_nome());
+        values.put(PessoaContract.USU_DATA_NASCIMENTO,              pessoa.getUsu_data_nascimento());
+        values.put(PessoaContract.USU_IMAGEM,         pessoa.getUsu_imagem());
+        values.put(PessoaContract.USU_TELEFONE,         pessoa.getUsu_telefone());
+        values.put(PessoaContract.USU_CELULAR,            pessoa.getUsu_celular());
+
 
         return values;
     }
@@ -206,8 +189,8 @@ public class PessoaDAO {
         //FASF - Ao invés de trazer tudo pode ser retornado apenas o ID, para um leve ganho de performance
         Cursor cursor = db.rawQuery("SELECT * FROM " + PessoaContract.TABLE_NAME
                 + " WHERE "
-                + PessoaContract.NOME
-                + " = ?", new String[]{pessoa.getNome_pessoa()});
+                + PessoaContract.USU_NOME
+                + " = ?", new String[]{pessoa.getUsu_nome()});
 
         boolean existe = false;
         if (cursor != null) {

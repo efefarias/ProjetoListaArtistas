@@ -84,8 +84,16 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
         @Override
         public Fragment getItem(int position) {
-            if(position == 0) return new ListaPessoasFragment();
-            return new ListaFavoritoFragment();
+            if(position == 0){
+                return new ListaPessoasFragment();
+            }
+            else if(position ==1) {
+                return new ListaFavoritoFragment();
+            }
+            else if(position == 2){
+                return new ListaAvaliadosFragment();
+            }
+            return new ListaPessoasFragment();
         }
 
         @Override

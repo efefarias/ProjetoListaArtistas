@@ -35,7 +35,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class ListaFavoritoFragment extends Fragment {
+public class ListaAvaliadosFragment extends Fragment {
 
     @Bind(R.id.list_pessoas)
     ListView mListView;
@@ -45,7 +45,6 @@ public class ListaFavoritoFragment extends Fragment {
     //ArrayAdapter<Pessoa> adapterPessoa;
     ArrayAdapter<Pessoa> adapterPessoaFavorito;
     FuncoesGenericas fg = new FuncoesGenericas();
-
     Pessoa pessoa = new Pessoa();
 
     PessoaDAO daoPessoa;
@@ -160,22 +159,15 @@ public class ListaFavoritoFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    //.url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
-                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
+                    .url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
                     .build();
 
             try {
                 Response response = client.newCall(request).execute();
                 String jsonString = response.body().string();
 
-                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
-                jsonString = jsonString.replace("}}}", "}]}");
-
-                String jsonFormatada = fg.formataJson(jsonString);
-
                 Gson gson = new Gson();
-                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
-                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
+                pessoas = gson.fromJson(jsonString, ListPessoas.class);
                 return pessoas;
 
             }catch(Exception e){
@@ -188,28 +180,9 @@ public class ListaFavoritoFragment extends Fragment {
         public void onPostExecute(ListPessoas pessoas) {
             super.onPostExecute(pessoas);
 
-            //Obras
-            for(i = 0; i < listPessoa.size(); i++)
-            {
-                for(j = 0 ;j < pessoas.getPessoas().size(); j++)
-                {
-                    if(listPessoa.get(i).getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())){
-                        listPessoa.get(i).setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
-                    }
-                }
-            }
+            List<Pessoa> listaAvaliados = fg.maisAvaliados(pessoas.getPessoas());
 
 
-            //Avaliações
-            for(k = 0; k < listPessoa.size(); k++)
-            {
-                for(x = 0; x < pessoas.getPessoas().size(); x++)
-                {
-                    if (listPessoa.get(k).getUsu_nome().equals(pessoas.getPessoas().get(x).getUsu_nome())) {
-                        listPessoa.get(k).setAvaliacao(pessoas.getPessoas().get(x).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
-                    }
-                }
-            }
 
             //adapterPessoaFavorito.notifyDataSetChanged();
         }

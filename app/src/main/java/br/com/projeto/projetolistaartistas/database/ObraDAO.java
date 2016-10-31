@@ -32,7 +32,7 @@ public class ObraDAO {
 
         long id = db.insert(ObraContract.TABLE_NAME, null, values);
 
-        obra.setId_obra(id);
+        //obra.setId_obra(id);
         db.close();
 
         return id;
@@ -56,9 +56,10 @@ public class ObraDAO {
             while (cursor.moveToNext()) {
                 Obra obra = new Obra();
 
-                obra.setId_obra(cursor.getLong(indexId));
-                obra.setNome_obra(cursor.getString(indexNome));
-                obra.setImg_obra(cursor.getString(indexImg));
+                //TODO
+                //obra.setId_obra(cursor.getLong(indexId));
+                //obra.setNome_obra(cursor.getString(indexNome));
+                //obra.setImg_obra(cursor.getString(indexImg));
 
                 obras.add(obra);
             }
@@ -74,9 +75,10 @@ public class ObraDAO {
     private ContentValues valuesFromObra(Obra obra){
         ContentValues values = new ContentValues();
 
-        values.put(ObraContract.NOME,             obra.getNome_obra());
-        values.put(ObraContract.IMG_OBRA, obra.getImg_obra());
-        values.put(ObraContract._ID,              obra.getId_obra());
+        //TODO
+        //values.put(ObraContract.NOME,             obra.getNome_obra());
+        //values.put(ObraContract.IMG_OBRA, obra.getImg_obra());
+        //values.put(ObraContract._ID,              obra.getId_obra());
 
         return values;
     }

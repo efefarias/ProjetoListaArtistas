@@ -45,6 +45,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.Avaliacao;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
@@ -92,6 +93,7 @@ public class DetalhePessoaFragment extends Fragment {
     ArrayAdapter<Obra> adapterObras;
     private Pessoa pessoa;
     PessoaTask pessoaTask;
+    FuncoesGenericas fg = new FuncoesGenericas();
 
     int j = 0;
     int k = 0;
@@ -142,7 +144,7 @@ public class DetalhePessoaFragment extends Fragment {
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
         Intent it = new Intent(Intent.ACTION_SEND);
-        it.putExtra(Intent.EXTRA_TEXT, pessoa.getNome_pessoa());
+        it.putExtra(Intent.EXTRA_TEXT, pessoa.getUsu_nome());
         it.setType("text/plain");
         mShareActionProvider.setShareIntent(it);
     }
@@ -165,15 +167,16 @@ public class DetalhePessoaFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        txtDetalhesPessoa.setText("           " + pessoa.getNome_pessoa() + ", clique nas obras para obter detalhes. "  + pessoa.getBio_pessoa());
+        txtDetalhesPessoa.setText("           " + pessoa.getUsu_nome() + ", clique nas obras para obter detalhes. "  );
 
         //Foto do artista
-        Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
+        //Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
+        Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
 
         //Obras
         //adapterObras = new ObraPessoaAdapter(getContext(), listObras);
-        if(pessoa.getObras() != null) {
-            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+        if(pessoa.getObra() != null) {
+            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
             adapterObras.notifyDataSetChanged();
         }else{
             baixarJson();
@@ -216,12 +219,25 @@ public class DetalhePessoaFragment extends Fragment {
         bundle.putInt("1", i);
         fragment.setArguments(bundle);
 
+        if(!(swipePessoas == null))
+            swipePessoas.setRefreshing(false);
+
         ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
     }
 
     @Override public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+
+        if(!(swipePessoas == null))
+            swipePessoas.setRefreshing(false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(!(swipePessoas == null))
+            swipePessoas.setRefreshing(false);
     }
 
     @OnClick(R.id.fab_favorito)
@@ -273,12 +289,14 @@ public class DetalhePessoaFragment extends Fragment {
 
                 Calendar c = Calendar.getInstance();
 
-                a.setDataVoto(c.getTime());
-                a.setFlag_nota_usuario('S');
-                a.setId_nota("15");
-                a.setNota(Double.valueOf(result));
+                //TODO
+                //a.setDataVoto(c.getTime());
+                //a.setFlag_nota_usuario('S');
+                //a.setId_nota("15");
+                //a.setNota(Double.valueOf(result));
 
-                pessoa.getAvaliacoes().add(a);
+                //pessoa.getAvaliacoes().add(a);
+
                 ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
 
                 //getActivity().onBackPressed(pessoa);
@@ -318,15 +336,22 @@ public class DetalhePessoaFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    //.url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
                     .build();
 
             try {
                 Response response = client.newCall(request).execute();
                 String jsonString = response.body().string();
 
+                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
+                jsonString = jsonString.replace("}}}", "}]}");
+
+                String jsonFormatada = fg.formataJson(jsonString);
+
                 Gson gson = new Gson();
-                pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
                 return pessoas;
 
             }catch(Exception e){
@@ -347,8 +372,8 @@ public class DetalhePessoaFragment extends Fragment {
             //Obras
             for(j = 0 ;j < pessoas.getPessoas().size(); j++)
             {
-                if(pessoa.getNome_pessoa().equals(pessoas.getPessoas().get(j).getNome_pessoa())){
-                    pessoa.setObras(pessoas.getPessoas().get(j).getObras());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                if(pessoa.getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())){
+                    pessoa.setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
                 }
             }
 
@@ -356,13 +381,13 @@ public class DetalhePessoaFragment extends Fragment {
             //Avaliações
             for(k = 0; k < pessoas.getPessoas().size(); k++)
             {
-                if (pessoa.getNome_pessoa().equals(pessoas.getPessoas().get(k).getNome_pessoa())) {
-                    pessoa.setAvaliacoes(pessoas.getPessoas().get(k).getAvaliacoes());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(k).getUsu_nome())) {
+                    pessoa.setAvaliacao(pessoas.getPessoas().get(k).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
                 }
             }
 
             if(entrou == false) {
-                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObras());
+                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
                 adapterObras.notifyDataSetChanged();
                 entrou = true;
             }
@@ -381,12 +406,12 @@ public class DetalhePessoaFragment extends Fragment {
         frameConteudo.animate().alpha((float) 0.15);
 
         //Nome da obra sendo expandida
-        txtNomeObra.setText(pessoa.getObras().get(p).getNome_obra());
+        txtNomeObra.setText(pessoa.getObra().get(p).getObr_descricao());
         //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
         txtNomeObra.animate().scaleX(1).scaleY(1);
 
         //Imagem da Obra sendo expandida
-        Picasso.with(getContext()).load(pessoa.getObras().get(p).getImg_obra()).into(imgFullObra);
+        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
         imgFullObra.animate().scaleX(1).scaleY(1);
         imgFullObra.setClickable(true);
 

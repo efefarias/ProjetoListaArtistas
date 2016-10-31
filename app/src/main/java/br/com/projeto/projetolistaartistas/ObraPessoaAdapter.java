@@ -36,7 +36,7 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
 
         ImageView imgObra = (ImageView)convertView.findViewById(R.id.imgObra);
 
-        Picasso.with(getContext()).load(obra.getImg_obra()).resize(450, 450).into(imgObra);
+        Picasso.with(getContext()).load(obra.getImg_url()).resize(450, 450).into(imgObra);
 
         //Glide.with(getContext()).load(obra.getImg_obra()).into(imgObra);
         //Glide.with(getContext()).load(imgObra).into(imgObra);

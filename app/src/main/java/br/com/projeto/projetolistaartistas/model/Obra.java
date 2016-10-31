@@ -6,40 +6,49 @@ package br.com.projeto.projetolistaartistas.model;
 @org.parceler.Parcel
 public class Obra {
 
-    private long id_obra;
-    private String nome_obra;
-    private String img_obra;
+    private String obr_id;
+    private String obr_descricao;
+    private String cat_obra_descricao;
+    private String img_url;
 
-    public Obra(long id_obra, String nome_obra, String img_obra) {
-        this.id_obra = id_obra;
-        this.nome_obra = nome_obra;
-        this.img_obra = img_obra;
+    public Obra(){}
+
+    public Obra(String obr_id, String obr_descricao, String cat_obra_descricao, String img_url) {
+        this.obr_id = obr_id;
+        this.obr_descricao = obr_descricao;
+        this.cat_obra_descricao = cat_obra_descricao;
+        this.img_url = img_url;
     }
 
-    public Obra() {
+    public String getObr_id() {
+        return obr_id;
     }
 
-    public long getId_obra() {
-        return id_obra;
+    public void setObr_id(String obr_id) {
+        this.obr_id = obr_id;
     }
 
-    public void setId_obra(long id_obra) {
-        this.id_obra = id_obra;
+    public String getObr_descricao() {
+        return obr_descricao;
     }
 
-    public String getNome_obra() {
-        return nome_obra;
+    public void setObr_descricao(String obr_descricao) {
+        this.obr_descricao = obr_descricao;
     }
 
-    public void setNome_obra(String nome_obra) {
-        this.nome_obra = nome_obra;
+    public String getCat_obra_descricao() {
+        return cat_obra_descricao;
     }
 
-    public String getImg_obra() {
-        return img_obra;
+    public void setCat_obra_descricao(String cat_obra_descricao) {
+        this.cat_obra_descricao = cat_obra_descricao;
     }
 
-    public void setImg_obra(String img_obra) {
-        this.img_obra = img_obra;
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 }

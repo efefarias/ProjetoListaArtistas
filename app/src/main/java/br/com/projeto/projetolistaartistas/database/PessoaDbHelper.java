@@ -21,18 +21,15 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE "+ PessoaContract.TABLE_NAME +" (" +
-                PessoaContract._ID              +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PessoaContract.BIO              +" TEXT NOT NULL, " +
-                PessoaContract.NOME             +" TEXT NOT NULL, " +
-                PessoaContract.CPF              +" TEXT NOT NULL, " +
-                PessoaContract.SEXO             +" TEXT NOT NULL, " +
-                PessoaContract.DDD              +" TEXT NOT NULL, " +
-                PessoaContract.TELEFONE         +" TEXT NOT NULL, " +
-                PessoaContract.FAVORITO         +" TEXT NOT NULL, " +
-                PessoaContract.EMAIL            +" TEXT NOT NULL, " +
-                PessoaContract.ID_ENDERECO      +" TEXT NOT NULL, " +
-                PessoaContract.ID_TIPO_PESSOA   +" TEXT NOT NULL, " +
-                PessoaContract.IMAGEM           +" TEXT NOT NULL)");
+                PessoaContract._ID                      +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PessoaContract.USU_EMAIL                +" TEXT NOT NULL, " +
+                PessoaContract.USU_CPF                  +" TEXT NOT NULL, " +
+                PessoaContract.USU_GENERO               +" TEXT NOT NULL, " +
+                PessoaContract.USU_NOME                 +" TEXT NOT NULL, " +
+                PessoaContract.USU_DATA_NASCIMENTO      +" TEXT NOT NULL, " +
+                PessoaContract.USU_IMAGEM               +" TEXT NOT NULL, " +
+                PessoaContract.USU_TELEFONE             +" TEXT NOT NULL, " +
+                PessoaContract.USU_CELULAR              +" TEXT NOT NULL)");
 
         db.execSQL("CREATE TABLE "+ ObraContract.TABLE_NAME +" (" +
                 ObraContract._ID                +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -57,8 +54,7 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
 
 
 
-                //PessoaObraContract.ID_OBRA                  +" TEXT NOT NULL, " +
-                //PessoaObraContract.ID_PESSOA                +" TEXT NOT NULL");
+
 
     }
 

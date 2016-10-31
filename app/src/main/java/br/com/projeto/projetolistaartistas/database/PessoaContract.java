@@ -9,16 +9,13 @@ public interface PessoaContract extends BaseColumns{
 
     String TABLE_NAME = "pessoas";
 
-    String NOME = "nome";
-    String BIO = "bio";
-    String CPF = "cpf";
-    String SEXO = "sexo";
-    String DDD = "ddd";
-    String TELEFONE = "telefone";
-    String FAVORITO = "favorito";
-    String EMAIL = "email";
-    String ID_ENDERECO = "id_endereco";
-    String ID_TIPO_PESSOA = "id_tipo_pessoa";
-    String IMAGEM = "imagem";
+    String USU_EMAIL = "usu_email";
+    String USU_CPF = "usu_cpf";
+    String USU_GENERO = "usu_genero";
+    String USU_NOME = "usu_nome";
+    String USU_DATA_NASCIMENTO = "usu_data_nascimento";
+    String USU_IMAGEM = "usu_imagem";
+    String USU_TELEFONE = "usu_telefone";
+    String USU_CELULAR = "usu_celular";
 
 }

@@ -12,6 +12,7 @@
         android:id="@+id/view2"
         app:cardCornerRadius="40dp"
         android:innerRadius="0dp"
+        android:layout_marginTop="25dp"
         android:shape="ring"
         android:thicknessRatio="1.9">
     <ImageView
