@@ -65,6 +65,11 @@
             android:layout_height="match_parent"
             android:id="@+id/list_obras">
         </ListView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/txt_obra_empty"
+            android:text=""/>
     </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.v7.widget.CardView>
 
@@ -108,6 +113,17 @@
         app:fabSize="normal"
         android:tint="@android:color/white"
         android:layout_marginLeft="70dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="102dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_Mapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_rota"
+        app:fabSize="normal"
+        android:tint="@android:color/white"
+        android:layout_marginLeft="5dp"
         android:layout_gravity="center"
         android:layout_marginBottom="102dp"/>
 

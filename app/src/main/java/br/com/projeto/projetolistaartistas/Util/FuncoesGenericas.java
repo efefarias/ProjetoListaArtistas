@@ -44,14 +44,16 @@ public class FuncoesGenericas {
 
         List<Pessoa> listaAvaliados = new ArrayList<Pessoa>();
 
-
-        for(i = 0; i < listPessoa.size(); i++){
-            for(j = 0; j < listPessoa.size(); j++){
-                if((Integer) listPessoa.get(i).getAvaliacao().get(i).getAva_nota() >  (Integer) listPessoa.get(j).getAvaliacao().get(j).getAva_nota()){
-                    listaAvaliados.add(listPessoa.get(i));
-                }
-            }
-        }
+        //TODO
+        //for(i = 0; i < listPessoa.size(); i++){
+        //    for(j = 0; j < listPessoa.size(); j++){
+        //        if(listPessoa.get(i).getAvaliacao().get(i) != null
+        //                && !listPessoa.get(j).getAvaliacao().get(j).equals(null))
+        //            if((Integer) listPessoa.get(i).getAvaliacao().get(i).getAva_nota() >  (Integer) listPessoa.get(j).getAvaliacao().get(j).getAva_nota()){
+        //                listaAvaliados.add(listPessoa.get(i));
+        //            }
+        //    }
+        //}
 
         return listaAvaliados;
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -34,12 +35,11 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
                     R.layout.item_obra, null);
         }
 
-        ImageView imgObra = (ImageView)convertView.findViewById(R.id.imgObra);
+        ImageView imgObra = (ImageView) convertView.findViewById(R.id.imgObra);
 
-        Picasso.with(getContext()).load(obra.getImg_url()).resize(450, 450).into(imgObra);
-
-        //Glide.with(getContext()).load(obra.getImg_obra()).into(imgObra);
-        //Glide.with(getContext()).load(imgObra).into(imgObra);
+        if(obra.getImg_url() != null) {
+            Picasso.with(getContext()).load(obra.getImg_url()).resize(450, 450).into(imgObra);
+        }
 
         return convertView;
     }

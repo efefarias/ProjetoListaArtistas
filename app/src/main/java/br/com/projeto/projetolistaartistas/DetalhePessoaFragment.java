@@ -86,13 +86,16 @@ public class DetalhePessoaFragment extends Fragment {
     TextView txtNomeObra;
     @Bind(R.id.layout_conteudo)
     FrameLayout frameConteudo;
+    @Bind(R.id.fab_Mapa)
+    FloatingActionButton fab_mapa;
 
     private ShareActionProvider mShareActionProvider;
     List<Obra> listObras;
     PessoaDAO pessoaDAO;
     ArrayAdapter<Obra> adapterObras;
     private Pessoa pessoa;
-    PessoaTask pessoaTask;
+    //PessoaTask pessoaTask;
+    PessoaTask pessoaTask = new PessoaTask();
     FuncoesGenericas fg = new FuncoesGenericas();
 
     int j = 0;
@@ -132,8 +135,6 @@ public class DetalhePessoaFragment extends Fragment {
         imgFullObra = new ImageView(getActivity());
     }
 
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -170,7 +171,6 @@ public class DetalhePessoaFragment extends Fragment {
         txtDetalhesPessoa.setText("           " + pessoa.getUsu_nome() + ", clique nas obras para obter detalhes. "  );
 
         //Foto do artista
-        //Glide.with(getActivity()).load(pessoa.getImg_pessoa()).into(imgView);
         Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
 
         //Obras
@@ -190,12 +190,8 @@ public class DetalhePessoaFragment extends Fragment {
                 //baixarJson();
             }
         });
-
         imgFullObra.setClickable(false);
-
         alteraFavorito();
-
-        //fabFavorito2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2E7D32")));
 
         return view;
     }
@@ -205,29 +201,36 @@ public class DetalhePessoaFragment extends Fragment {
         Boolean favorito = pessoaDAO.isfavorito(pessoa);
 
         fabFavorito.setImageResource(favorito ? R.drawable.ic_remove : R.drawable.ic_add);
-        //fabFavorito.setBackgroundTintList(favorito ? ColorStateList.valueOf(Color.parseColor("#C62828")) :
-        //        ColorStateList.valueOf(Color.parseColor("#2E7D32")));
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        //Cancelando requisições
+        if(pessoaTask != null){
+            pessoaTask.cancel(true);
+        }
 
-        int i = 1;
-        Fragment fragment = new Fragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("1", i);
-        fragment.setArguments(bundle);
+        //int i = 1;
+        //Fragment fragment = new Fragment();
+        //Bundle bundle = new Bundle();
+        //bundle.putInt("1", i);
+        //fragment.setArguments(bundle);
 
         if(!(swipePessoas == null))
             swipePessoas.setRefreshing(false);
 
         ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
+
+        super.onDestroy();
     }
 
     @Override public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+
+        //Cancelando requisições
+        //if(pessoaTask.isCancelled()==false)
+        //    pessoaTask.cancel(true);
 
         if(!(swipePessoas == null))
             swipePessoas.setRefreshing(false);
@@ -236,6 +239,11 @@ public class DetalhePessoaFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+
+        //Cancelando requisições
+        //if(pessoaTask.isCancelled()==false)
+        //pessoaTask.cancel(true);
+
         if(!(swipePessoas == null))
             swipePessoas.setRefreshing(false);
     }
@@ -279,6 +287,12 @@ public class DetalhePessoaFragment extends Fragment {
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
+    @OnClick(R.id.fab_Mapa)
+    public void abrirMapa() {
+        Intent intent = new Intent(getActivity(), MapaActivity.class);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -311,12 +325,13 @@ public class DetalhePessoaFragment extends Fragment {
     public void baixarJson(){
         ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
-        if(info != null && info.isConnected()) {
-            PessoaTask pessoaTask = new PessoaTask();
-            new PessoaTask().execute();
+        if(info != null && info.isConnected() && pessoaTask.getStatus().toString() != "RUNNING") {
+            //PessoaTask pessoaTask = new PessoaTask();
+            //new PessoaTask().execute();
+            pessoaTask.execute();
         }else{
             swipePessoas.setRefreshing(false);
-            Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -364,38 +379,34 @@ public class DetalhePessoaFragment extends Fragment {
         public void onPostExecute(ListPessoas pessoas) {
             super.onPostExecute(pessoas);
 
-            //if(pessoas != null){
-            //    listObras.clear();
-            //    listObras.addAll(pessoas.getPessoas());
-            //}
 
-            //Obras
-            for(j = 0 ;j < pessoas.getPessoas().size(); j++)
-            {
-                if(pessoa.getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())){
-                    pessoa.setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+
+                //Obras
+                for (j = 0; j < pessoas.getPessoas().size(); j++) {
+                    if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())) {
+                        pessoa.setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                    }
                 }
-            }
 
 
-            //Avaliações
-            for(k = 0; k < pessoas.getPessoas().size(); k++)
-            {
-                if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(k).getUsu_nome())) {
-                    pessoa.setAvaliacao(pessoas.getPessoas().get(k).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                //Avaliações
+                for (k = 0; k < pessoas.getPessoas().size(); k++) {
+                    if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(k).getUsu_nome())) {
+                        pessoa.setAvaliacao(pessoas.getPessoas().get(k).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
+                    }
                 }
-            }
 
-            if(entrou == false) {
-                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
-                adapterObras.notifyDataSetChanged();
-                entrou = true;
-            }
+                if (entrou == false) {
+                    adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
+                    adapterObras.notifyDataSetChanged();
+                    entrou = true;
+                }
 
-            mlistObras.setAdapter(adapterObras);
+                mlistObras.setAdapter(adapterObras);
 
-            if(!(swipePessoas == null))
-            swipePessoas.setRefreshing(false);
+                if (!(swipePessoas == null))
+                    swipePessoas.setRefreshing(false);
+
         }
     }
 

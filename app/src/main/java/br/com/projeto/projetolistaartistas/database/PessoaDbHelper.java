@@ -22,19 +22,19 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE "+ PessoaContract.TABLE_NAME +" (" +
                 PessoaContract._ID                      +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                PessoaContract.USU_EMAIL                +" TEXT NOT NULL, " +
-                PessoaContract.USU_CPF                  +" TEXT NOT NULL, " +
-                PessoaContract.USU_GENERO               +" TEXT NOT NULL, " +
-                PessoaContract.USU_NOME                 +" TEXT NOT NULL, " +
-                PessoaContract.USU_DATA_NASCIMENTO      +" TEXT NOT NULL, " +
-                PessoaContract.USU_IMAGEM               +" TEXT NOT NULL, " +
-                PessoaContract.USU_TELEFONE             +" TEXT NOT NULL, " +
-                PessoaContract.USU_CELULAR              +" TEXT NOT NULL)");
+                PessoaContract.USU_EMAIL                +" TEXT, " +
+                PessoaContract.USU_CPF                  +" TEXT, " +
+                PessoaContract.USU_GENERO               +" TEXT, " +
+                PessoaContract.USU_NOME                 +" TEXT, " +
+                PessoaContract.USU_DATA_NASCIMENTO      +" TEXT, " +
+                PessoaContract.USU_IMAGEM               +" TEXT, " +
+                PessoaContract.USU_TELEFONE             +" TEXT, " +
+                PessoaContract.USU_CELULAR              +" TEXT)");
 
         db.execSQL("CREATE TABLE "+ ObraContract.TABLE_NAME +" (" +
                 ObraContract._ID                +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ObraContract.NOME               +" TEXT NOT NULL, " +
-                ObraContract.IMG_OBRA           +" TEXT NOT NULL)");
+                ObraContract.NOME               +" TEXT, " +
+                ObraContract.IMG_OBRA           +" TEXT)");
 
         String query = "CREATE TABLE "+ PessoaObraContract.TABLE_NAME +" (" +
                 PessoaObraContract._ID                   +" INTEGER PRIMARY KEY AUTOINCREMENT, " +

@@ -159,15 +159,21 @@ public class ListaAvaliadosFragment extends Fragment {
             ListPessoas pessoas = null;
 
             Request request = new Request.Builder()
-                    .url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
                     .build();
 
             try {
                 Response response = client.newCall(request).execute();
                 String jsonString = response.body().string();
 
+                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
+                jsonString = jsonString.replace("}}}", "}]}");
+
+                String jsonFormatada = fg.formataJson(jsonString);
+
                 Gson gson = new Gson();
-                pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
                 return pessoas;
 
             }catch(Exception e){
