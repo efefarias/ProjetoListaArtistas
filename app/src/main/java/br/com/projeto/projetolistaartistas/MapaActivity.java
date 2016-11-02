@@ -19,15 +19,17 @@ public class MapaActivity extends FragmentActivity {
         SupportMapFragment fragment =
                 (SupportMapFragment)getSupportFragmentManager()
                         .findFragmentById(R.id.map);
+        LatLng latLng = new LatLng(-23.561706,-46.655981);
+
         GoogleMap map = fragment.getMap();
 
-        LatLng latLng = new LatLng(-23.561706,-46.655981);
         map.addMarker(new MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.fromResource(
-                        R.drawable.common_ic_googleplayservices))
-                .title("Av. Paulista")
-                .snippet("São Paulo"));
+                .icon(BitmapDescriptorFactory
+                        .fromResource(R.mipmap.ic_marker))
+                .title("haha")
+                .snippet("haha"));
+
 
         configuraPosicao(map, latLng);
     }
@@ -36,7 +38,7 @@ public class MapaActivity extends FragmentActivity {
             GoogleMap map, LatLng latLng) {
 
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        map.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
+
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
     }
 }
