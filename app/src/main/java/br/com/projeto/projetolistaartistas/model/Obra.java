@@ -1,5 +1,7 @@
 package br.com.projeto.projetolistaartistas.model;
 
+import java.util.List;
+
 /**
  * Created by f.soares.de.farias on 10/1/2016.
  */
@@ -9,15 +11,15 @@ public class Obra {
     private String obr_id;
     private String obr_descricao;
     private String cat_obra_descricao;
-    private String img_url;
+    private List<Imagens> imagens;
 
     public Obra(){}
 
-    public Obra(String obr_id, String obr_descricao, String cat_obra_descricao, String img_url) {
+    public Obra(String obr_id, String obr_descricao, String cat_obra_descricao, List<Imagens> imagens) {
         this.obr_id = obr_id;
         this.obr_descricao = obr_descricao;
         this.cat_obra_descricao = cat_obra_descricao;
-        this.img_url = img_url;
+        this.imagens = imagens;
     }
 
     public String getObr_id() {
@@ -44,11 +46,11 @@ public class Obra {
         this.cat_obra_descricao = cat_obra_descricao;
     }
 
-    public String getImg_url() {
-        return img_url;
+    public List<Imagens> getImagens() {
+        return imagens;
     }
 
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
+    public void setImagens(List<Imagens> imagens) {
+        this.imagens = imagens;
     }
 }
