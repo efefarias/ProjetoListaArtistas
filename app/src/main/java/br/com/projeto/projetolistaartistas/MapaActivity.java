@@ -27,8 +27,8 @@ public class MapaActivity extends FragmentActivity {
                 .position(latLng)
                 .icon(BitmapDescriptorFactory
                         .fromResource(R.mipmap.ic_marker))
-                .title("haha")
-                .snippet("haha"));
+                .title("Av. Paulista")
+                .snippet("São Paulo"));
 
 
         configuraPosicao(map, latLng);
