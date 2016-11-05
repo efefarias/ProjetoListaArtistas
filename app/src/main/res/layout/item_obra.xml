@@ -30,6 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/txt_obra_descricao"
+        android:textSize="16dp"
         android:layout_alignTop="@+id/view2"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
@@ -41,7 +42,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/txt_obra_categoria"
+        android:textSize="14dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/txt_obra_descricao"
         android:layout_toEndOf="@+id/view2" />
 </RelativeLayout>
