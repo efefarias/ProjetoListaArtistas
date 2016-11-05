@@ -98,7 +98,7 @@
         android:id="@+id/fab_Mapa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_rota"
+        android:src="@drawable/ic_place_24dp"
         app:fabSize="normal"
         android:tint="@android:color/white"
         android:layout_marginLeft="5dp"
