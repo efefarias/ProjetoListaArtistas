@@ -73,28 +73,6 @@
     </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.v7.widget.CardView>
 
-</FrameLayout>
-
-<!-- FULL DA OBRA -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/txt_nome_obra"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="30dp"
-        android:textSize="20dp"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:id="@+id/img_full" />
-</LinearLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_favorito"
         android:layout_width="wrap_content"
@@ -126,5 +104,28 @@
         android:layout_marginLeft="5dp"
         android:layout_gravity="center"
         android:layout_marginBottom="102dp"/>
+
+
+</FrameLayout>
+
+<!-- FULL DA OBRA -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/txt_nome_obra"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:id="@+id/img_full" />
+</LinearLayout>
 
 </FrameLayout>
