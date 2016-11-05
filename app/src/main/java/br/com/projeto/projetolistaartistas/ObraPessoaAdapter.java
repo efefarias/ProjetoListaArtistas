@@ -36,10 +36,15 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
         }
 
         ImageView imgObra = (ImageView) convertView.findViewById(R.id.imgObra);
+        TextView txtDescricaoObra = (TextView) convertView.findViewById(R.id.txt_obra_descricao);
+        TextView txtCategoriaObra = (TextView) convertView.findViewById(R.id.txt_obra_categoria);
 
         if(obra.getImagens().get(0) != null) {
             Picasso.with(getContext()).load(obra.getImagens().get(0).getImg_url()).resize(450, 450).into(imgObra);
         }
+
+        txtDescricaoObra.setText(obra.getObr_descricao());
+        txtCategoriaObra.setText(obra.getCat_obra_descricao());
 
         return convertView;
     }
