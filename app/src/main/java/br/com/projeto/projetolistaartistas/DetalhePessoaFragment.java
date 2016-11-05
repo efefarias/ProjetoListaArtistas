@@ -422,7 +422,8 @@ public class DetalhePessoaFragment extends Fragment {
         txtNomeObra.animate().scaleX(1).scaleY(1);
 
         //Imagem da Obra sendo expandida
-        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
+        //Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
+        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImagens().get(0).getImg_url()).into(imgFullObra);
         imgFullObra.animate().scaleX(1).scaleY(1);
         imgFullObra.setClickable(true);
 
