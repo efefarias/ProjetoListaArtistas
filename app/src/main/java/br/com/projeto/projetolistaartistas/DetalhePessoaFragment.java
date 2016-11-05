@@ -200,7 +200,7 @@ public class DetalhePessoaFragment extends Fragment {
     private void alteraFavorito(){
         Boolean favorito = pessoaDAO.isfavorito(pessoa);
 
-        fabFavorito.setImageResource(favorito ? R.drawable.ic_remove : R.drawable.ic_add);
+        fabFavorito.setImageResource(favorito ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_outline_24dp);
     }
 
     @Override
@@ -258,6 +258,8 @@ public class DetalhePessoaFragment extends Fragment {
             pessoaDAO.inserir(pessoa);
         }
 
+        alteraFavorito();
+
         fabFavorito.animate()
                 .scaleX(0)
                 .scaleY(0)
@@ -265,17 +267,13 @@ public class DetalhePessoaFragment extends Fragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        alteraFavorito();
+                        //alteraFavorito();
                         fabFavorito.animate()
                                 .scaleX(1)
                                 .scaleY(1)
                                 .setListener(null);
                     }
                 });
-
-        alteraFavorito();
-
-
 
         //FASF 15/05/2016 - Enviando um post, e assim definindo ao portador da escuta, que atualize a página
         ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
