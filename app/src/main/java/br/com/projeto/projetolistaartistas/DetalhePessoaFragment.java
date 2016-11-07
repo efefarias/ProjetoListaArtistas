@@ -6,8 +6,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -56,7 +63,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DetalhePessoaFragment extends Fragment {
+public class DetalhePessoaFragment extends Fragment implements LocationListener {
 
     private static final String EXTRA_PESSOA = "param1";
 
@@ -96,6 +103,9 @@ public class DetalhePessoaFragment extends Fragment {
     int k = 0;
     boolean entrou = false;
 
+    private double latitude = 0;
+    private double longitude = 0;
+
     private void showProgress(){
         swipePessoas.post(new Runnable() {
             @Override
@@ -127,6 +137,7 @@ public class DetalhePessoaFragment extends Fragment {
 
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
+
     }
 
     @Override
@@ -281,8 +292,12 @@ public class DetalhePessoaFragment extends Fragment {
 
     @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
-        Intent intent = new Intent(getActivity(), MapaFragment.class);
-        startActivityForResult(intent, PICK_CONTACT_REQUEST);
+
+        getLocation();
+        String url = "http://maps.google.com/maps?saddr=" + latitude +","+ longitude +"&daddr= -8.063198,-34.871217";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+
     }
 
     @Override
@@ -325,6 +340,27 @@ public class DetalhePessoaFragment extends Fragment {
             swipePessoas.setRefreshing(false);
             //Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
     class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
@@ -422,9 +458,8 @@ public class DetalhePessoaFragment extends Fragment {
     }
 
     @OnClick(R.id.img_full)
-    void onClick(){
-        if(imgFullObra.isClickable())
-        {
+    void onClick() {
+        if (imgFullObra.isClickable()) {
             //Fade in no layout de fundo
             frameConteudo.animate().alpha((float) 1);
 
@@ -435,6 +470,39 @@ public class DetalhePessoaFragment extends Fragment {
             imgFullObra.animate().scaleX(0).scaleY(0);
 
             imgFullObra.setClickable(false);
+        }
+    }
+
+    private void getLocation(){
+
+        LocationManager locationManager = null;
+        String mprovider = null;
+        locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        mprovider = locationManager.getBestProvider(criteria, false);
+        Location location = null;
+        try{
+            if (mprovider != null && !mprovider.equals("")) {
+
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)   ;
+                locationManager.requestLocationUpdates(mprovider, 25000, 1, this);
+
+                if (location != null) {
+                    onLocationChanged(location);
+                    return;
+                }
+
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                locationManager.requestLocationUpdates(mprovider, 25000, 1, this);
+
+                if (location != null) {
+                    onLocationChanged(location);
+                    return;
+                }
+
+            }
+        }catch (SecurityException e) {
+            Log.v("exception", e.getMessage().toString());
         }
 
     }
