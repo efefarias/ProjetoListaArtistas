@@ -8,21 +8,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.*;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
+import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -30,25 +30,31 @@ import okhttp3.Response;
 /**
  * Created by f.soares.de.farias on 11/2/2016.
  */
-public class MapaActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapaFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap map;
     private double latitude = 0;
     private double longitude = 0;
     FuncoesGenericas fg = new FuncoesGenericas();
+    private View layout = null;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_mapa);
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        if(layout == null) {
+            layout = inflater.inflate(R.layout.layout_mapa, container, false);
+        }
+        ButterKnife.bind(this, layout);
         getLocation();
 
-        SupportMapFragment fragment = (SupportMapFragment)getSupportFragmentManager()
-                        .findFragmentById(R.id.map);
-
+        SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
         loadArtistClouser();
 
+        return layout;
     }
 
     @Override
@@ -85,7 +91,7 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
 
         LocationManager locationManager = null;
         String mprovider = null;
-        locationManager = (LocationManager) getApplication().getSystemService(getApplicationContext().LOCATION_SERVICE);
+        locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         mprovider = locationManager.getBestProvider(criteria, false);
         Location location = null;
@@ -177,11 +183,6 @@ public class MapaActivity extends FragmentActivity implements OnMapReadyCallback
 
         };
         task.execute();
-    }
-
-    private LatLng getCoodenates(){
-        LatLng latLng = null;
-        return latLng;
     }
 
 }

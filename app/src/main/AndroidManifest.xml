@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.projeto.projetolistaartistas">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name=
         "android.permission.INTERNET" />
     <uses-permission android:name=
@@ -47,7 +49,7 @@
 
         </activity>
 
-        <activity android:name="br.com.projeto.projetolistaartistas.MapaActivity"
+        <activity android:name="br.com.projeto.projetolistaartistas.MapaFragment"
             android:label="Mapa Artista"
             android:parentActivityName="br.com.projeto.projetolistaartistas.PessoasActivity">
             <meta-data android:name="parentActivityName"

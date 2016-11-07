@@ -10,4 +10,5 @@
     <string name="json_find">{\"pessoas\":{</string>
     <string name="json_replace">{\"pessoas\":[</string>
     <string name="sem_conteudo_obra">Without content to show at this moment.</string>
+    <string name="clouser">Proximos</string>
 </resources>

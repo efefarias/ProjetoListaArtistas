@@ -6,8 +6,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -16,7 +14,6 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
@@ -31,8 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import br.com.projeto.projetolistaartistas.AvaliacaoActivity;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -42,7 +38,6 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
@@ -51,7 +46,6 @@ import br.com.projeto.projetolistaartistas.model.Avaliacao;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
-import br.com.projeto.projetolistaartistas.Util.SimpleDialog;
 
 
 import butterknife.Bind;
@@ -287,7 +281,7 @@ public class DetalhePessoaFragment extends Fragment {
 
     @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
-        Intent intent = new Intent(getActivity(), MapaActivity.class);
+        Intent intent = new Intent(getActivity(), MapaFragment.class);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 

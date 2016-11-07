@@ -93,12 +93,15 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             else if(position == 2){
                 return new ListaAvaliadosFragment();
             }
+            else if(position == 3){
+                return new MapaFragment();
+            }
             return new ListaPessoasFragment();
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -111,6 +114,9 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             }
             else if(position == 2) {
                 return getString(R.string.aba_melhor_avaliados);
+            }
+            else if(position == 3) {
+                return getString(R.string.clouser);
             }
             return getString(R.string.aba_melhor_avaliados);
         }
