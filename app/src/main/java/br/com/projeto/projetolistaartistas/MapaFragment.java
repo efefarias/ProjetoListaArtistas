@@ -71,8 +71,6 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                 .position(new LatLng(latitude, longitude)))
                 .showInfoWindow();
 
-        //Adicionar marcador zero.
-        //Criar classe de serviço para adicionar varios macadores
     }
 
     @Override
