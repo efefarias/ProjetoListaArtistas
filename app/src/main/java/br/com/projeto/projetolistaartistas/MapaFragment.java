@@ -33,16 +33,18 @@ import okhttp3.Response;
  */
 public class MapaFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
+    FuncoesGenericas fg = new FuncoesGenericas();
     private GoogleMap map;
     private double latitude = -8.127990;
     private double longitude = -34.914597;
-    FuncoesGenericas fg = new FuncoesGenericas();
     private View layout = null;
 
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
     }
 
     @Override
+    //Ao criar a view, estou inflando o layout do mapa e capturando a localização atual através do método getLocation();
+    //após capturar a localização e setar o fragment, estou carregando todos os artistas através do método loadArtistClouser()
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -60,6 +62,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     }
 
     @Override
+    //Ao carregar o mapa, seto o ponto onde a pessoa está e seto o marcador no mapa
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
@@ -74,6 +77,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     }
 
     @Override
+    //Ao mudar a localização do mapa, captura novamente os dados de long e lat
     public void onLocationChanged(Location location) {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
@@ -88,6 +92,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     @Override
     public void onProviderDisabled(String provider) { }
 
+    //Pegando os dados de long e lat a serem usados para setar o pontto atual da pessoa
     private void getLocation(){
 
         LocationManager locationManager = null;
@@ -122,6 +127,9 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
 
     }
 
+
+    //De maneira assincrona, estou recebendo os dados do serviço e já preenchendo um marcador para cada artista que tenha um atelie
+    //cadastrado previamente, caso não exista, o marcador não é criado
     private void loadArtistClouser(){
 
         final List<Pessoa> listPessoas = new ArrayList<>();
@@ -171,13 +179,12 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                 double lng = longitude;
                 for (final Pessoa pessoa : listPessoas) {
 
-                    //lat += 0.005;
-                    //lng += 0.005;
+                    //capturando latitude e longitude do serviçi
                     if(pessoa.getAtelie().size() != 0) {
                         lat = Double.parseDouble(pessoa.getAtelie().get(0).getAte_latitude());
                         lng = Double.parseDouble(pessoa.getAtelie().get(0).getAte_longitude());
 
-
+                        //Preenchendo hints com a cidade e endereço do atelie do artista e posicionando o marcador baseado na lat e long fornecidas anteriormente
                     map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                     map.addMarker(new MarkerOptions()
                             .title( pessoa.getUsu_nome() )
@@ -187,9 +194,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                             .showInfoWindow();
                     }
                 }
-
             }
-
         };
         task.execute();
     }
