@@ -49,7 +49,7 @@
 
         </activity>
 
-        <activity android:name="br.com.projeto.projetolistaartistas.MapaFragment"
+        <activity android:name="br.com.projeto.projetolistaartistas.MapaActivity"
             android:label="Mapa Artista"
             android:parentActivityName="br.com.projeto.projetolistaartistas.PessoasActivity">
             <meta-data android:name="parentActivityName"
