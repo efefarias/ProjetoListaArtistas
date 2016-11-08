@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import com.google.gson.Gson;
@@ -33,12 +34,13 @@ import okhttp3.Response;
 public class MapaFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap map;
-    private double latitude = 0;
-    private double longitude = 0;
+    private double latitude = -8.127990;
+    private double longitude = -34.914597;
     FuncoesGenericas fg = new FuncoesGenericas();
     private View layout = null;
 
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,9 +64,10 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
 
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         map.addMarker(new MarkerOptions()
-                .title("Aqui")
-                .snippet("Teste Drive")
+                .title("Você está aqui!")
+                .snippet("Recife")
                 .position(new LatLng(latitude, longitude)))
                 .showInfoWindow();
 
@@ -170,13 +173,21 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                 double lng = longitude;
                 for (final Pessoa pessoa : listPessoas) {
 
-                    lat += 0.005;
-                    lng += 0.005;
+                    //lat += 0.005;
+                    //lng += 0.005;
+                    if(pessoa.getAtelie().size() != 0) {
+                        lat = Double.parseDouble(pessoa.getAtelie().get(0).getAte_latitude());
+                        lng = Double.parseDouble(pessoa.getAtelie().get(0).getAte_longitude());
 
+
+                    map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                     map.addMarker(new MarkerOptions()
                             .title( pessoa.getUsu_nome() )
-                            .position(new LatLng(lat, lng)))
+                            .position(new LatLng(lat, lng))
+                            .title(pessoa.getAtelie().get(0).getAte_endereco())
+                            .snippet(pessoa.getAtelie().get(0).getAte_cidade()))
                             .showInfoWindow();
+                    }
                 }
 
             }
@@ -184,5 +195,4 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
         };
         task.execute();
     }
-
 }
