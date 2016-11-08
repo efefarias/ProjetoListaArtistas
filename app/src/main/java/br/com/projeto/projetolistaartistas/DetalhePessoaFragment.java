@@ -29,6 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -60,10 +61,8 @@ import okhttp3.Response;
 
 public class DetalhePessoaFragment extends Fragment {
 
-    private static final String EXTRA_PESSOA = "param1";
-
     static final int PICK_CONTACT_REQUEST = 1;  // The request code
-
+    private static final String EXTRA_PESSOA = "param1";
     @Bind(R.id.text_detalhes_pessoa)
     TextView txtDetalhesPessoa;
     @Bind(R.id.img_capa)
@@ -84,19 +83,26 @@ public class DetalhePessoaFragment extends Fragment {
     FrameLayout frameConteudo;
     @Bind(R.id.fab_Mapa)
     FloatingActionButton fab_mapa;
-
-    private ShareActionProvider mShareActionProvider;
     List<Obra> listObras;
     PessoaDAO pessoaDAO;
     ArrayAdapter<Obra> adapterObras;
-    private Pessoa pessoa;
     //PessoaTask pessoaTask;
     PessoaTask pessoaTask = new PessoaTask();
     FuncoesGenericas fg = new FuncoesGenericas();
-
     int j = 0;
     int k = 0;
     boolean entrou = false;
+    private ShareActionProvider mShareActionProvider;
+    private Pessoa pessoa;
+
+    public static DetalhePessoaFragment newInstance(Pessoa pessoa) {
+        DetalhePessoaFragment fragment = new DetalhePessoaFragment();
+        Bundle args = new Bundle();
+        Parcelable p = Parcels.wrap(pessoa);
+        args.putParcelable(EXTRA_PESSOA, p);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -106,15 +112,6 @@ public class DetalhePessoaFragment extends Fragment {
                     swipePessoas.setRefreshing(true);
             }
         });
-    }
-
-    public static DetalhePessoaFragment newInstance(Pessoa pessoa) {
-        DetalhePessoaFragment fragment = new DetalhePessoaFragment();
-        Bundle args = new Bundle();
-        Parcelable p = Parcels.wrap(pessoa);
-        args.putParcelable(EXTRA_PESSOA, p);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -284,16 +281,19 @@ public class DetalhePessoaFragment extends Fragment {
     @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
 
-        Coordenadas c = new Coordenadas(pessoa.getAtelie().get(0).getAte_latitude()
-                                       ,pessoa.getAtelie().get(0).getAte_longitude()
-                                       ,pessoa.getAtelie().get(0).getAte_cidade()
-                                       ,pessoa.getAtelie().get(0).getAte_endereco());
+        if (pessoa.getAtelie().size() != 0) {
+            Coordenadas c = new Coordenadas(pessoa.getAtelie().get(0).getAte_latitude()
+                    , pessoa.getAtelie().get(0).getAte_longitude()
+                    , pessoa.getAtelie().get(0).getAte_cidade()
+                    , pessoa.getAtelie().get(0).getAte_endereco());
 
-        Intent intent = new Intent(getActivity(), MapaActivity.class);
-        intent.putExtra("coordenadas", (Parcelable) c);
+            Intent intent = new Intent(getActivity(), MapaActivity.class);
+            intent.putExtra("coordenadas", (Parcelable) c);
 
-        startActivityForResult(intent, PICK_CONTACT_REQUEST);
-
+            startActivityForResult(intent, PICK_CONTACT_REQUEST);
+        } else {
+            Toast.makeText(getActivity(), "Artista sem ateliê cadastrado", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -338,6 +338,42 @@ public class DetalhePessoaFragment extends Fragment {
         }
     }
 
+    @OnItemClick(R.id.list_obras)
+    void onItemSelected(int p) {
+
+        //Fade out no layout de fundo
+        frameConteudo.animate().alpha((float) 0.15);
+
+        //Nome da obra sendo expandida
+        txtNomeObra.setText(pessoa.getObra().get(p).getObr_descricao());
+        //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
+        txtNomeObra.animate().scaleX(1).scaleY(1);
+
+        //Imagem da Obra sendo expandida
+        //Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
+        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImagens().get(0).getImg_url()).into(imgFullObra);
+        imgFullObra.animate().scaleX(1).scaleY(1);
+        imgFullObra.setClickable(true);
+
+    }
+
+    @OnClick(R.id.img_full)
+    void onClick() {
+        if (imgFullObra.isClickable()) {
+            //Fade in no layout de fundo
+            frameConteudo.animate().alpha((float) 1);
+
+            //Nome da obra sendo recolhido
+            txtNomeObra.animate().scaleX(0).scaleY(0);
+
+            //Imagem da obra sendo recolhida
+            imgFullObra.animate().scaleX(0).scaleY(0);
+
+            imgFullObra.setClickable(false);
+        }
+
+    }
+
     class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
 
         @Override
@@ -372,7 +408,7 @@ public class DetalhePessoaFragment extends Fragment {
                 pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
                 return pessoas;
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -383,70 +419,32 @@ public class DetalhePessoaFragment extends Fragment {
             super.onPostExecute(pessoas);
 
 
-
-                //Obras
-                for (j = 0; j < pessoas.getPessoas().size(); j++) {
-                    if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())) {
-                        pessoa.setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
-                    }
+            //Obras
+            for (j = 0; j < pessoas.getPessoas().size(); j++) {
+                if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(j).getUsu_nome())) {
+                    pessoa.setObra(pessoas.getPessoas().get(j).getObra());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
                 }
+            }
 
 
-                //Avaliações
-                for (k = 0; k < pessoas.getPessoas().size(); k++) {
-                    if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(k).getUsu_nome())) {
-                        pessoa.setAvaliacao(pessoas.getPessoas().get(k).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
-                    }
+            //Avaliações
+            for (k = 0; k < pessoas.getPessoas().size(); k++) {
+                if (pessoa.getUsu_nome().equals(pessoas.getPessoas().get(k).getUsu_nome())) {
+                    pessoa.setAvaliacao(pessoas.getPessoas().get(k).getAvaliacao());//pessoa.setObras(pessoas.getPessoas().get(i).getObras());
                 }
+            }
 
-                if (entrou == false) {
-                    adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
-                    adapterObras.notifyDataSetChanged();
-                    entrou = true;
-                }
+            if (entrou == false) {
+                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
+                adapterObras.notifyDataSetChanged();
+                entrou = true;
+            }
 
-                mlistObras.setAdapter(adapterObras);
+            mlistObras.setAdapter(adapterObras);
 
-                if (!(swipePessoas == null))
-                    swipePessoas.setRefreshing(false);
+            if (!(swipePessoas == null))
+                swipePessoas.setRefreshing(false);
 
         }
-    }
-
-    @OnItemClick(R.id.list_obras)
-    void onItemSelected(int p) {
-
-        //Fade out no layout de fundo
-        frameConteudo.animate().alpha((float) 0.15);
-
-        //Nome da obra sendo expandida
-        txtNomeObra.setText(pessoa.getObra().get(p).getObr_descricao());
-        //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
-        txtNomeObra.animate().scaleX(1).scaleY(1);
-
-        //Imagem da Obra sendo expandida
-        //Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
-        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImagens().get(0).getImg_url()).into(imgFullObra);
-        imgFullObra.animate().scaleX(1).scaleY(1);
-        imgFullObra.setClickable(true);
-
-    }
-
-    @OnClick(R.id.img_full)
-    void onClick(){
-        if(imgFullObra.isClickable())
-        {
-            //Fade in no layout de fundo
-            frameConteudo.animate().alpha((float) 1);
-
-            //Nome da obra sendo recolhido
-            txtNomeObra.animate().scaleX(0).scaleY(0);
-
-            //Imagem da obra sendo recolhida
-            imgFullObra.animate().scaleX(0).scaleY(0);
-
-            imgFullObra.setClickable(false);
-        }
-
     }
 }
