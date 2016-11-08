@@ -14,6 +14,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
@@ -43,6 +44,7 @@ import java.util.List;
 import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 import br.com.projeto.projetolistaartistas.database.PessoaDAO;
 import br.com.projeto.projetolistaartistas.model.Avaliacao;
+import br.com.projeto.projetolistaartistas.model.Coordenadas;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
@@ -281,8 +283,17 @@ public class DetalhePessoaFragment extends Fragment {
 
     @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
-        Intent intent = new Intent(getActivity(), MapaFragment.class);
+
+        Coordenadas c = new Coordenadas(pessoa.getAtelie().get(0).getAte_latitude()
+                                       ,pessoa.getAtelie().get(0).getAte_longitude()
+                                       ,pessoa.getAtelie().get(0).getAte_cidade()
+                                       ,pessoa.getAtelie().get(0).getAte_endereco());
+
+        Intent intent = new Intent(getActivity(), MapaActivity.class);
+        intent.putExtra("coordenadas", (Parcelable) c);
+
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
+
     }
 
     @Override
