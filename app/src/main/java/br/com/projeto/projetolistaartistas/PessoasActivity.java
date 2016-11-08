@@ -75,6 +75,27 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         }
     }*/
 
+    @Override
+    public void PessoaFoiClicada(Pessoa pessoa) {
+
+        if (getResources().getBoolean(R.bool.tablet)) {
+            DetalhePessoaFragment dpf = DetalhePessoaFragment.newInstance(pessoa);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.detalhe_jogo, dpf, "detalhe")
+                    .commit();
+        } else {
+            //Intent it = new Intent(this, DetalhePessoaActivity.class);
+            //Parcelable p = Parcels.wrap(pessoa);
+            //it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
+            //startActivity(it);
+            Intent it = new Intent(this, DetalhePessoaActivity.class);
+            Parcelable p = Parcels.wrap(pessoa);
+            it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
+            startActivityForResult(it, 1);
+        }
+    }
+
     //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
     class JogoPager extends FragmentPagerAdapter{
 
@@ -90,10 +111,10 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             else if(position ==1) {
                 return new ListaFavoritoFragment();
             }
-            else if(position == 2){
+            /*else if(position == 2){
                 return new ListaAvaliadosFragment();
-            }
-            else if(position == 3){
+            }*/
+            else if (position == 2) {
                 return new MapaFragment();
             }
             return new ListaPessoasFragment();
@@ -101,7 +122,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -112,36 +133,13 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             else if(position == 1) {
                 return getString(R.string.aba_favoritos);
             }
-            else if(position == 2) {
+            /*else if(position == 2) {
                 return getString(R.string.aba_melhor_avaliados);
-            }
-            else if(position == 3) {
+            }*/
+            else if (position == 2) {
                 return getString(R.string.clouser);
             }
-            return getString(R.string.aba_melhor_avaliados);
-        }
-    }
-
-
-
-    @Override
-    public void PessoaFoiClicada(Pessoa pessoa) {
-
-        if(getResources().getBoolean(R.bool.tablet)){
-            DetalhePessoaFragment dpf = DetalhePessoaFragment.newInstance(pessoa);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.detalhe_jogo, dpf, "detalhe")
-                    .commit();
-        }else {
-            //Intent it = new Intent(this, DetalhePessoaActivity.class);
-            //Parcelable p = Parcels.wrap(pessoa);
-            //it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
-            //startActivity(it);
-            Intent it = new Intent(this, DetalhePessoaActivity.class);
-            Parcelable p = Parcels.wrap(pessoa);
-            it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
-            startActivityForResult(it, 1);
+            return getString(R.string.aba_pessoas);
         }
     }
 }

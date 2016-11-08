@@ -161,7 +161,7 @@ public class DetalhePessoaFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        txtDetalhesPessoa.setText("           " + pessoa.getUsu_nome() + ", clique nas obras para obter detalhes. "  );
+        //txtDetalhesPessoa.setText("           " + pessoa.getUsu_nome() + ", clique nas obras para obter detalhes. "  );
 
         //Foto do artista
         Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
@@ -281,16 +281,20 @@ public class DetalhePessoaFragment extends Fragment {
     @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
 
-        if (pessoa.getAtelie().size() != 0) {
-            Coordenadas c = new Coordenadas(pessoa.getAtelie().get(0).getAte_latitude()
-                    , pessoa.getAtelie().get(0).getAte_longitude()
-                    , pessoa.getAtelie().get(0).getAte_cidade()
-                    , pessoa.getAtelie().get(0).getAte_endereco());
+        if (pessoa.getAtelie() != null) {
+            if (pessoa.getAtelie().size() != 0) {
+                Coordenadas c = new Coordenadas(pessoa.getAtelie().get(0).getAte_latitude()
+                        , pessoa.getAtelie().get(0).getAte_longitude()
+                        , pessoa.getAtelie().get(0).getAte_cidade()
+                        , pessoa.getAtelie().get(0).getAte_endereco());
 
-            Intent intent = new Intent(getActivity(), MapaActivity.class);
-            intent.putExtra("coordenadas", (Parcelable) c);
+                Intent intent = new Intent(getActivity(), MapaActivity.class);
+                intent.putExtra("coordenadas", (Parcelable) c);
 
-            startActivityForResult(intent, PICK_CONTACT_REQUEST);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);
+            } else {
+                Toast.makeText(getActivity(), "Artista sem ateliê cadastrado", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(getActivity(), "Artista sem ateliê cadastrado", Toast.LENGTH_SHORT).show();
         }
@@ -301,7 +305,7 @@ public class DetalhePessoaFragment extends Fragment {
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                String result = data.getStringExtra("result");
+                double result = Double.valueOf(data.getStringExtra("result"));
                 Avaliacao a = new Avaliacao();
 
                 Calendar c = Calendar.getInstance();
@@ -312,7 +316,17 @@ public class DetalhePessoaFragment extends Fragment {
                 //a.setId_nota("15");
                 //a.setNota(Double.valueOf(result));
 
-                //pessoa.getAvaliacoes().add(a);
+                a.setAva_id("33");
+                a.setAva_nota(result);
+
+                if (pessoa.getAvaliacao().size() == 0) {
+                    pessoa.getAvaliacao().add(a);
+                } else {
+                    pessoa.getAvaliacao().get(0).setAva_nota(result);
+                }
+
+
+
 
                 ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
 

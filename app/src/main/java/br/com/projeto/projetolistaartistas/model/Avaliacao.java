@@ -13,13 +13,13 @@ public class Avaliacao {
     private String ava_titulo;
     private String ava_descricao;
     private String ava_nome;
-    private int ava_nota;
+    private double ava_nota;
     private String ava_ativo;
     private String usu_id_artista;
 
     public Avaliacao(){}
 
-    public Avaliacao(String ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, int ava_nota, String ava_ativo, String usu_id_artista) {
+    public Avaliacao(String ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, String usu_id_artista) {
         this.ava_id = ava_id;
         this.ava_email = ava_email;
         this.ava_titulo = ava_titulo;
@@ -70,11 +70,11 @@ public class Avaliacao {
         this.ava_nome = ava_nome;
     }
 
-    public int getAva_nota() {
+    public double getAva_nota() {
         return ava_nota;
     }
 
-    public void setAva_nota(int ava_nota) {
+    public void setAva_nota(double ava_nota) {
         this.ava_nota = ava_nota;
     }
 

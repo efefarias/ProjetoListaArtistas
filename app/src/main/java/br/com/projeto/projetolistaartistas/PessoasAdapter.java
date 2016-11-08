@@ -48,6 +48,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         TextView txtResumo              = (TextView) convertView.findViewById(R.id.txt_resumo);
         TextView txtMediaNota           = (TextView) convertView.findViewById(R.id.txt_media_votos);
         TextView txt_nota               = (TextView) convertView.findViewById(R.id.txt_nota);
+        TextView txt_estado_cidade = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
 
         Calendar c = Calendar.getInstance();
 
@@ -70,13 +71,18 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
 
 
         txtNome.setText(pessoa.getUsu_nome());
+        if (pessoa.getAvaliacao().size() != 0) {
+            txt_estado_cidade.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
+        }
+
         txtEmail.setText(pessoa.getUsu_email());
         txtTelefone.setText("(81) " + pessoa.getUsu_telefone());
-        //txtResumo.setText("      " + pessoa.getBio_pessoa());
         txtResumo.setText("");
+
         if (mediaVotos != 0) {
             txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
         }
+
 
         //img do artista
         Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(imgCapa);
