@@ -308,25 +308,10 @@ public class DetalhePessoaFragment extends Fragment {
                 double result = Double.valueOf(data.getStringExtra("result"));
                 Avaliacao a = new Avaliacao();
 
-                Calendar c = Calendar.getInstance();
-
-                //TODO
-                //a.setDataVoto(c.getTime());
-                //a.setFlag_nota_usuario('S');
-                //a.setId_nota("15");
-                //a.setNota(Double.valueOf(result));
-
                 a.setAva_id("33");
                 a.setAva_nota(result);
 
-                if (pessoa.getAvaliacao().size() == 0) {
-                    pessoa.getAvaliacao().add(a);
-                } else {
-                    pessoa.getAvaliacao().get(0).setAva_nota(result);
-                }
-
-
-
+                pessoa.getAvaliacao().add(a);
 
                 ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
 

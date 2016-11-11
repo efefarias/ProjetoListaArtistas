@@ -59,8 +59,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                 somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
                 if (pessoa.getAvaliacao().get(i).getAva_nota() != 0) {
                     if (pessoa.getAvaliacao().get(i).getAva_nota() != 0)
-                        //if (pessoa.getAvaliacao().get(i).getFlag_nota_usuario() == 'S' &&
-                        //   (pessoa.getAvaliacoes().get(i).getDataVoto().before(c.getTime())))
+                        if (pessoa.getAvaliacao().get(i).getAva_id() == "33")
                             txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
                 }
                 if (i == (qtdVotos - 1)) {
@@ -72,11 +71,11 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
 
         txtNome.setText(pessoa.getUsu_nome());
         if (pessoa.getAvaliacao().size() != 0) {
-            txt_estado_cidade.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
+            txtNome.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
         }
 
         txtEmail.setText(pessoa.getUsu_email());
-        txtTelefone.setText("(81) " + pessoa.getUsu_telefone());
+        txtTelefone.setText(pessoa.getUsu_telefone());
         txtResumo.setText("");
 
         if (mediaVotos != 0) {

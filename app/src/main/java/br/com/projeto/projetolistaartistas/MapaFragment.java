@@ -189,8 +189,8 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                     map.addMarker(new MarkerOptions()
                             .title( pessoa.getUsu_nome() )
                             .position(new LatLng(lat, lng))
-                            .title(pessoa.getAtelie().get(0).getAte_endereco())
-                            .snippet(pessoa.getAtelie().get(0).getAte_cidade()))
+                            .title(pessoa.getUsu_nome())
+                            .snippet(pessoa.getAtelie().get(0).getAte_endereco()))
                             .showInfoWindow();
                     }
                 }
