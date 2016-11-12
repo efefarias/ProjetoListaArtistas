@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_mapa"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="@string/mapa" />
+        <item
+            android:id="@+id/nav_artistas"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="@string/Artistas" />
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="@string/aba_favoritos" />
+
+    </group>
+
+
+
+</menu>

@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Parcelable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,53 +33,82 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener {
+public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener, NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.viewPager)
-    ViewPager viewPager;
-    @Bind(R.id.tabLayout)
-    TabLayout tabLayout;
-    @Bind(R.id.toolbar)
-    android.support.v7.widget.Toolbar toolBar;
+
+
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pessoas);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        viewPager.setAdapter(new JogoPager(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        setupDrawerContent(navigationView);
+        /*viewPager.setAdapter(new JogoPager(getSupportFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);*/
 
     }
 
 
-    /*//FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
-    class JogoPager extends FragmentPagerAdapter{
-
-        public JogoPager(FragmentManager fm) {
-            super(fm);
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass;
+        switch(menuItem.getItemId()) {
+            case R.id.map:
+                fragmentClass = MapaFragment.class;
+                break;
+            case R.id.nav_artistas:
+                fragmentClass = ListaPessoasFragment.class;
+                break;
+            case R.id.nav_favoritos:
+                fragmentClass = ListaFavoritoFragment.class;
+                break;
+            default:
+                fragmentClass = MapaFragment.class;
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            if(position == 0) return new ListaPessoasFragment();
-            return new ListaFavoritoFragment();
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        @Override
-        public int getCount() {
-            return 2;
-        }
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            if(position == 0) return getString(R.string.aba_pessoas);
-            return getString(R.string.aba_favoritos);
-        }
-    }*/
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        drawer.closeDrawers();
+    }
+
 
     @Override
     public void PessoaFoiClicada(Pessoa pessoa) {
@@ -94,6 +129,23 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
             startActivityForResult(it, 1);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.map:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
