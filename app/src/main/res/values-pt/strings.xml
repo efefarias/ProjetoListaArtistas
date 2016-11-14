@@ -7,4 +7,14 @@
     <string name="compartilhar">Compartilhar</string>
     <string name="falha_conexao">Sem conexão no momento.</string>
     <string name="sem_conteudo">Sem conteúdo para exibir no momento.</string>
+    <string name="action_sign_in_short">Logar</string>
+    <string name="clouser">Proximos</string>
+    <string name="error_field_required">Esse campo é obrigatorio</string>
+    <string name="error_incorrect_password">Senha Incorreta</string>
+    <string name="error_invalid_email">O email está invalido</string>
+    <string name="error_invalid_password"></string>
+    <string name="prompt_password">Senha</string>
+    <string name="sem_conteudo_obra">Sem conteúdo para exibir no momento.</string>
+    <string name="title_activity_login">Logar</string>
+    <string name="action_sign_in"></string>
 </resources>
