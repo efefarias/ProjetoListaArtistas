@@ -1,33 +1,72 @@
 {
   "project_info": {
-    "project_number": "134633199521",
-    "project_id": "arteson-1477397653695"
+    "project_number": "380752972715",
+    "project_id": "firebase-arteson"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:134633199521:android:9ce7c8c86717c01c",
+        "mobilesdk_app_id": "1:380752972715:android:ac902fc1bb1374d7",
+        "android_client_info": {
+          "package_name": "br.com.projetolistaartistas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380752972715-p8qta119u5s7f1mrs3phb28i18ogs4a8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.projetolistaartistas",
+            "certificate_hash": "1676299C2297FF63B7C74659AEA76E3F60F2C1B4"
+          }
+        },
+        {
+          "client_id": "380752972715-u2b5hnlephi354bot9occ2ek23d5ub5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ0Ol2c3EeAuwq-4f3X4FssaX5dEg_N3M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380752972715:android:9ce7c8c86717c01c",
         "android_client_info": {
           "package_name": "br.com.projeto.projetolistaartistas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "134633199521-sacipn561280l8a1jnjs8lunsibstpc2.apps.googleusercontent.com",
+          "client_id": "380752972715-ldo3dm1ldpm8a0cg6r83rgkp4hqurdbp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.com.projeto.projetolistaartistas",
-            "certificate_hash": "EDA41557EA699F5524FA6508153592035EEDF388"
+            "certificate_hash": "1676299C2297FF63B7C74659AEA76E3F60F2C1B4"
           }
         },
         {
-          "client_id": "134633199521-sutgfecfmn7dlq6caukpi5upu5sio7mr.apps.googleusercontent.com",
+          "client_id": "380752972715-u2b5hnlephi354bot9occ2ek23d5ub5v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCuJPEUrzUYTKXCbCMsA9pDSKS-vfl_6Z0"
+          "current_key": "AIzaSyBZ0Ol2c3EeAuwq-4f3X4FssaX5dEg_N3M"
         }
       ],
       "services": {

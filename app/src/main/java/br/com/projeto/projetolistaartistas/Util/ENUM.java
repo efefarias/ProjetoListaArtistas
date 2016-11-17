@@ -7,5 +7,4 @@ public class ENUM {
 
     public final String CIDADE = "Escada";
 
-
 }

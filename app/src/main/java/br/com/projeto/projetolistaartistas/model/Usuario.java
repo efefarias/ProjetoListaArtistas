@@ -1,14 +1,39 @@
 package br.com.projeto.projetolistaartistas.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by carli on 11/14/2016.
  */
 
-public class Usuario {
+public class Usuario implements Parcelable {
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
     private String usu_nome = "";
     private String usu_email = "";
     private String usu_imagem = "";
     private String usu_id_google = "";
+
+    public Usuario() {
+
+    }
+
+    protected Usuario(Parcel in) {
+        usu_nome = in.readString();
+        usu_email = in.readString();
+        usu_imagem = in.readString();
+        usu_id_google = in.readString();
+    }
 
     public String getUsu_nome() {
         return usu_nome;
@@ -40,5 +65,18 @@ public class Usuario {
 
     public void setUsu_id_google(String usu_id_google) {
         this.usu_id_google = usu_id_google;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(usu_nome);
+        dest.writeString(usu_email);
+        dest.writeString(usu_imagem);
+        dest.writeString(usu_id_google);
     }
 }

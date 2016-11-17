@@ -1,52 +1,53 @@
 package br.com.projeto.projetolistaartistas;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SearchView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.parceler.Parcels;
 
-import java.util.List;
+import java.net.URL;
 
 import br.com.projeto.projetolistaartistas.model.Pessoa;
-import butterknife.Bind;
+import br.com.projeto.projetolistaartistas.model.Usuario;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener, NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    public final String USUARIO = "USUARIO";
     DrawerLayout drawer;
+    NavigationView navigationView;
+    View headerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+
+
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,12 +55,33 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        headerview = navigationView.inflateHeaderView(R.layout.nav_header_main);
         setupDrawerContent(navigationView);
-        /*viewPager.setAdapter(new JogoPager(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);*/
+        if (intent != null) {
+            carregardadosUsuario(intent);
+        }
 
+    }
+
+    private void carregardadosUsuario(Intent in) {
+        try {
+            ImageView imageView = (ImageView) headerview.findViewById(R.id.imageView);
+            TextView nome = (TextView) headerview.findViewById(R.id.menu_nome);
+            TextView email = (TextView) headerview.findViewById(R.id.menu_email);
+            Usuario usuario = in.getExtras().getParcelable(USUARIO);
+            if (usuario != null) {
+                nome.setText(usuario.getUsu_nome());
+                email.setText(usuario.getUsu_email());
+                URL url = new URL(usuario.getUsu_imagem());
+                Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                imageView.setImageBitmap(bitmap);
+
+            }
+        } catch (Exception e) {
+            Log.e("DADOS", "ERRO AO CARREGAR DADOS: " + e.getMessage());
+        }
     }
 
 

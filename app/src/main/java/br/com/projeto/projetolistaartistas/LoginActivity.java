@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     private static final int RC_SIGN_IN = 9001;
+    public final String USUARIO = "USUARIO";
     private UserLoginTask mAuthTask = null;
     // UI references.
     private EditText mEmailView;
@@ -248,7 +249,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Response responses = client.newCall(post).execute();
                         Log.d("RESULTADO", responses.body().string());
                     } else {
-
+                        return true;
                     }
                 } else {
                     return false;
@@ -268,8 +269,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
             if (success) {
+                Intent intent = new Intent(getApplicationContext(), PessoasActivity.class);
+                if (usuario != null) {
+                    intent.putExtra(USUARIO, usuario);
+                }
+                startActivity(intent);
                 finish();
             } else {
+                mEmailView.setError(getString(R.string.error_incorrect_email));
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }

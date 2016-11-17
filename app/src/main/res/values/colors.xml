@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#81C784</color>
     <color name="colorPrimaryDark">#66BB6A</color>
-    <color name="colorBlack">#FFFFFF</color>
+    <color name="colorBlack">#000</color>
 
     <color name="colorVerdeVivo">#64DD17</color>
 
