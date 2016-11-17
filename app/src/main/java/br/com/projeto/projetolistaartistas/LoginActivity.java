@@ -1,6 +1,8 @@
 package br.com.projeto.projetolistaartistas;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.gson.JsonObject;
 
+import java.net.URL;
 import java.util.Objects;
 
 import br.com.projeto.projetolistaartistas.model.Usuario;
@@ -154,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             mAuthTask = new UserLoginTask(usuario);
             mAuthTask.execute((Void) null);
         } else {
-            Toast.makeText(this, "There was a problem while connecting to your account", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "There was a problem while connecting to your accounts:" + result.getStatus(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -226,6 +229,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         private String mEmail;
         private String mPassword;
         private Usuario usuario;
+        private Bitmap btm;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -252,6 +256,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     Request request = new Request.Builder().url("http://www.doocati.com.br/tcc/webservice/loginGoogle/" + usuario.getUsu_id_google()).build();
                     Response response = client.newCall(request).execute();
                     String jsonString = response.body().string();
+                    URL url = new URL(usuario.getUsu_imagem());
+                    btm = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     if (Objects.equals(jsonString, "false")) {
                         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
                         JsonObject json = new JsonObject();
@@ -287,6 +293,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Intent intent = new Intent(getApplicationContext(), PessoasActivity.class);
                 if (usuario != null) {
                     intent.putExtra(USUARIO, usuario);
+                    intent.putExtra("IMAGE", btm);
                 }
                 startActivity(intent);
                 finish();

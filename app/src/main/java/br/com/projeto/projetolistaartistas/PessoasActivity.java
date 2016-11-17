@@ -2,7 +2,6 @@ package br.com.projeto.projetolistaartistas;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
@@ -21,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.parceler.Parcels;
-
-import java.net.URL;
 
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import br.com.projeto.projetolistaartistas.model.Usuario;
@@ -71,11 +68,11 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             TextView nome = (TextView) headerview.findViewById(R.id.menu_nome);
             TextView email = (TextView) headerview.findViewById(R.id.menu_email);
             Usuario usuario = in.getExtras().getParcelable(USUARIO);
+            Bitmap bitmap = in.getParcelableExtra("IMAGE");
             if (usuario != null) {
                 nome.setText(usuario.getUsu_nome());
                 email.setText(usuario.getUsu_email());
-                URL url = new URL(usuario.getUsu_imagem());
-                Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
                 imageView.setImageBitmap(bitmap);
 
             }
