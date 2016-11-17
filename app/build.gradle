@@ -41,5 +41,8 @@ dependencies {
     compile 'com.android.support:palette-v7:24.2.1'
 
     compile 'com.google.android.gms:play-services-maps:9.0.0'
+    compile 'com.google.android.gms:play-services:9.0.0'
     compile 'com.google.android.gms:play-services-auth:9.0.0'
+    compile 'com.google.android.gms:play-services-gcm:9.0.0'
+
 }

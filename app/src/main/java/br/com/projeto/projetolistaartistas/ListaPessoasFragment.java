@@ -270,10 +270,10 @@ public class ListaPessoasFragment extends Fragment {
             mListView.setAdapter(adapterPessoas);
             adapterPessoas.notifyDataSetChanged();
 
-            if(getResources().getBoolean(R.bool.tablet)
-                    && listPessoas.size() > 0){
+            //if(getResources().getBoolean(R.bool.tablet)
+            //        && listPessoas.size() > 0){
                 //onItemSelected(0);
-            }
+            //}
 
             swipePessoas.setRefreshing(false);
         }

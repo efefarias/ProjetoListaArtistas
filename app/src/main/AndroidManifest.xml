@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PessoasActivity"
+            android:name=".LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
@@ -65,7 +65,7 @@
             android:value="AIzaSyDzGiU5rcNf8k-WbtN927xDntrvcf-bBMg" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".PessoasActivity"
             android:label="@string/title_activity_login"></activity>
     </application>
 
