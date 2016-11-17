@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134633199521",
+    "project_id": "arteson-1477397653695"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134633199521:android:9ce7c8c86717c01c",
+        "android_client_info": {
+          "package_name": "br.com.projeto.projetolistaartistas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134633199521-sacipn561280l8a1jnjs8lunsibstpc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.projeto.projetolistaartistas",
+            "certificate_hash": "EDA41557EA699F5524FA6508153592035EEDF388"
+          }
+        },
+        {
+          "client_id": "134633199521-sutgfecfmn7dlq6caukpi5upu5sio7mr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuJPEUrzUYTKXCbCMsA9pDSKS-vfl_6Z0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
