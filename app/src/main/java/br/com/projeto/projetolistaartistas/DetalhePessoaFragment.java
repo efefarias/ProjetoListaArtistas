@@ -13,8 +13,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.*;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
@@ -30,16 +30,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
 import org.parceler.Parcels;
-
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
@@ -49,8 +44,6 @@ import br.com.projeto.projetolistaartistas.model.Coordenadas;
 import br.com.projeto.projetolistaartistas.model.ListPessoas;
 import br.com.projeto.projetolistaartistas.model.Obra;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
-
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -274,11 +267,17 @@ public class DetalhePessoaFragment extends Fragment {
 
     @OnClick(R.id.fab_favorito2)
     public void abrirAvaliacao() {
-        Intent intent = new Intent(getActivity(), AvaliacaoActivity.class);
-        startActivityForResult(intent, PICK_CONTACT_REQUEST);
+        //Intent intent = new Intent(getActivity(), AvaliacaoActivity.class);
+        //startActivityForResult(intent, PICK_CONTACT_REQUEST);
+
+        // Create the fragment and show it as a dialog.
+        DialogFragment newFragment = DialogCustomizada.newInstance();
+        newFragment.show(getFragmentManager(), "dialog");
+
     }
 
-    @OnClick(R.id.fab_Mapa)
+
+        @OnClick(R.id.fab_Mapa)
     public void abrirMapa() {
 
         if (pessoa.getAtelie() != null) {
