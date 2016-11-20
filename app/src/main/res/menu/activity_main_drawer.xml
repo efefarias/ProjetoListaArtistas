@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
@@ -18,6 +17,16 @@
 
     </group>
 
+    <item android:title="@string/general">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sign_out"
+                    android:icon="@drawable/ic_account_box_black_24dp"
+                    android:title="@string/logout" />
+            </group>
+        </menu>
+    </item>
 
 
 </menu>

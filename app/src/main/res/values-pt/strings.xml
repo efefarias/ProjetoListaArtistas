@@ -14,8 +14,10 @@
     <string name="error_invalid_email">O email está invalido</string>
     <string name="error_invalid_password">Senha Invalida</string>
     <string name="prompt_password">Senha</string>
-    <string name="error_incorrect_email">esse emailestá incorreto</string>
+    <string name="error_incorrect_email">Email incorreto</string>
     <string name="sem_conteudo_obra">Sem conteúdo para exibir no momento.</string>
     <string name="title_activity_login">Logar</string>
     <string name="action_sign_in">Logar</string>
+    <string name="general">General</string>
+    <string name="logout">logout</string>
 </resources>

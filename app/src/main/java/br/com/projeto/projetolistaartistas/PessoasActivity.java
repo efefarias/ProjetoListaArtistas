@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,19 +20,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
 import org.parceler.Parcels;
 
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 import br.com.projeto.projetolistaartistas.model.Usuario;
 import butterknife.ButterKnife;
 
-public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener, NavigationView.OnNavigationItemSelectedListener {
+public class PessoasActivity extends AppCompatActivity implements CliqueiNaPessoaListener, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
 
     public final String USUARIO = "USUARIO";
     DrawerLayout drawer;
     NavigationView navigationView;
     View headerview;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +51,14 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
-
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,7 +110,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
         switch(menuItem.getItemId()) {
             case R.id.map:
                 fragmentClass = MapaFragment.class;
@@ -106,11 +121,15 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             case R.id.nav_favoritos:
                 fragmentClass = ListaFavoritoFragment.class;
                 break;
+            case R.id.sign_out:
+                signOut();
+                break;
             default:
                 fragmentClass = MapaFragment.class;
         }
 
         try {
+            assert fragmentClass != null;
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,6 +145,20 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         drawer.closeDrawers();
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        // [START_EXCLUDE]
+                        Intent i = new Intent(PessoasActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                        // [END_EXCLUDE]
+                    }
+                });
     }
 
 
@@ -167,6 +200,11 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
     //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
     class JogoPager extends FragmentPagerAdapter{
 
@@ -195,6 +233,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         public int getCount() {
             return 3;
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
