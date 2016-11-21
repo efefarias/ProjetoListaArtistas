@@ -279,7 +279,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         json.addProperty("usu_id_google", usuario.getUsu_id_google());
                         json.addProperty("usu_imagem", usuario.getUsu_imagem());
                         RequestBody body = RequestBody.create(JSON, json.toString());
-                        Request post = new Request.Builder().url("http://www.doocati.com.br/tcc/webservice/usuario/google/").post(body).build();
+                        Request post = new Request.Builder().url("http://www.doocati.com.br/tcc/webservice/usuario/google").method("POST", RequestBody.create(null, new byte[0])).post(body).build();
                         Response responses = client.newCall(post).execute();
                         Log.d("RESULTADO", responses.body().string());
                     } else {
