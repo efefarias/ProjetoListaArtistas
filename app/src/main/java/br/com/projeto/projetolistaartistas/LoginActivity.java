@@ -54,6 +54,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private EditText mPasswordView;
     private GoogleApiClient mGoogleApiClient;
 
+    private String nomeUsuario;
+    private String emailUsuario;
+    private String imagemUsuario;
+    private String idUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,10 +155,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             Toast.makeText(this, acct.getDisplayName(), Toast.LENGTH_LONG).show();
             Usuario usuario = new Usuario();
-            usuario.setUsu_nome(acct.getDisplayName());
-            usuario.setUsu_email(acct.getEmail());
-            usuario.setUsu_imagem(((acct.getPhotoUrl().toString()) != null) ? acct.getPhotoUrl().toString() : "");
-            usuario.setUsu_id_google(acct.getId());
+
+            nomeUsuario = acct.getDisplayName();
+            emailUsuario = acct.getEmail();
+            imagemUsuario = acct.getPhotoUrl() != null ? acct.getPhotoUrl().toString() : "";
+            idUsuario = acct.getId();
+
+            usuario.setUsu_nome(nomeUsuario);
+            usuario.setUsu_email(emailUsuario);
+            usuario.setUsu_imagem(imagemUsuario);
+            usuario.setUsu_id_google(idUsuario);
             mAuthTask = new UserLoginTask(usuario);
             mAuthTask.execute((Void) null);
         } else {

@@ -26,4 +26,7 @@ public class DialogCustomizada extends DialogFragment {
         ((TextView)tv).setHint("Preencha um comentário");
         return v;
     }
+
+
+
 }
