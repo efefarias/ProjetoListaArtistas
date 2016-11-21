@@ -8,7 +8,7 @@ import java.util.Date;
 @org.parceler.Parcel
 public class Avaliacao {
 
-    private String ava_id;
+    private long ava_id;
     private String ava_email;
     private String ava_titulo;
     private String ava_descricao;
@@ -19,7 +19,7 @@ public class Avaliacao {
 
     public Avaliacao(){}
 
-    public Avaliacao(String ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, String usu_id_artista) {
+    public Avaliacao(long ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, String usu_id_artista) {
         this.ava_id = ava_id;
         this.ava_email = ava_email;
         this.ava_titulo = ava_titulo;
@@ -30,11 +30,11 @@ public class Avaliacao {
         this.usu_id_artista = usu_id_artista;
     }
 
-    public String getAva_id() {
+    public long getAva_id() {
         return ava_id;
     }
 
-    public void setAva_id(String ava_id) {
+    public void setAva_id(long ava_id) {
         this.ava_id = ava_id;
     }
 
