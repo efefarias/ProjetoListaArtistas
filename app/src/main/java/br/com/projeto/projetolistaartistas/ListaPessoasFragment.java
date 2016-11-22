@@ -2,13 +2,12 @@ package br.com.projeto.projetolistaartistas;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,7 @@ import okhttp3.Response;
 
 public class ListaPessoasFragment extends Fragment {
 
+    private static final String EXTRA_PESSOA = "param1";
     @Bind(R.id.list_pessoas)
     ListView mListView;
     @Bind(R.id.swipe_pessoas)
@@ -50,7 +51,6 @@ public class ListaPessoasFragment extends Fragment {
     Button btnBuscaArtista;
     @Bind(R.id.edt_nome_artista)
     EditText edtNomeArtista;
-
     List<Pessoa> listPessoas;
     List<Pessoa> listPessoasFiltro;
     ArrayAdapter<Pessoa> adapterPessoas;
@@ -59,6 +59,17 @@ public class ListaPessoasFragment extends Fragment {
     PessoaDAO dao;
     Boolean foiFiltrado;
     FuncoesGenericas fg = new FuncoesGenericas();
+
+    int usu_id = 0;
+
+    public static ListaPessoasFragment newInstance(int id) {
+        ListaPessoasFragment fragment = new ListaPessoasFragment();
+        Bundle args = new Bundle();
+        Parcelable p = Parcels.wrap(id);
+        args.putParcelable(EXTRA_PESSOA, p);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     private void showProgress(){
         swipePessoas.post(new Runnable() {
@@ -73,8 +84,9 @@ public class ListaPessoasFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            int myInt = bundle.getInt("1");
+        if (getArguments() != null) {
+            Parcelable p = getArguments().getParcelable(EXTRA_PESSOA);
+            usu_id = Parcels.unwrap(p);
         }
 
         super.onCreate(savedInstanceState);
@@ -159,7 +171,7 @@ public class ListaPessoasFragment extends Fragment {
         }
         if(getActivity() instanceof CliqueiNaPessoaListener){
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
-            listener.PessoaFoiClicada(pessoa);
+            listener.PessoaFoiClicada(pessoa, usu_id);
             //getActivity().onBackPressed();
         }
     }

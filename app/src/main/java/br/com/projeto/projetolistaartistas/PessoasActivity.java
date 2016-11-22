@@ -112,40 +112,45 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass = null;
-        switch(menuItem.getItemId()) {
-            case R.id.map:
-                fragmentClass = MapaFragment.class;
-                break;
-            case R.id.nav_artistas:
-                fragmentClass = ListaPessoasFragment.class;
-                break;
-            case R.id.nav_favoritos:
-                fragmentClass = ListaFavoritoFragment.class;
-                break;
-            case R.id.sign_out:
-                signOut();
-                break;
-            default:
-                fragmentClass = MapaFragment.class;
-        }
-
         try {
+            switch (menuItem.getItemId()) {
+                case R.id.map:
+                    fragmentClass = MapaFragment.class;
+                    fragment = (Fragment) fragmentClass.newInstance();
+                    break;
+                case R.id.nav_artistas:
+                    fragment = ListaPessoasFragment.newInstance(usu_id);
+                    break;
+                case R.id.nav_favoritos:
+                    fragmentClass = ListaFavoritoFragment.class;
+                    fragment = (Fragment) fragmentClass.newInstance();
+                    break;
+                case R.id.sign_out:
+                    signOut();
+                    break;
+                default:
+                    fragmentClass = MapaFragment.class;
+                    fragment = (Fragment) fragmentClass.newInstance();
+            }
+
+
             assert fragmentClass != null;
-            fragment = (Fragment) fragmentClass.newInstance();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            // Set action bar title
+            setTitle(menuItem.getTitle());
+            // Close the navigation drawer
+            drawer.closeDrawers();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        drawer.closeDrawers();
+
     }
 
     private void signOut() {
@@ -164,7 +169,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
 
     @Override
-    public void PessoaFoiClicada(Pessoa pessoa) {
+    public void PessoaFoiClicada(Pessoa pessoa, int usu_id) {
 
         if (getResources().getBoolean(R.bool.tablet)) {
             DetalhePessoaFragment dpf = DetalhePessoaFragment.newInstance(pessoa);
@@ -180,6 +185,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             Intent it = new Intent(this, DetalhePessoaActivity.class);
             Parcelable p = Parcels.wrap(pessoa);
             it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA, p);
+            it.putExtra(DetalhePessoaActivity.EXTRA_PESSOA2, usu_id);
             startActivityForResult(it, 1);
         }
     }

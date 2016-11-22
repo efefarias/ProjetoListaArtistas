@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.*;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,10 +30,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,7 @@ public class DetalhePessoaFragment extends Fragment {
 
     static final int PICK_CONTACT_REQUEST = 1;  // The request code
     private static final String EXTRA_PESSOA = "param1";
+    private static final String EXTRA_PESSOA2 = "param2";
     @Bind(R.id.text_detalhes_pessoa)
     TextView txtDetalhesPessoa;
     @Bind(R.id.img_capa)
@@ -85,14 +89,16 @@ public class DetalhePessoaFragment extends Fragment {
     int j = 0;
     int k = 0;
     boolean entrou = false;
+    int usu_id = 0;
     private ShareActionProvider mShareActionProvider;
     private Pessoa pessoa;
 
-    public static DetalhePessoaFragment newInstance(Pessoa pessoa) {
+    public static DetalhePessoaFragment newInstance(Pessoa pessoa, int usu_id) {
         DetalhePessoaFragment fragment = new DetalhePessoaFragment();
         Bundle args = new Bundle();
         Parcelable p = Parcels.wrap(pessoa);
         args.putParcelable(EXTRA_PESSOA, p);
+        args.putInt(EXTRA_PESSOA2, usu_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -114,6 +120,7 @@ public class DetalhePessoaFragment extends Fragment {
         pessoaDAO = new PessoaDAO(getActivity());
         if (getArguments() != null) {
             Parcelable p = getArguments().getParcelable(EXTRA_PESSOA);
+            usu_id = getArguments().getInt(EXTRA_PESSOA2);
             pessoa = Parcels.unwrap(p);
         }
 
@@ -271,7 +278,7 @@ public class DetalhePessoaFragment extends Fragment {
         //startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
         // Create the fragment and show it as a dialog.
-        DialogFragment newFragment = DialogCustomizada.newInstance(pessoa.getUsu_id());
+        DialogFragment newFragment = DialogCustomizada.newInstance(pessoa.getUsu_id(), usu_id);
         newFragment.show(getFragmentManager(), "dialog");
 
     }
@@ -288,7 +295,7 @@ public class DetalhePessoaFragment extends Fragment {
                         , pessoa.getAtelie().get(0).getAte_endereco());
 
                 Intent intent = new Intent(getActivity(), MapaActivity.class);
-                intent.putExtra("coordenadas", (Parcelable) c);
+                intent.putExtra("coordenadas", c);
 
                 startActivityForResult(intent, PICK_CONTACT_REQUEST);
             } else {
