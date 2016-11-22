@@ -18,14 +18,23 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/text_avaliacao"
+        android:id="@+id/text_titulo"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_below="@+id/ratingbar_default"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/text_avaliacao"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/text_titulo"
+        android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/btn_ok_avaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
