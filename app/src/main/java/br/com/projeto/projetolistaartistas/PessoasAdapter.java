@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.projeto.projetolistaartistas.database.AvaliacaoDAO;
+import br.com.projeto.projetolistaartistas.model.Avaliacao;
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 
 /**
@@ -30,6 +32,8 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        AvaliacaoDAO dao = new AvaliacaoDAO(getContext());
+
         Pessoa pessoa = getItem(position);
 
         if (convertView == null) {
@@ -40,6 +44,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         double qtdVotos = 0;
         double somaVotos = 0;
         double mediaVotos = 0;
+        List<Avaliacao> listaAvaliacoes = dao.listar();
 
         ImageView imgCapa               = (ImageView) convertView.findViewById(R.id.img_capa);
         TextView txtNome                = (TextView) convertView.findViewById(R.id.txt_nome);
@@ -48,11 +53,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         TextView txtResumo              = (TextView) convertView.findViewById(R.id.txt_resumo);
         TextView txtMediaNota           = (TextView) convertView.findViewById(R.id.txt_media_votos);
         TextView txt_nota               = (TextView) convertView.findViewById(R.id.txt_nota);
-        TextView txt_estado_cidade = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
+        TextView txt_estado_cidade      = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
 
-        Calendar c = Calendar.getInstance();
-
-        if (pessoa.getAvaliacao() != null) {
+        /*if (pessoa.getAvaliacao() != null) {
             qtdVotos = pessoa.getAvaliacao().size();
 
             for (int i = 0; i < qtdVotos; i++) {
@@ -64,6 +67,17 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                 }
                 if (i == (qtdVotos - 1)) {
                     mediaVotos = somaVotos / qtdVotos;
+                }
+            }
+        }*/
+
+        //Aplica a nota do artista
+        for (int i = 0; i < listaAvaliacoes.size(); i++) {
+            if (listaAvaliacoes.get(i).getUsu_id_artista() == pessoa.getUsu_id()) {
+                if(listaAvaliacoes.size() != 0) {
+                    txt_nota.setText(String.format("Sua nota: " + "%.1f", listaAvaliacoes.get(i).getAva_nota()));
+                    somaVotos = somaVotos + listaAvaliacoes.get(i).getAva_nota();
+                    qtdVotos = qtdVotos + 1;
                 }
             }
         }

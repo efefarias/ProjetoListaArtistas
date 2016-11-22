@@ -271,7 +271,7 @@ public class DetalhePessoaFragment extends Fragment {
         //startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
         // Create the fragment and show it as a dialog.
-        DialogFragment newFragment = DialogCustomizada.newInstance();
+        DialogFragment newFragment = DialogCustomizada.newInstance(pessoa.getUsu_id());
         newFragment.show(getFragmentManager(), "dialog");
 
     }

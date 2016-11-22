@@ -15,11 +15,11 @@ public class Avaliacao {
     private String ava_nome;
     private double ava_nota;
     private String ava_ativo;
-    private String usu_id_artista;
+    private long usu_id_artista;
 
     public Avaliacao(){}
 
-    public Avaliacao(long ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, String usu_id_artista) {
+    public Avaliacao(long ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, long usu_id_artista) {
         this.ava_id = ava_id;
         this.ava_email = ava_email;
         this.ava_titulo = ava_titulo;
@@ -86,11 +86,11 @@ public class Avaliacao {
         this.ava_ativo = ava_ativo;
     }
 
-    public String getUsu_id_artista() {
+    public long getUsu_id_artista() {
         return usu_id_artista;
     }
 
-    public void setUsu_id_artista(String usu_id_artista) {
+    public void setUsu_id_artista(long usu_id_artista) {
         this.usu_id_artista = usu_id_artista;
     }
 }

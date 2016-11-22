@@ -82,7 +82,7 @@ public class AvaliacaoDAO {
                 a.setAva_nome(cursor.getString(indexNome));
                 a.setAva_nota(cursor.getLong(indexNota));
                 a.setAva_ativo(cursor.getString(indexAtivo));
-                a.setUsu_id_artista(cursor.getString(indexIdArtistas));
+                a.setUsu_id_artista(cursor.getLong(indexIdArtistas));
 
                 avaliacoes.add(a);
             }
