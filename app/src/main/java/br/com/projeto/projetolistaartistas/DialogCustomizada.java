@@ -39,9 +39,6 @@ public class DialogCustomizada extends DialogFragment {
     @Bind(R.id.ratingbar_default)
     RatingBar ratingBar;
 
-    //AQUI
-    AvaliacaoDAO dao = new AvaliacaoDAO(getContext());
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +55,8 @@ public class DialogCustomizada extends DialogFragment {
     @OnClick(R.id.btn_ok_avaliar)
     public void Avaliar(){
 
+        AvaliacaoDAO dao = new AvaliacaoDAO(getActivity());
+
         Avaliacao a = new Avaliacao();
 
         a.setAva_ativo("1");
@@ -67,8 +66,8 @@ public class DialogCustomizada extends DialogFragment {
 
         dao.inserir(a);
 
-        List<Avaliacao> avaliacoes = dao.listar();
+        //List<Avaliacao> avaliacoes = dao.listar();
 
-        Toast.makeText(getActivity(), avaliacoes.get(0).getAva_titulo().toString() , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), avaliacoes.get(0).getAva_titulo().toString() , Toast.LENGTH_SHORT).show();
     }
 }
