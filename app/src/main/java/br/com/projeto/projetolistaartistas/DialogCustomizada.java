@@ -88,7 +88,7 @@ public class DialogCustomizada extends DialogFragment {
             a.setAva_titulo(txtTitulo.getText().toString());
             a.setAva_nota(ratingBar.getRating());
             a.setUsu_id_artista(idArtista);
-            a.setUsu_id_artista(usu_id);
+            a.setUsu_id(usu_id);
 
             dao.inserir(a);
             ratePost = new RatePost(a);
@@ -127,7 +127,7 @@ public class DialogCustomizada extends DialogFragment {
                 json.addProperty("ava_nota", avaliacao.getAva_nota());
                 json.addProperty("ava_ativo", avaliacao.getAva_ativo());
                 json.addProperty("usu_id_artista", avaliacao.getUsu_id_artista());
-                json.addProperty("usu_id", avaliacao.getAva_id());
+                json.addProperty("usu_id", avaliacao.getUsu_id());
                 RequestBody body = RequestBody.create(JSON, json.toString());
                 Request post = new Request.Builder().url("http://www.doocati.com.br/tcc/webservice/avaliacoes/").method("POST", RequestBody.create(null, new byte[0])).post(body).build();
                 Response responses = client.newCall(post).execute();
