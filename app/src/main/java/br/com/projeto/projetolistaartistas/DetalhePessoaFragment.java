@@ -307,10 +307,10 @@ public class DetalhePessoaFragment extends Fragment {
                 double result = Double.valueOf(data.getStringExtra("result"));
                 Avaliacao a = new Avaliacao();
 
-                a.setAva_id("33");
-                a.setAva_nota(result);
+                //a.setAva_id("33");
+                //a.setAva_nota(result);
 
-                pessoa.getAvaliacao().add(a);
+                //pessoa.getAvaliacao().add(a);
 
                 ((PessoaApp)getActivity().getApplication()).getEventBus().post(pessoa);
 

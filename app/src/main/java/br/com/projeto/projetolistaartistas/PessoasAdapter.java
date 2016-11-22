@@ -59,7 +59,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                 somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
                 if (pessoa.getAvaliacao().get(i).getAva_nota() != 0) {
                     if (pessoa.getAvaliacao().get(i).getAva_nota() != 0)
-                        if (pessoa.getAvaliacao().get(i).getAva_id() == "33")
+                        //if (pessoa.getAvaliacao().get(i).getAva_id() == "33")
                             txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
                 }
                 if (i == (qtdVotos - 1)) {
@@ -81,7 +81,6 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         if (mediaVotos != 0) {
             txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
         }
-
 
         //img do artista
         Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(imgCapa);

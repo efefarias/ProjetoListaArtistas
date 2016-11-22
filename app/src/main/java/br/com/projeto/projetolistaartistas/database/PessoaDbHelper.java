@@ -51,10 +51,15 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
                 " FOREIGN KEY (" + PessoaObraContract.ID_OBRA + ") REFERENCES " + ObraContract.TABLE_NAME + " (" + ObraContract._ID +"), " +
                 " FOREIGN KEY (" + PessoaObraContract.ID_PESSOA + ") REFERENCES " + PessoaContract.TABLE_NAME + " (" + PessoaContract._ID +"))");
 
-
-
-
-
+        db.execSQL("CREATE TABLE "+ AvaliacaoContract.TABLE_NAME +" (" +
+                AvaliacaoContract._ID                   +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                AvaliacaoContract.AVA_EMAIL         + " TEXT, " +
+                AvaliacaoContract.AVA_TITULO        + " TEXT, " +
+                AvaliacaoContract.AVA_DESCRICAO     + " TEXT, " +
+                AvaliacaoContract.AVA_NOME          + " TEXT, " +
+                AvaliacaoContract.AVA_NOTA          + " TEXT, " +
+                AvaliacaoContract.AVA_ATIVO         + " TEXT, " +
+                AvaliacaoContract.USU_ID_ARTISTA    + " TEXT)");
 
     }
 
