@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +63,7 @@ public class ListaPessoasFragment extends Fragment {
     public static ListaPessoasFragment newInstance(int id) {
         ListaPessoasFragment fragment = new ListaPessoasFragment();
         Bundle args = new Bundle();
-        Parcelable p = Parcels.wrap(id);
-        args.putParcelable(EXTRA_PESSOA, p);
+        args.putInt(EXTRA_PESSOA, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,9 +81,8 @@ public class ListaPessoasFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         Bundle bundle = this.getArguments();
-        if (getArguments() != null) {
-            Parcelable p = getArguments().getParcelable(EXTRA_PESSOA);
-            usu_id = Parcels.unwrap(p);
+        if (bundle != null) {
+            usu_id = getArguments().getInt(EXTRA_PESSOA);
         }
 
         super.onCreate(savedInstanceState);
