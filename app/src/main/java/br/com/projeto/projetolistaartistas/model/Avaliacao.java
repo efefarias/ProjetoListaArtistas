@@ -1,7 +1,5 @@
 package br.com.projeto.projetolistaartistas.model;
 
-import java.util.Date;
-
 /**
  * Created by f.soares.de.farias on 10/20/2016.
  */
@@ -9,10 +7,8 @@ import java.util.Date;
 public class Avaliacao {
 
     private long ava_id;
-    private String ava_email;
     private String ava_titulo;
     private String ava_descricao;
-    private String ava_nome;
     private double ava_nota;
     private String ava_ativo;
     private long usu_id_artista;
@@ -21,10 +17,8 @@ public class Avaliacao {
 
     public Avaliacao(long ava_id, String ava_email, String ava_titulo, String ava_descricao, String ava_nome, double ava_nota, String ava_ativo, long usu_id_artista) {
         this.ava_id = ava_id;
-        this.ava_email = ava_email;
         this.ava_titulo = ava_titulo;
         this.ava_descricao = ava_descricao;
-        this.ava_nome = ava_nome;
         this.ava_nota = ava_nota;
         this.ava_ativo = ava_ativo;
         this.usu_id_artista = usu_id_artista;
@@ -38,13 +32,6 @@ public class Avaliacao {
         this.ava_id = ava_id;
     }
 
-    public String getAva_email() {
-        return ava_email;
-    }
-
-    public void setAva_email(String ava_email) {
-        this.ava_email = ava_email;
-    }
 
     public String getAva_titulo() {
         return ava_titulo;
@@ -62,13 +49,6 @@ public class Avaliacao {
         this.ava_descricao = ava_descricao;
     }
 
-    public String getAva_nome() {
-        return ava_nome;
-    }
-
-    public void setAva_nome(String ava_nome) {
-        this.ava_nome = ava_nome;
-    }
 
     public double getAva_nota() {
         return ava_nota;
