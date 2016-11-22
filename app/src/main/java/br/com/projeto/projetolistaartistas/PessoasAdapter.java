@@ -34,7 +34,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         ViewHolder viewHolder;
         double qtdVotos = 0;
         double somaVotos = 0;
-        double mediaVotos = 0;
+        Double mediaVotos = 0.0;
         List<Avaliacao> listaAvaliacoes = dao.listar();
 
         if (convertView == null) {
@@ -52,21 +52,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        /*if (pessoa.getAvaliacao() != null) {
-            qtdVotos = pessoa.getAvaliacao().size();
 
-            for (int i = 0; i < qtdVotos; i++) {
-                somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
-                if (pessoa.getAvaliacao().get(i).getAva_nota() != 0) {
-                    if (pessoa.getAvaliacao().get(i).getAva_nota() != 0)
-                        //if (pessoa.getAvaliacao().get(i).getAva_id() == "33")
-                            txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
-                }
-                if (i == (qtdVotos - 1)) {
-                    mediaVotos = somaVotos / qtdVotos;
-                }
-            }
-        }*/
+        viewHolder.txt_nota.setText("Sua nota: ");
+
         //Aplica a nota do artista
         for (int i = 0; i < listaAvaliacoes.size(); i++) {
             if (listaAvaliacoes.get(i).getUsu_id_artista() == pessoa.getUsu_id()) {
@@ -77,6 +65,13 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
                 }
             }
         }
+
+        mediaVotos = somaVotos / qtdVotos;
+        if(mediaVotos != 0.0)
+            viewHolder.txtMediaNota.setText(mediaVotos.toString() + "/5");
+        else
+            viewHolder.txtMediaNota.setText("0.0/5");
+
         viewHolder.txtNome.setText(pessoa.getUsu_nome());
         if (pessoa.getAvaliacao().size() != 0) {
             viewHolder.txtNome.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
