@@ -37,6 +37,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
 
 
     public final String USUARIO = "USUARIO";
+    int usu_id = 0;
     DrawerLayout drawer;
     NavigationView navigationView;
     View headerview;
@@ -87,7 +88,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
             if (usuario != null) {
                 nome.setText(usuario.getUsu_nome());
                 email.setText(usuario.getUsu_email());
-
+                usu_id = usuario.getUsu_id();
                 imageView.setImageBitmap(bitmap);
 
             }
