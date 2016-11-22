@@ -29,6 +29,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import java.net.URL;
 import java.util.Objects;
 
@@ -149,27 +151,30 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            final GoogleSignInAccount acct = result.getSignInAccount();
-            //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            Toast.makeText(this, acct.getDisplayName(), Toast.LENGTH_LONG).show();
-            Usuario usuario = new Usuario();
+       try {
+           if (result.isSuccess()) {
+               // Signed in successfully, show authenticated UI.
+               final GoogleSignInAccount acct = result.getSignInAccount();
+               //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+               Usuario usuario = new Usuario();
 
-            nomeUsuario = acct.getDisplayName();
-            emailUsuario = acct.getEmail();
-            imagemUsuario = acct.getPhotoUrl() != null ? acct.getPhotoUrl().toString() : "";
-            idUsuario = acct.getId();
+               nomeUsuario = acct.getDisplayName();
+               emailUsuario = acct.getEmail();
+               imagemUsuario = acct.getPhotoUrl() != null ? acct.getPhotoUrl().toString() : "";
+               idUsuario = acct.getId();
 
-            usuario.setUsu_nome(nomeUsuario);
-            usuario.setUsu_email(emailUsuario);
-            usuario.setUsu_imagem(imagemUsuario);
-            usuario.setUsu_id_google(idUsuario);
-            mAuthTask = new UserLoginTask(usuario);
-            mAuthTask.execute((Void) null);
-        } else {
-            Toast.makeText(this, "There was a problem while connecting to your accounts:" + result.getStatus(), Toast.LENGTH_LONG).show();
-        }
+               usuario.setUsu_nome(nomeUsuario);
+               usuario.setUsu_email(emailUsuario);
+               usuario.setUsu_imagem(imagemUsuario);
+               usuario.setUsu_id_google(idUsuario);
+               mAuthTask = new UserLoginTask(usuario);
+               mAuthTask.execute((Void) null);
+           } else {
+               Toast.makeText(this, "There was a problem while connecting to your accounts:" + result.getStatus(), Toast.LENGTH_LONG).show();
+           }
+       }catch (Exception e){
+           Log.e("Signin",e.getMessage());
+       }
     }
 
     private void attemptLogin() {
@@ -261,6 +266,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     String jsonString = response.body().string();
                     if (jsonString.equals("false")) {
                         return false;
+                    }else {
+                        JSONObject jObj = new JSONObject(jsonString);
+                        usuario = new Usuario();
+                        usuario.setUsu_email(mEmail);
+                        usuario.setUsu_id(jObj.getInt("usu_id"));
+                        usuario.setUsu_nome(jObj.getString("usu_nome"));
+                        usuario.setUsu_imagem(jObj.getString("usu_imagem"));
+                        if (!usuario.getUsu_imagem().equals("")) {
+                            URL url = new URL(usuario.getUsu_imagem());
+                            btm = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                        }
+                        return true;
                     }
                 } else if (usuario != null) {
                     //http://www.doocati.com.br/tcc/webservice/loginGoogle/106536105818535805159
@@ -283,6 +300,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Response responses = client.newCall(post).execute();
                         Log.d("RESULTADO", responses.body().string());
                     } else {
+                        JSONObject jObj = new JSONObject(jsonString);
+                        usuario.setUsu_id(jObj.getInt("usu_id"));
                         return true;
                     }
                 } else {
@@ -290,6 +309,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }
 
             } catch (Exception e) {
+                Log.e("LOGIN", e.getMessage());
                 return false;
             }
 
