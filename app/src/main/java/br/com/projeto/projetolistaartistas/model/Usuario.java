@@ -19,6 +19,7 @@ public class Usuario implements Parcelable {
             return new Usuario[size];
         }
     };
+    private int usu_id;
     private String usu_nome = "";
     private String usu_email = "";
     private String usu_imagem = "";
@@ -29,6 +30,7 @@ public class Usuario implements Parcelable {
     }
 
     protected Usuario(Parcel in) {
+        usu_id = in.readInt();
         usu_nome = in.readString();
         usu_email = in.readString();
         usu_imagem = in.readString();
@@ -74,9 +76,18 @@ public class Usuario implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(usu_id);
         dest.writeString(usu_nome);
         dest.writeString(usu_email);
         dest.writeString(usu_imagem);
         dest.writeString(usu_id_google);
+    }
+
+    public int getUsu_id() {
+        return usu_id;
+    }
+
+    public void setUsu_id(int usu_id) {
+        this.usu_id = usu_id;
     }
 }
