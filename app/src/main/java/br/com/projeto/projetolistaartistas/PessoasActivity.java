@@ -172,7 +172,7 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
     public void PessoaFoiClicada(Pessoa pessoa, int usu_id) {
 
         if (getResources().getBoolean(R.bool.tablet)) {
-            DetalhePessoaFragment dpf = DetalhePessoaFragment.newInstance(pessoa);
+            DetalhePessoaFragment dpf = DetalhePessoaFragment.newInstance(pessoa, usu_id);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.detalhe_jogo, dpf, "detalhe")

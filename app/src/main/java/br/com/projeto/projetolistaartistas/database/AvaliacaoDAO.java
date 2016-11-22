@@ -26,10 +26,8 @@ public class AvaliacaoDAO {
 
         ContentValues values = new ContentValues();
 
-        values.put(AvaliacaoContract.AVA_EMAIL,                 avaliacao.getAva_email());
         values.put(AvaliacaoContract.AVA_TITULO,                avaliacao.getAva_titulo());
         values.put(AvaliacaoContract.AVA_DESCRICAO,             avaliacao.getAva_descricao());
-        values.put(AvaliacaoContract.AVA_NOME,                  avaliacao.getAva_nome());
         values.put(AvaliacaoContract.AVA_NOTA,                  avaliacao.getAva_nota());
         values.put(AvaliacaoContract.AVA_ATIVO,                 avaliacao.getAva_ativo());
         values.put(AvaliacaoContract.USU_ID_ARTISTA,            avaliacao.getUsu_id_artista());
@@ -64,10 +62,8 @@ public class AvaliacaoDAO {
         if(cursor.getCount() > 0) {
 
             int indexId                = cursor.getColumnIndex(AvaliacaoContract._ID);
-            int indexEmail             = cursor.getColumnIndex(AvaliacaoContract.AVA_EMAIL);
             int indexTitulo            = cursor.getColumnIndex(AvaliacaoContract.AVA_TITULO);
             int indexDescricao         = cursor.getColumnIndex(AvaliacaoContract.AVA_DESCRICAO);
-            int indexNome              = cursor.getColumnIndex(AvaliacaoContract.AVA_NOME);
             int indexNota              = cursor.getColumnIndex(AvaliacaoContract.AVA_NOTA);
             int indexAtivo             = cursor.getColumnIndex(AvaliacaoContract.AVA_ATIVO);
             int indexIdArtistas        = cursor.getColumnIndex(AvaliacaoContract.USU_ID_ARTISTA);
@@ -76,10 +72,8 @@ public class AvaliacaoDAO {
                 Avaliacao a = new Avaliacao();
 
                 a.setAva_id(cursor.getLong(indexId));
-                a.setAva_email(cursor.getString(indexEmail));
                 a.setAva_titulo(cursor.getString(indexTitulo));
                 a.setAva_descricao(cursor.getString(indexDescricao));
-                a.setAva_nome(cursor.getString(indexNome));
                 a.setAva_nota(cursor.getLong(indexNota));
                 a.setAva_ativo(cursor.getString(indexAtivo));
                 a.setUsu_id_artista(cursor.getLong(indexIdArtistas));
