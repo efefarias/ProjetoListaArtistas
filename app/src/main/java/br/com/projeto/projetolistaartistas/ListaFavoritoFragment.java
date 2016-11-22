@@ -110,7 +110,7 @@ public class ListaFavoritoFragment extends Fragment {
 
         if(getActivity() instanceof CliqueiNaPessoaListener){
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
-            listener.PessoaFoiClicada(pessoa);
+            //listener.PessoaFoiClicada(pessoa);
         }
     }
 

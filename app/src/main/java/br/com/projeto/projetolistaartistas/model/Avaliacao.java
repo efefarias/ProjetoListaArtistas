@@ -16,13 +16,14 @@ public class Avaliacao {
 
     public Avaliacao(){}
 
-    public Avaliacao(long ava_id, String ava_titulo, String ava_descricao, double ava_nota, String ava_ativo, long usu_id_artista) {
+    public Avaliacao(long ava_id, String ava_titulo, String ava_descricao, double ava_nota, String ava_ativo, long usu_id_artista, long usu_id) {
         this.ava_id = ava_id;
         this.ava_titulo = ava_titulo;
         this.ava_descricao = ava_descricao;
         this.ava_nota = ava_nota;
         this.ava_ativo = ava_ativo;
         this.usu_id_artista = usu_id_artista;
+        this.usu_id = usu_id;
     }
 
     public long getAva_id() {

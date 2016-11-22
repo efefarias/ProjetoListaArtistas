@@ -31,6 +31,7 @@ public class AvaliacaoDAO {
         values.put(AvaliacaoContract.AVA_NOTA,                  avaliacao.getAva_nota());
         values.put(AvaliacaoContract.AVA_ATIVO,                 avaliacao.getAva_ativo());
         values.put(AvaliacaoContract.USU_ID_ARTISTA,            avaliacao.getUsu_id_artista());
+        values.put(AvaliacaoContract.USU_ID,                    avaliacao.getUsu_id());
 
         return values;
     }
@@ -67,6 +68,7 @@ public class AvaliacaoDAO {
             int indexNota              = cursor.getColumnIndex(AvaliacaoContract.AVA_NOTA);
             int indexAtivo             = cursor.getColumnIndex(AvaliacaoContract.AVA_ATIVO);
             int indexIdArtistas        = cursor.getColumnIndex(AvaliacaoContract.USU_ID_ARTISTA);
+            int indexIdUsuario        = cursor.getColumnIndex(AvaliacaoContract.USU_ID);
 
             while (cursor.moveToNext()) {
                 Avaliacao a = new Avaliacao();
@@ -77,6 +79,7 @@ public class AvaliacaoDAO {
                 a.setAva_nota(cursor.getLong(indexNota));
                 a.setAva_ativo(cursor.getString(indexAtivo));
                 a.setUsu_id_artista(cursor.getLong(indexIdArtistas));
+                a.setUsu_id(cursor.getLong(indexIdUsuario));
 
                 avaliacoes.add(a);
             }

@@ -17,5 +17,6 @@ public interface AvaliacaoContract extends BaseColumns {
     String AVA_NOTA = "ava_nota";
     String AVA_ATIVO = "ava_ativo";
     String USU_ID_ARTISTA = "usu_id_artista";
+    String USU_ID = "usu_id";
 
 }

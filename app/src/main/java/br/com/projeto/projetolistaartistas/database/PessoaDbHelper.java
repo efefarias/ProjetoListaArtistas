@@ -59,7 +59,8 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
                 AvaliacaoContract.AVA_NOME          + " TEXT, " +
                 AvaliacaoContract.AVA_NOTA          + " TEXT, " +
                 AvaliacaoContract.AVA_ATIVO         + " TEXT, " +
-                AvaliacaoContract.USU_ID_ARTISTA    + " TEXT)");
+                AvaliacaoContract.USU_ID_ARTISTA    + " TEXT," +
+                AvaliacaoContract.USU_ID            + "TEXT)");
 
     }
 
