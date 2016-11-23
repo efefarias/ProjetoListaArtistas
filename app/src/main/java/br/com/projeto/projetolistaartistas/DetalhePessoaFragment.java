@@ -274,10 +274,7 @@ public class DetalhePessoaFragment extends Fragment {
 
     @OnClick(R.id.fab_favorito2)
     public void abrirAvaliacao() {
-        //Intent intent = new Intent(getActivity(), AvaliacaoActivity.class);
-        //startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
-        // Create the fragment and show it as a dialog.
         DialogFragment newFragment = DialogCustomizada.newInstance(pessoa.getUsu_id(), usu_id);
         newFragment.show(getFragmentManager(), "dialog");
 

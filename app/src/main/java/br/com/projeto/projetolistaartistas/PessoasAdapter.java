@@ -29,13 +29,14 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        AvaliacaoDAO dao = new AvaliacaoDAO(getContext());
+        //AvaliacaoDAO dao = new AvaliacaoDAO(getContext());
+
         Pessoa pessoa = getItem(position);
         ViewHolder viewHolder;
         double qtdVotos = 0;
         double somaVotos = 0;
         Double mediaVotos = 0.0;
-        List<Avaliacao> listaAvaliacoes = dao.listar();
+        //List<Avaliacao> listaAvaliacoes = dao.listar();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
@@ -54,20 +55,23 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         }
 
         viewHolder.txt_nota.setText("Sua nota: ");
+        viewHolder.txtMediaNota.setText("0.0/5");
 
         //Aplica a nota do artista
-        for (int i = 0; i < listaAvaliacoes.size(); i++) {
-            if (listaAvaliacoes.get(i).getUsu_id_artista() == pessoa.getUsu_id()) {
-                if(listaAvaliacoes.size() != 0) {
-                    viewHolder.txt_nota.setText(String.format("Sua nota: " + "%.1f", listaAvaliacoes.get(i).getAva_nota()));
-                    somaVotos = somaVotos + listaAvaliacoes.get(i).getAva_nota();
+        for (int i = 0; i < pessoa.getAvaliacao().size(); i++) {
+            if (pessoa.getAvaliacao().get(i).getUsu_id_artista() == pessoa.getUsu_id()) {
+                if(pessoa.getAvaliacao().size() != 0) {
+                    viewHolder.txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
+                    somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
                     qtdVotos = qtdVotos + 1;
                 }
             }
         }
 
-        mediaVotos = somaVotos / qtdVotos;
-        if(mediaVotos != 0.0)
+        if(somaVotos != 0.0 && qtdVotos != 0.0)
+            mediaVotos = somaVotos / qtdVotos;
+
+        if(mediaVotos > 0.0)
             viewHolder.txtMediaNota.setText(mediaVotos.toString() + "/5");
         else
             viewHolder.txtMediaNota.setText("0.0/5");

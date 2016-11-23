@@ -169,8 +169,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                usuario.setUsu_id_google(idUsuario);
                mAuthTask = new UserLoginTask(usuario);
                mAuthTask.execute((Void) null);
-           } else {
-               Toast.makeText(this, "There was a problem while connecting to your accounts:" + result.getStatus(), Toast.LENGTH_LONG).show();
            }
        }catch (Exception e){
            Log.e("Signin",e.getMessage());

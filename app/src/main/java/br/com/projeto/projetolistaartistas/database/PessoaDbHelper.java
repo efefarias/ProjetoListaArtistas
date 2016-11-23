@@ -53,14 +53,12 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE "+ AvaliacaoContract.TABLE_NAME +" (" +
                 AvaliacaoContract._ID                   +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                AvaliacaoContract.AVA_EMAIL         + " TEXT, " +
                 AvaliacaoContract.AVA_TITULO        + " TEXT, " +
                 AvaliacaoContract.AVA_DESCRICAO     + " TEXT, " +
-                AvaliacaoContract.AVA_NOME          + " TEXT, " +
-                AvaliacaoContract.AVA_NOTA          + " TEXT, " +
+                AvaliacaoContract.AVA_NOTA          + " REAL, " +
                 AvaliacaoContract.AVA_ATIVO         + " TEXT, " +
-                AvaliacaoContract.USU_ID_ARTISTA    + " TEXT," +
-                AvaliacaoContract.USU_ID            + "TEXT)");
+                AvaliacaoContract.USU_ID_ARTISTA    + " INTEGER," +
+                AvaliacaoContract.USU_ID            + "INTEGER)");
 
     }
 

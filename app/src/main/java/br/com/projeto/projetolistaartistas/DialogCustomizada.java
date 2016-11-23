@@ -1,8 +1,10 @@
 package br.com.projeto.projetolistaartistas;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import br.com.projeto.projetolistaartistas.database.AvaliacaoDAO;
 import br.com.projeto.projetolistaartistas.model.Avaliacao;
@@ -43,14 +47,16 @@ public class DialogCustomizada extends DialogFragment {
     Long idArtista;
     int usu_id = 0;
 
+    AvaliacaoDAO avaliacaoDAO;
+
     static DialogCustomizada newInstance(Long idArtista, int usu_id) {
 
         DialogCustomizada dialogCustomizada = new DialogCustomizada();
 
-
         Bundle args = new Bundle();
         args.putLong("num", idArtista);
         args.putInt("id", usu_id);
+
         dialogCustomizada.setArguments(args);
 
         return dialogCustomizada;
@@ -61,6 +67,8 @@ public class DialogCustomizada extends DialogFragment {
         super.onCreate(savedInstanceState);
         idArtista = getArguments().getLong("num");
         usu_id = getArguments().getInt("id");
+
+        avaliacaoDAO = new AvaliacaoDAO(getActivity());
     }
 
     @Override
@@ -79,10 +87,12 @@ public class DialogCustomizada extends DialogFragment {
     @OnClick(R.id.btn_ok_avaliar)
     public void Avaliar(){
 
-        AvaliacaoDAO dao = new AvaliacaoDAO(getActivity());
+        //AvaliacaoDAO dao = new AvaliacaoDAO(getContext().getApplicationContext());
 
-        Avaliacao a = new Avaliacao();
         if (validarcampos()) {
+
+            Avaliacao a = new Avaliacao();
+
             a.setAva_ativo("1");
             a.setAva_descricao(txtAvaliacao.getText().toString());
             a.setAva_titulo(txtTitulo.getText().toString());
@@ -90,13 +100,16 @@ public class DialogCustomizada extends DialogFragment {
             a.setUsu_id_artista(idArtista);
             a.setUsu_id(usu_id);
 
-            dao.inserir(a);
+            //avaliacaoDAO.inserir(a);
+            //List<Avaliacao> avaliacoes = avaliacaoDAO.listar();
+            //Toast.makeText(getActivity().getApplicationContext(), avaliacoes.get(0).getAva_titulo(), Toast.LENGTH_LONG).show();
+
             ratePost = new RatePost(a);
             if (ratePost.getStatus() != AsyncTask.Status.RUNNING) {
                 ratePost.execute((Void) null);
             }
         } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Todos os Campos são obrigatorios", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Todos os Campos são obrigatórios", Toast.LENGTH_LONG).show();
         }
 
     }

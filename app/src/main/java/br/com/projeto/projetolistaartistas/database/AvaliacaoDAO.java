@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +38,23 @@ public class AvaliacaoDAO {
     }
 
     public long inserir(Avaliacao avaliacao){
+        try {
+            PessoaDbHelper helper = new PessoaDbHelper(contexto);
+            SQLiteDatabase db = helper.getWritableDatabase();
 
-        PessoaDbHelper helper = new PessoaDbHelper(contexto);
-        SQLiteDatabase db = helper.getWritableDatabase();
+            ContentValues values = valuesFromAvaliacao(avaliacao);
 
-        ContentValues values = valuesFromAvaliacao(avaliacao);
+            long id = db.insert(AvaliacaoContract.TABLE_NAME, null, values);
 
-        long id = db.insert(AvaliacaoContract.TABLE_NAME, null, values);
+            avaliacao.setAva_id(id);
+            db.close();
 
-        avaliacao.setAva_id(id);
-        db.close();
+            return id;
+        }catch (Exception e){
+            Log.e("CADASTRO AVALIACAO", e.getMessage());
+            return -1;
+        }
 
-        return id;
     }
 
     public List<Avaliacao> listar(){
