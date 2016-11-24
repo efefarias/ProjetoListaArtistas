@@ -8,11 +8,11 @@
             android:title="@string/mapa" />
         <item
             android:id="@+id/nav_artistas"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@drawable/ic_face_black_24dp"
             android:title="@string/Artistas" />
         <item
             android:id="@+id/nav_favoritos"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/aba_favoritos" />
 
     </group>

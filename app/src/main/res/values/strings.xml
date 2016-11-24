@@ -11,10 +11,10 @@
     <string name="json_replace">{\"pessoas\":[</string>
     <string name="sem_conteudo_obra">Without content to show at this moment.</string>
     <string name="clouser">Proximos</string>
-    <string name="navigation_drawer_open">Abrir Navegação</string>
-    <string name="navigation_drawer_close">Fechar Navegação</string>
+    <string name="navigation_drawer_open">Open Navigation</string>
+    <string name="navigation_drawer_close">Close Navigation</string>
     <string name="mapa">Mapa</string>
-    <string name="Artistas">Artistas</string>
+    <string name="Artistas">Artists</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
