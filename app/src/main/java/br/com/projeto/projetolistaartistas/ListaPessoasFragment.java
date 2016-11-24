@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -45,10 +47,9 @@ public class ListaPessoasFragment extends Fragment {
     ListView mListView;
     @Bind(R.id.swipe_pessoas)
     SwipeRefreshLayout swipePessoas;
-    @Bind(R.id.btn_busca_artista)
-    Button btnBuscaArtista;
-    @Bind(R.id.edt_nome_artista)
-    EditText edtNomeArtista;
+    @Bind(R.id.fab_pesquisa)
+    FloatingActionButton fabPesquisa;
+
     List<Pessoa> listPessoas;
     List<Pessoa> listPessoasFiltro;
     ArrayAdapter<Pessoa> adapterPessoas;
@@ -172,7 +173,7 @@ public class ListaPessoasFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.btn_busca_artista)
+    /*@OnClick(R.id.btn_busca_artista)
     public void buscarArtista(){
 
         String nome = edtNomeArtista.getText().toString();
@@ -198,7 +199,14 @@ public class ListaPessoasFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
                  }
         }
+    }*/
+
+    @OnClick(R.id.fab_pesquisa)
+    public void buscarArtista(){
+        DialogFragment newFragment = DialogPesquisa.newInstance(); //DialogCustomizada.newInstance(new Long(123), 13);
+        newFragment.show(getFragmentManager(), "dialog");
     }
+
 
     @Override
     public void onDestroy() {
