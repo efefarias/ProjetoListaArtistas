@@ -2,6 +2,7 @@ package br.com.projeto.projetolistaartistas;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import org.parceler.Parcels;
 
@@ -16,7 +17,8 @@ public class DetalhePessoaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhe_pessoa);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         Pessoa pessoa = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_PESSOA));
         int usu_id = getIntent().getIntExtra(EXTRA_PESSOA2, 0);
 
