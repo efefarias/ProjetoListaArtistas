@@ -18,6 +18,9 @@
     <string name="sem_conteudo_obra">Sem conteúdo para exibir no momento.</string>
     <string name="title_activity_login">Logar</string>
     <string name="action_sign_in">Logar</string>
-    <string name="general">General</string>
+    <string name="general">Geral</string>
     <string name="logout">logout</string>
+    <string name="navigation_drawer_close">Fechar Navegação</string>
+    <string name="navigation_drawer_open">Abrir Navegação</string>
+    <string name="Artistas">Artistas</string>
 </resources>
