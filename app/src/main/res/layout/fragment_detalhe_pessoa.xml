@@ -32,11 +32,12 @@
                 android:layout_gravity="bottom"
                 android:layout_margin="8dp">
 
-                <ListView
+                <org.lucasr.twowayview.TwoWayView
                     android:id="@+id/list_obras"
+                    style="@style/TwoWayView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" />
+                    android:drawSelectorOnTop="false" />
 
                 <TextView
                     android:id="@+id/txt_obra_empty"

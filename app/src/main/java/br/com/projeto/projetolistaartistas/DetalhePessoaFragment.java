@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.lucasr.twowayview.TwoWayView;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class DetalhePessoaFragment extends Fragment {
     @Bind(R.id.fab_favorito2)
     FloatingActionButton fabFavorito2;
     @Bind(R.id.list_obras)
-    ListView mlistObras;
+    TwoWayView mlistObras;
     @Bind(R.id.img_full)
     ImageView imgFullObra;
     @Bind(R.id.txt_nome_obra)

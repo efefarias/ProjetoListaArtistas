@@ -12,6 +12,10 @@
         <item name="windowNoTitle">true</item>
 
     </style>
+
+    <style name="TwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
     <style name="Actionbar" parent="@android:style/Widget.ActionBar">
         <item name="android:titleTextStyle">@style/Actionbar.Title</item>
         <item name="android:subtitleTextStyle">@style/Actionbar.Subtitle</item>
