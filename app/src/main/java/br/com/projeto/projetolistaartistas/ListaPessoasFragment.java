@@ -11,14 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +24,6 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -48,16 +44,14 @@ import okhttp3.Response;
 public class ListaPessoasFragment extends Fragment {
 
     private static final String EXTRA_PESSOA = "param1";
+    static String EDIT_TEXT_BUNDLE_KEY = "1";
+    static int REQUEST_CODE = 1;
     @Bind(R.id.list_pessoas)
     ListView mListView;
     @Bind(R.id.swipe_pessoas)
     SwipeRefreshLayout swipePessoas;
     @Bind(R.id.fab_pesquisa)
     FloatingActionButton fabPesquisa;
-
-    static String EDIT_TEXT_BUNDLE_KEY = "1";
-    static int REQUEST_CODE = 1;
-
     List<Pessoa> listPessoas;
     List<Pessoa> listPessoasFiltro;
     ArrayAdapter<Pessoa> adapterPessoas;
@@ -208,104 +202,6 @@ public class ListaPessoasFragment extends Fragment {
         super.onDestroyView();
     }
 
-    class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
-
-        @Override
-        public void onPreExecute() {
-            super.onPreExecute();
-            showProgress();
-        }
-
-
-        @Override
-        public ListPessoas doInBackground(Void... params) {
-            OkHttpClient client = new OkHttpClient();
-
-            ListPessoas pessoas = null;
-
-            Request request = new Request.Builder()
-                    //.url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
-                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-                String jsonString = response.body().string();
-
-                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
-                jsonString = jsonString.replace("}}}", "}]}");
-
-                String jsonFormatada = fg.formataJson(jsonString);
-
-                Gson gson = new Gson();
-                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
-                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
-                return pessoas;
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        public void onPostExecute(ListPessoas pessoas) {
-            super.onPostExecute(pessoas);
-
-            if(pessoas != null){
-                listPessoas.clear();
-                listPessoas.addAll(pessoas.getPessoas());
-                Collections.sort(listPessoas, new Comparator<Pessoa>(){
-                    public int compare(Pessoa p1, Pessoa p2) {
-                        //Ordem decrescente por média de rating
-                        if(p1.getAvaliacao().size() != 0 && p2.getAvaliacao().size() != 0) {
-
-                            Double somaVotosP1 = 0.0;
-                            Double somaVotosP2 = 0.0;
-                            Double mediaP1 = 0.0;
-                            Double mediaP2 = 0.0;
-                            Double qtdVotosP1 = 0.0;
-                            Double qtdVotosP2 = 0.0;
-
-                            //Somando as notas e verificando a média da primeira pessoa
-                            for(int i = 0; i < p1.getAvaliacao().size(); i++){
-                                somaVotosP1 = somaVotosP1 + p1.getAvaliacao().get(i).getAva_nota();
-                                qtdVotosP1 = qtdVotosP1 + 1;
-                            }
-
-                            if(somaVotosP1 != 0.0 && qtdVotosP1 != 0.0) {
-                                mediaP1 = somaVotosP1 / qtdVotosP1;
-                            }
-
-                            //Somando as notas e verificando a média da segunda pessoa
-                            for(int i = 0; i < p2.getAvaliacao().size(); i++){
-                                somaVotosP2 = somaVotosP2 + p2.getAvaliacao().get(i).getAva_nota();
-                                qtdVotosP2 = qtdVotosP2 + 1;
-                            }
-
-                            if(somaVotosP2 != 0.0 && qtdVotosP2 != 0.0) {
-                                mediaP2 = somaVotosP2 / qtdVotosP2;
-                            }
-
-                            //return Double.valueOf(p1.getAvaliacao().get(0).getAva_nota()).compareTo(p2.getAvaliacao().get(0).getAva_nota());
-                            return Double.valueOf(mediaP2).compareTo(mediaP1);
-                        }
-                        return 1;
-                    }
-                });
-            }
-            mListView.setAdapter(adapterPessoas);
-            adapterPessoas.notifyDataSetChanged();
-
-            //if(getResources().getBoolean(R.bool.tablet)
-            //        && listPessoas.size() > 0){
-                //onItemSelected(0);
-            //}
-
-            swipePessoas.setRefreshing(false);
-        }
-    }
-
     //Funções de pesquisa
     @OnClick(R.id.fab_pesquisa)
     public void buscarArtista(){
@@ -314,7 +210,6 @@ public class ListaPessoasFragment extends Fragment {
         dialogFragment.setTargetFragment(this, REQUEST_CODE);
         dialogFragment.show(getFragmentManager(), "dialog");
     }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -429,6 +324,105 @@ public class ListaPessoasFragment extends Fragment {
             foiFiltrado = true;
         }else{
             Toast.makeText(getActivity(), "Avaliação não localizada", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
+
+        @Override
+        public void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
+        }
+
+
+        @Override
+        public ListPessoas doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+
+            ListPessoas pessoas = null;
+
+            Request request = new Request.Builder()
+                    //.url("https://dl.dropboxusercontent.com/s/7nkzh4zqyc0upe6/pessoasfinal.json?dl=0")
+                    .url("https://www.doocati.com.br/tcc/webservice/mobile/detalharartista")
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                String jsonString = response.body().string();
+
+                jsonString = jsonString.replace(getResources().getString(R.string.json_find), getResources().getString(R.string.json_replace));
+                jsonString = jsonString.replace("}}}", "}]}");
+
+                String jsonFormatada = fg.formataJson(jsonString);
+
+                Gson gson = new Gson();
+                //pessoas = gson.fromJson(jsonString, ListPessoas.class);
+                pessoas = gson.fromJson(jsonFormatada, ListPessoas.class);
+                return pessoas;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onPostExecute(ListPessoas pessoas) {
+            super.onPostExecute(pessoas);
+
+            if (pessoas != null) {
+                listPessoas.clear();
+                listPessoas.addAll(pessoas.getPessoas());
+                Collections.sort(listPessoas, new Comparator<Pessoa>() {
+                    public int compare(Pessoa p1, Pessoa p2) {
+                        //Ordem decrescente por média de rating
+                        if (p1.getAvaliacao().size() != 0 && p2.getAvaliacao().size() != 0) {
+
+                            Double somaVotosP1 = 0.0;
+                            Double somaVotosP2 = 0.0;
+                            Double mediaP1 = 0.0;
+                            Double mediaP2 = 0.0;
+                            Double qtdVotosP1 = 0.0;
+                            Double qtdVotosP2 = 0.0;
+
+                            //Somando as notas e verificando a média da primeira pessoa
+                            for (int i = 0; i < p1.getAvaliacao().size(); i++) {
+                                somaVotosP1 = somaVotosP1 + p1.getAvaliacao().get(i).getAva_nota();
+                                qtdVotosP1 = qtdVotosP1 + 1;
+                            }
+
+                            if (somaVotosP1 != 0.0 && qtdVotosP1 != 0.0) {
+                                mediaP1 = somaVotosP1 / qtdVotosP1;
+                            }
+
+                            //Somando as notas e verificando a média da segunda pessoa
+                            for (int i = 0; i < p2.getAvaliacao().size(); i++) {
+                                somaVotosP2 = somaVotosP2 + p2.getAvaliacao().get(i).getAva_nota();
+                                qtdVotosP2 = qtdVotosP2 + 1;
+                            }
+
+                            if (somaVotosP2 != 0.0 && qtdVotosP2 != 0.0) {
+                                mediaP2 = somaVotosP2 / qtdVotosP2;
+                            }
+
+                            //return Double.valueOf(p1.getAvaliacao().get(0).getAva_nota()).compareTo(p2.getAvaliacao().get(0).getAva_nota());
+                            Double valor = mediaP2 - mediaP1;
+                            return valor.intValue();
+                        }
+                        return 1;
+                    }
+                });
+            }
+            mListView.setAdapter(adapterPessoas);
+            adapterPessoas.notifyDataSetChanged();
+
+            //if(getResources().getBoolean(R.bool.tablet)
+            //        && listPessoas.size() > 0){
+            //onItemSelected(0);
+            //}
+
+            swipePessoas.setRefreshing(false);
         }
     }
 
