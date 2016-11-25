@@ -60,8 +60,8 @@ public class DetalhePessoaFragment extends Fragment {
     static final int PICK_CONTACT_REQUEST = 1;  // The request code
     private static final String EXTRA_PESSOA = "param1";
     private static final String EXTRA_PESSOA2 = "param2";
-    @Bind(R.id.text_detalhes_pessoa)
-    TextView txtDetalhesPessoa;
+    //@Bind(R.id.text_detalhes_pessoa)
+    //TextView txtDetalhesPessoa;
     @Bind(R.id.img_capa)
     ImageView imgView;
     @Bind(R.id.fab_favorito)
