@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.projeto.projetolistaartistas.model.Pessoa;
 
@@ -57,5 +59,17 @@ public class FuncoesGenericas {
 
         return listaAvaliados;
 
+    }
+
+    public List<Pessoa> removeDuplicados(List<Pessoa> listPessoa){
+
+        List<Pessoa> listPessoaVerificar = listPessoa;
+
+        Set<Pessoa> hs = new HashSet<>();
+        hs.addAll(listPessoaVerificar);
+        listPessoaVerificar.clear();
+        listPessoaVerificar.addAll(hs);
+
+        return listPessoaVerificar;
     }
 }

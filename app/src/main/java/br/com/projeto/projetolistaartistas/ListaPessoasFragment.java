@@ -308,6 +308,8 @@ public class ListaPessoasFragment extends Fragment {
             }
         }
 
+        listPessoasFiltro = fg.removeDuplicados(listPessoasFiltro);
+
         if(listPessoasFiltro.size() != 0) {
             adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
             mListView.setAdapter(adapterPessoasFiltro);
@@ -329,6 +331,8 @@ public class ListaPessoasFragment extends Fragment {
                     listPessoasFiltro.add(listPessoas.get(i));
             }
         }
+
+        listPessoasFiltro = fg.removeDuplicados(listPessoasFiltro);
 
         if(listPessoasFiltro.size() != 0) {
             adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
@@ -352,6 +356,8 @@ public class ListaPessoasFragment extends Fragment {
             }
         }
 
+        listPessoasFiltro = fg.removeDuplicados(listPessoasFiltro);
+
         if(listPessoasFiltro.size() != 0) {
             adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
             mListView.setAdapter(adapterPessoasFiltro);
@@ -372,6 +378,8 @@ public class ListaPessoasFragment extends Fragment {
                     listPessoasFiltro.add(listPessoas.get(i));
             }
         }
+
+        listPessoasFiltro = fg.removeDuplicados(listPessoasFiltro);
 
         if(listPessoasFiltro.size() != 0) {
             adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
