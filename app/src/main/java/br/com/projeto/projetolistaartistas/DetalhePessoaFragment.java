@@ -16,7 +16,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -70,8 +69,6 @@ public class DetalhePessoaFragment extends Fragment {
     FloatingActionButton fabFavorito2;
     @Bind(R.id.list_obras)
     ListView mlistObras;
-    @Bind(R.id.swipe_pessoas)
-    SwipeRefreshLayout swipePessoas;
     @Bind(R.id.img_full)
     ImageView imgFullObra;
     @Bind(R.id.txt_nome_obra)
@@ -101,16 +98,6 @@ public class DetalhePessoaFragment extends Fragment {
         args.putInt(EXTRA_PESSOA2, usu_id);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private void showProgress(){
-        swipePessoas.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!(swipePessoas == null))
-                    swipePessoas.setRefreshing(true);
-            }
-        });
     }
 
     @Override
@@ -149,8 +136,7 @@ public class DetalhePessoaFragment extends Fragment {
         if(listObras.size() == 0 || listObras == null) {
             baixarJson();
         }else if(listObras != null && pessoaTask.getStatus() == AsyncTask.Status.RUNNING){
-            swipePessoas.setRefreshing(true);
-            showProgress();
+            baixarJson();
         }
     }
 
@@ -176,13 +162,6 @@ public class DetalhePessoaFragment extends Fragment {
         }
         mlistObras.setEmptyView(view.findViewById(R.id.empty));
         mlistObras.setAdapter(adapterObras);
-
-        swipePessoas.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //baixarJson();
-            }
-        });
         imgFullObra.setClickable(false);
         alteraFavorito();
 
@@ -209,8 +188,6 @@ public class DetalhePessoaFragment extends Fragment {
         //bundle.putInt("1", i);
         //fragment.setArguments(bundle);
 
-        if(!(swipePessoas == null))
-            swipePessoas.setRefreshing(false);
 
         ((PessoaApp)getActivity().getApplication()).getEventBus().unregister(this);
 
@@ -225,8 +202,6 @@ public class DetalhePessoaFragment extends Fragment {
         //if(pessoaTask.isCancelled()==false)
         //    pessoaTask.cancel(true);
 
-        if(!(swipePessoas == null))
-            swipePessoas.setRefreshing(false);
     }
 
     @Override
@@ -237,8 +212,6 @@ public class DetalhePessoaFragment extends Fragment {
         //if(pessoaTask.isCancelled()==false)
         //pessoaTask.cancel(true);
 
-        if(!(swipePessoas == null))
-            swipePessoas.setRefreshing(false);
     }
 
     @OnClick(R.id.fab_favorito)
@@ -334,9 +307,6 @@ public class DetalhePessoaFragment extends Fragment {
             //PessoaTask pessoaTask = new PessoaTask();
             //new PessoaTask().execute();
             pessoaTask.execute();
-        }else{
-            swipePessoas.setRefreshing(false);
-            //Toast.makeText(getActivity(), R.string.falha_conexao, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -381,7 +351,7 @@ public class DetalhePessoaFragment extends Fragment {
         @Override
         public void onPreExecute() {
             super.onPreExecute();
-            showProgress();
+
         }
 
 
@@ -444,8 +414,6 @@ public class DetalhePessoaFragment extends Fragment {
 
             mlistObras.setAdapter(adapterObras);
 
-            if (!(swipePessoas == null))
-                swipePessoas.setRefreshing(false);
 
         }
     }
