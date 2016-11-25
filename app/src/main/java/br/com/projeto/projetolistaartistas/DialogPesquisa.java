@@ -1,6 +1,7 @@
 package br.com.projeto.projetolistaartistas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -41,7 +42,11 @@ public class DialogPesquisa extends DialogFragment {
     Button btnOk;
     @Bind(R.id.spn_pesquisa)
     Spinner spnBusca;
+    @Bind(R.id.edt_pesquisa)
+    EditText edtPesquisa;
 
+    static String EDIT_TEXT_BUNDLE_KEY = "1";
+    static int REQUEST_CODE = 1;
 
     static DialogPesquisa newInstance() {
 
@@ -68,6 +73,7 @@ public class DialogPesquisa extends DialogFragment {
         ButterKnife.bind(this, v);
 
         List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray.add("Selecione");
         spinnerArray.add("Nome");
         spinnerArray.add("Categoria");
         spinnerArray.add("Obra");
@@ -83,12 +89,35 @@ public class DialogPesquisa extends DialogFragment {
     }
 
     @OnClick(R.id.btn_ok_pesquisa)
-    public void Avaliar(){
-
-
+    public void EnviarDados(){
+        sendResult(1);
     }
 
     private boolean validarcampos() {
+
+        if(edtPesquisa.getText().toString().equals("")) {
+            Toast.makeText(getActivity(), "Preencha algum campo para refinar a pesquisa.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(spnBusca.getSelectedItem().toString() == "Selecione") {
+            Toast.makeText(getActivity(), "Preencha algum filtro para refinar a pesquisa.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         return true;
+    }
+
+    public void sendResult(int REQUEST_CODE) {
+
+        if(validarcampos()) {
+            Intent intent = new Intent();
+            //Passando a campo a ser pesquisado
+            intent.putExtra("pesquisa", edtPesquisa.getText().toString());
+            //Passando o filtro a ser feita a pesquisa
+            intent.putExtra("filtro", spnBusca.getSelectedItem().toString());
+
+            getTargetFragment().onActivityResult(getTargetRequestCode(), REQUEST_CODE, intent);
+            getDialog().dismiss();
+        }
+
     }
 }

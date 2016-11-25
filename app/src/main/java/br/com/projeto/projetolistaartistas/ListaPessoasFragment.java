@@ -2,6 +2,7 @@ package br.com.projeto.projetolistaartistas;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,9 @@ public class ListaPessoasFragment extends Fragment {
     SwipeRefreshLayout swipePessoas;
     @Bind(R.id.fab_pesquisa)
     FloatingActionButton fabPesquisa;
+
+    static String EDIT_TEXT_BUNDLE_KEY = "1";
+    static int REQUEST_CODE = 1;
 
     List<Pessoa> listPessoas;
     List<Pessoa> listPessoasFiltro;
@@ -173,41 +178,6 @@ public class ListaPessoasFragment extends Fragment {
         }
     }
 
-    /*@OnClick(R.id.btn_busca_artista)
-    public void buscarArtista(){
-
-        String nome = edtNomeArtista.getText().toString();
-        listPessoasFiltro.clear();
-
-        if(nome.toString().equals("")){
-            Toast.makeText(getActivity(), "Preencha um nome para pesquisar",
-                    Toast.LENGTH_LONG).show();
-        }else{
-            for(int i = 0; i < listPessoas.size(); i++){
-                if(fg.verificarNome(listPessoas.get(i).getUsu_nome().toLowerCase(), nome.toLowerCase())) {
-                    listPessoasFiltro.add(listPessoas.get(i));
-                }
-            }
-
-            if(listPessoasFiltro.size() != 0) {
-                adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
-                mListView.setAdapter(adapterPessoasFiltro);
-                adapterPessoas.notifyDataSetChanged();
-                foiFiltrado = true;
-            }else{
-                Toast.makeText(getActivity(), "Artista não localizado",
-                        Toast.LENGTH_LONG).show();
-                 }
-        }
-    }*/
-
-    @OnClick(R.id.fab_pesquisa)
-    public void buscarArtista(){
-        DialogFragment newFragment = DialogPesquisa.newInstance(); //DialogCustomizada.newInstance(new Long(123), 13);
-        newFragment.show(getFragmentManager(), "dialog");
-    }
-
-
     @Override
     public void onDestroy() {
         //foiFiltrado = false;
@@ -294,4 +264,123 @@ public class ListaPessoasFragment extends Fragment {
             swipePessoas.setRefreshing(false);
         }
     }
+
+    //Funções de pesquisa
+    @OnClick(R.id.fab_pesquisa)
+    public void buscarArtista(){
+        //FragmentManager fm = getActivity().getSupportFragmentManager();
+        DialogFragment dialogFragment = DialogPesquisa.newInstance();
+        dialogFragment.setTargetFragment(this, REQUEST_CODE);
+        dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == DialogPesquisa.REQUEST_CODE) {
+            //recebendo o campo a ser pesquisado
+            String campoPesquisa = data.getStringExtra("pesquisa");
+            //recebendo o filtro a ser feita a busca
+            String filtroPesquisa = data.getStringExtra("filtro");
+
+            if(filtroPesquisa == "Nome"){
+                buscarArtistaNome(campoPesquisa);
+            }
+            if(filtroPesquisa == "Categoria"){
+                buscarArtistaCategoria(campoPesquisa);
+            }
+            if(filtroPesquisa == "Obra"){
+                buscarArtistaObra(campoPesquisa);
+            }
+            if(filtroPesquisa == "Avaliação"){
+                buscarArtistaAvaliacao(campoPesquisa);
+            }
+        }
+    }
+
+    public void buscarArtistaNome(String nome){
+
+        listPessoasFiltro.clear();
+
+        for(int i = 0; i < listPessoas.size(); i++){
+            if(fg.verificarNome(listPessoas.get(i).getUsu_nome().toLowerCase(), nome.toLowerCase())) {
+                listPessoasFiltro.add(listPessoas.get(i));
+            }
+        }
+
+        if(listPessoasFiltro.size() != 0) {
+            adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+            mListView.setAdapter(adapterPessoasFiltro);
+            adapterPessoas.notifyDataSetChanged();
+            foiFiltrado = true;
+        }else{
+            Toast.makeText(getActivity(), "Artista não localizado", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void buscarArtistaCategoria(String nome){
+
+        listPessoasFiltro.clear();
+
+        for(int i = 0; i < listPessoas.size(); i++){
+            for(int j = 0; j < listPessoas.get(i).getObra().size(); j++){
+                //if(listPessoas.get(i).getObra().get(j).getCat_obra_descricao().toString().equals(nome))
+                if(fg.verificarNome(listPessoas.get(i).getObra().get(j).getCat_obra_descricao().toString().toLowerCase(), nome.toLowerCase()))
+                    listPessoasFiltro.add(listPessoas.get(i));
+            }
+        }
+
+        if(listPessoasFiltro.size() != 0) {
+            adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+            mListView.setAdapter(adapterPessoasFiltro);
+            adapterPessoas.notifyDataSetChanged();
+            foiFiltrado = true;
+        }else{
+            Toast.makeText(getActivity(), "Categoria não localizada", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void buscarArtistaObra(String nome){
+
+        listPessoasFiltro.clear();
+
+        for(int i = 0; i < listPessoas.size(); i++){
+            for(int j = 0; j < listPessoas.get(i).getObra().size(); j++){
+                //if(listPessoas.get(i).getObra().get(j).getObr_descricao().toString().equals(nome))
+                if(fg.verificarNome(listPessoas.get(i).getObra().get(j).getObr_descricao().toString().toLowerCase(), nome.toLowerCase()))
+                    listPessoasFiltro.add(listPessoas.get(i));
+            }
+        }
+
+        if(listPessoasFiltro.size() != 0) {
+            adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+            mListView.setAdapter(adapterPessoasFiltro);
+            adapterPessoas.notifyDataSetChanged();
+            foiFiltrado = true;
+        }else{
+            Toast.makeText(getActivity(), "Obra não localizada", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void buscarArtistaAvaliacao(String nome){
+
+        listPessoasFiltro.clear();
+
+        for(int i = 0; i < listPessoas.size(); i++){
+            for(int j = 0; j < listPessoas.get(i).getAvaliacao().size(); j++){
+                if(fg.verificarNome(listPessoas.get(i).getAvaliacao().get(j).getAva_descricao().toString().toLowerCase(), nome.toLowerCase()))
+                    listPessoasFiltro.add(listPessoas.get(i));
+            }
+        }
+
+        if(listPessoasFiltro.size() != 0) {
+            adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+            mListView.setAdapter(adapterPessoasFiltro);
+            adapterPessoas.notifyDataSetChanged();
+            foiFiltrado = true;
+        }else{
+            Toast.makeText(getActivity(), "Avaliação não localizada", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
