@@ -25,8 +25,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,7 +77,7 @@ public class DetalhePessoaFragment extends Fragment {
     @Bind(R.id.txt_nome_obra)
     TextView txtNomeObra;
     @Bind(R.id.layout_conteudo)
-    FrameLayout frameConteudo;
+    LinearLayout frameConteudo;
     @Bind(R.id.fab_Mapa)
     FloatingActionButton fab_mapa;
     List<Obra> listObras;
