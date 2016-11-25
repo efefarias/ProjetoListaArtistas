@@ -4,43 +4,43 @@
     android:layout_height="wrap_content">
 
     <RatingBar
-        android:clickable="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:stepSize="1"
         android:id="@+id/ratingbar_default"
         style="?android:attr/ratingBarStyle"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"></RatingBar>
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:clickable="true"
+        android:stepSize="1" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:id="@+id/text_titulo"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/ratingbar_default"
-        android:layout_centerHorizontal="true"/>
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/text_avaliacao"
+        android:layout_below="@+id/ratingbar_default"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="15dp" />
+
+    <EditText
+        android:id="@+id/text_avaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_below="@+id/text_titulo"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
     <Button
         android:id="@+id/btn_ok_avaliar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginLeft="100dp"
         android:layout_below="@+id/text_avaliacao"
-        android:text="OK"
-        android:layout_centerHorizontal="true"></Button>
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
+        android:gravity="center"
+        android:text="OK" />
 
 </RelativeLayout>

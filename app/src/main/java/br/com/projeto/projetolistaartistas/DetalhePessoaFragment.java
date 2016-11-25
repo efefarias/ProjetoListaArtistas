@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,8 @@ public class DetalhePessoaFragment extends Fragment {
     FloatingActionButton fabFavorito2;
     @Bind(R.id.list_obras)
     TwoWayView mlistObras;
+    @Bind(R.id.list_avaliacoes)
+    ListView mlistAvaliacoes;
     @Bind(R.id.img_full)
     ImageView imgFullObra;
     @Bind(R.id.txt_nome_obra)
@@ -78,8 +81,10 @@ public class DetalhePessoaFragment extends Fragment {
     @Bind(R.id.fab_Mapa)
     FloatingActionButton fab_mapa;
     List<Obra> listObras;
+    List<Avaliacao> listAvaliacoes;
     PessoaDAO pessoaDAO;
     ArrayAdapter<Obra> adapterObras;
+    ArrayAdapter<Avaliacao> adapterAvaliacao;
     //PessoaTask pessoaTask;
     PessoaTask pessoaTask = new PessoaTask();
     FuncoesGenericas fg = new FuncoesGenericas();
@@ -110,7 +115,7 @@ public class DetalhePessoaFragment extends Fragment {
             usu_id = getArguments().getInt(EXTRA_PESSOA2);
             pessoa = Parcels.unwrap(p);
         }
-
+        listAvaliacoes = new ArrayList<>();
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
     }
@@ -408,11 +413,14 @@ public class DetalhePessoaFragment extends Fragment {
 
             if (entrou == false) {
                 adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
+                adapterAvaliacao = new AvaliacaoPessoaAdapter(getContext(), pessoa.getAvaliacao());
                 adapterObras.notifyDataSetChanged();
+                adapterAvaliacao.notifyDataSetChanged();
                 entrou = true;
             }
 
             mlistObras.setAdapter(adapterObras);
+            mlistAvaliacoes.setAdapter(adapterAvaliacao);
 
 
         }
