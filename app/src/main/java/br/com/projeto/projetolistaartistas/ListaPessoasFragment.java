@@ -255,6 +255,44 @@ public class ListaPessoasFragment extends Fragment {
             if(pessoas != null){
                 listPessoas.clear();
                 listPessoas.addAll(pessoas.getPessoas());
+                Collections.sort(listPessoas, new Comparator<Pessoa>(){
+                    public int compare(Pessoa p1, Pessoa p2) {
+                        //Ordem decrescente por média de rating
+                        if(p1.getAvaliacao().size() != 0 && p2.getAvaliacao().size() != 0) {
+
+                            Double somaVotosP1 = 0.0;
+                            Double somaVotosP2 = 0.0;
+                            Double mediaP1 = 0.0;
+                            Double mediaP2 = 0.0;
+                            Double qtdVotosP1 = 0.0;
+                            Double qtdVotosP2 = 0.0;
+
+                            //Somando as notas e verificando a média da primeira pessoa
+                            for(int i = 0; i < p1.getAvaliacao().size(); i++){
+                                somaVotosP1 = somaVotosP1 + p1.getAvaliacao().get(i).getAva_nota();
+                                qtdVotosP1 = qtdVotosP1 + 1;
+                            }
+
+                            if(somaVotosP1 != 0.0 && qtdVotosP1 != 0.0) {
+                                mediaP1 = somaVotosP1 / qtdVotosP1;
+                            }
+
+                            //Somando as notas e verificando a média da segunda pessoa
+                            for(int i = 0; i < p2.getAvaliacao().size(); i++){
+                                somaVotosP2 = somaVotosP2 + p2.getAvaliacao().get(i).getAva_nota();
+                                qtdVotosP2 = qtdVotosP2 + 1;
+                            }
+
+                            if(somaVotosP2 != 0.0 && qtdVotosP2 != 0.0) {
+                                mediaP2 = somaVotosP2 / qtdVotosP2;
+                            }
+
+                            //return Double.valueOf(p1.getAvaliacao().get(0).getAva_nota()).compareTo(p2.getAvaliacao().get(0).getAva_nota());
+                            return Double.valueOf(mediaP2).compareTo(mediaP1);
+                        }
+                        return 1;
+                    }
+                });
             }
             mListView.setAdapter(adapterPessoas);
             adapterPessoas.notifyDataSetChanged();
