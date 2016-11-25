@@ -100,16 +100,14 @@ public class DialogCustomizada extends DialogFragment {
             a.setUsu_id_artista(idArtista);
             a.setUsu_id(usu_id);
 
-            //avaliacaoDAO.inserir(a);
-            //List<Avaliacao> avaliacoes = avaliacaoDAO.listar();
-            //Toast.makeText(getActivity().getApplicationContext(), avaliacoes.get(0).getAva_titulo(), Toast.LENGTH_LONG).show();
-
             ratePost = new RatePost(a);
             if (ratePost.getStatus() != AsyncTask.Status.RUNNING) {
                 ratePost.execute((Void) null);
+                Toast.makeText(getActivity().getApplicationContext(), "Avaliação salva com sucesso.", Toast.LENGTH_LONG).show();
+                getDialog().dismiss();
             }
         } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Todos os Campos são obrigatórios", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Todos os Campos são obrigatórios.", Toast.LENGTH_LONG).show();
         }
 
     }
