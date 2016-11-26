@@ -39,7 +39,7 @@ public class ListaFavoritoFragment extends Fragment {
 
     @Bind(R.id.list_pessoas)
     ListView mListView;
-
+    private static final String EXTRA_PESSOA = "param1";
     List<Pessoa> listPessoa;
     List<Obra> listObra;
     //ArrayAdapter<Pessoa> adapterPessoa;
@@ -51,10 +51,20 @@ public class ListaFavoritoFragment extends Fragment {
     PessoaDAO daoPessoa;
     ObraDAO daoObra;
 
+    int usu_id = 0;
+
     int j = 0;
     int x = 0;
     int i = 0;
     int k = 0;
+
+    public static ListaFavoritoFragment newInstance(int id) {
+        ListaFavoritoFragment fragment = new ListaFavoritoFragment();
+        Bundle args = new Bundle();
+        args.putInt(EXTRA_PESSOA, id);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,14 +76,10 @@ public class ListaFavoritoFragment extends Fragment {
         listPessoa = daoPessoa.listar();
         listObra = daoObra.listar();
 
-        //Verificando se as imagens estão carregadas para cada Artista
-        //for(int i = 0; i < listPessoa.size(); i++)
-        //{
-        //    if(listPessoa.get(i).getObras() == null)
-        //    {
-        //        baixarJson();
-        //    }
-        //}
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            usu_id = getArguments().getInt(EXTRA_PESSOA);
+        }
 
         ((PessoaApp)getActivity().getApplication()).getEventBus().register(this);
     }
@@ -110,7 +116,7 @@ public class ListaFavoritoFragment extends Fragment {
 
         if(getActivity() instanceof CliqueiNaPessoaListener){
             CliqueiNaPessoaListener listener = (CliqueiNaPessoaListener)getActivity();
-            //listener.PessoaFoiClicada(pessoa);
+            listener.PessoaFoiClicada(pessoa, usu_id);
         }
     }
 

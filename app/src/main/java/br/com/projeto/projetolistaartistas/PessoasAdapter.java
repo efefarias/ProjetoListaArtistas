@@ -77,9 +77,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
             viewHolder.txtMediaNota.setText("0.0/5");
 
         viewHolder.txtNome.setText(pessoa.getUsu_nome());
-        if (pessoa.getAvaliacao().size() != 0) {
-            viewHolder.txtNome.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
-        }
+        //if (pessoa.getAvaliacao().size() != 0) {
+        //    viewHolder.txtNome.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
+        //}
 
         viewHolder.txtEmail.setText(pessoa.getUsu_email());
         viewHolder.txtTelefone.setText(pessoa.getUsu_telefone());
