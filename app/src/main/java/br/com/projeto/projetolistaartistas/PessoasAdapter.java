@@ -86,7 +86,7 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         viewHolder.txtResumo.setText("");
 
         if (mediaVotos != 0) {
-            viewHolder.txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/10");
+            viewHolder.txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/5");
         }
 
         //img do artista

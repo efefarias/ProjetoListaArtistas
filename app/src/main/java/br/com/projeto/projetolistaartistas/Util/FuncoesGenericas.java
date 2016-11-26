@@ -46,18 +46,51 @@ public class FuncoesGenericas {
 
         List<Pessoa> listaAvaliados = new ArrayList<Pessoa>();
 
-        //TODO
+        //Pegando a primeira pessoa
         for(i = 0; i < listPessoa.size(); i++){
+
+            Double somaVotosP1 = 0.0;
+            Double mediaP1 = 0.0;
+            Double qtdVotosP1 = 0.0;
+
+            //Somando as notas e verificando a média da primeira pessoa
+            for(int k = 0; k < listPessoa.get(i).getAvaliacao().size(); k++){
+                somaVotosP1 = somaVotosP1 + listPessoa.get(i).getAvaliacao().get(k).getAva_nota();
+                qtdVotosP1 = qtdVotosP1 + 1;
+            }
+
+            if(somaVotosP1 != 0.0 && qtdVotosP1 != 0.0) {
+                mediaP1 = somaVotosP1 / qtdVotosP1;
+            }
+
             for(j = 0; j < listPessoa.size(); j++){
-                if(listPessoa.get(i).getAvaliacao().get(i) != null && !listPessoa.get(j).getAvaliacao().get(j).equals(null))
-                    if(listPessoa.get(i).getAvaliacao().get(i).getAva_nota() >  listPessoa.get(j).getAvaliacao().get(j).getAva_nota()){
-                        listaAvaliados.add(listPessoa.get(i));
-                    }
+
+                Double somaVotosP2 = 0.0;
+                Double mediaP2 = 0.0;
+                Double qtdVotosP2 = 0.0;
+
+                //Somando as notas e verificando a média da segunda pessoa
+                for(int k = 0; k < listPessoa.get(j).getAvaliacao().size(); k++){
+                    somaVotosP2 = somaVotosP2 + listPessoa.get(j).getAvaliacao().get(k).getAva_nota();
+                    qtdVotosP2 = qtdVotosP2 + 1;
+                }
+
+                if(somaVotosP2 != 0.0 && qtdVotosP2 != 0.0) {
+                    mediaP2 = somaVotosP2 / qtdVotosP2;
+                }
+
+            if(mediaP1 != mediaP2) {
+                if (mediaP1 > mediaP2) {
+                    listaAvaliados.add(listPessoa.get(i));
+                } else if (mediaP2 > mediaP1) {
+                    listaAvaliados.add(listPessoa.get(j));
+                }
+            }
+
             }
         }
 
         return listaAvaliados;
-
     }
 
     public List<Pessoa> removeDuplicados(List<Pessoa> listPessoa){

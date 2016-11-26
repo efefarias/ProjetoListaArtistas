@@ -39,7 +39,7 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
         TextView txtDescricaoObra = (TextView) convertView.findViewById(R.id.txt_obra_descricao);
         TextView txtCategoriaObra = (TextView) convertView.findViewById(R.id.txt_obra_categoria);
 
-        if(obra.getImagens().get(0) != null) {
+        if(!obra.getImagens().get(0).equals(null)) {
             Picasso.with(getContext()).load(obra.getImagens().get(0).getImg_url()).resize(450, 450).into(imgObra);
         }
 

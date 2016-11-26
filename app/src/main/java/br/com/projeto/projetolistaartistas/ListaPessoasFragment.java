@@ -254,8 +254,10 @@ public class ListaPessoasFragment extends Fragment {
 
             if(pessoas != null){
                 listPessoas.clear();
-                listPessoas.addAll(pessoas.getPessoas());
-                Collections.sort(listPessoas, new Comparator<Pessoa>(){
+
+                List<Pessoa> listAvaliados = new ArrayList<Pessoa>();
+
+                Collections.sort(pessoas.getPessoas(), new Comparator<Pessoa>(){
                     public int compare(Pessoa p1, Pessoa p2) {
                         //Ordem decrescente por média de rating
                         if(p1.getAvaliacao().size() != 0 && p2.getAvaliacao().size() != 0) {
@@ -289,10 +291,16 @@ public class ListaPessoasFragment extends Fragment {
 
                             //return Double.valueOf(p1.getAvaliacao().get(0).getAva_nota()).compareTo(p2.getAvaliacao().get(0).getAva_nota());
                             return Double.valueOf(mediaP2).compareTo(mediaP1);
+                            //Double valor = mediaP2 - mediaP1;
+                            //return valor.intValue();
                         }
                         return 1;
                     }
                 });
+
+                listAvaliados.addAll(pessoas.getPessoas());
+
+                listPessoas.addAll(listAvaliados);
             }
             mListView.setAdapter(adapterPessoas);
             adapterPessoas.notifyDataSetChanged();
