@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +70,7 @@ public class DetalhePessoaFragment extends Fragment {
     @Bind(R.id.list_obras)
     TwoWayView mlistObras;
     @Bind(R.id.list_avaliacoes)
-    ListView mlistAvaliacoes;
+    TwoWayView mlistAvaliacoes;
     @Bind(R.id.img_full)
     ImageView imgFullObra;
     @Bind(R.id.txt_nome_obra)
