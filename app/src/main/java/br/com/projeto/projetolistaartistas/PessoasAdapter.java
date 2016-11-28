@@ -44,24 +44,24 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
             viewHolder = new ViewHolder();
             viewHolder.imgCapa = (ImageView) convertView.findViewById(R.id.img_capa);
             viewHolder.txtNome = (TextView) convertView.findViewById(R.id.txt_nome);
-            viewHolder.txtEmail = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
-            viewHolder.txtTelefone = (TextView) convertView.findViewById(R.id.txt_bio);
-            viewHolder.txtResumo = (TextView) convertView.findViewById(R.id.txt_resumo);
+            //viewHolder.txtEmail = (TextView) convertView.findViewById(R.id.txt_estado_cidade);
+            //viewHolder.txtTelefone = (TextView) convertView.findViewById(R.id.txt_bio);
+            //viewHolder.txtResumo = (TextView) convertView.findViewById(R.id.txt_resumo);
             viewHolder.txtMediaNota = (TextView) convertView.findViewById(R.id.txt_media_votos);
-            viewHolder.txt_nota = (TextView) convertView.findViewById(R.id.txt_nota);
+            //viewHolder.txt_nota = (TextView) convertView.findViewById(R.id.txt_nota);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txt_nota.setText("Sua nota: ");
+        //viewHolder.txt_nota.setText("Sua nota: ");
         viewHolder.txtMediaNota.setText("0.0/5");
 
         //Aplica a nota do artista
         for (int i = 0; i < pessoa.getAvaliacao().size(); i++) {
             if (pessoa.getAvaliacao().get(i).getUsu_id_artista() == pessoa.getUsu_id()) {
                 if(pessoa.getAvaliacao().size() != 0) {
-                    viewHolder.txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
+                    //viewHolder.txt_nota.setText(String.format("Sua nota: " + "%.1f", pessoa.getAvaliacao().get(i).getAva_nota()));
                     somaVotos = somaVotos + pessoa.getAvaliacao().get(i).getAva_nota();
                     qtdVotos = qtdVotos + 1;
                 }
@@ -81,9 +81,9 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         //    viewHolder.txtNome.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_avaliado, 0);
         //}
 
-        viewHolder.txtEmail.setText(pessoa.getUsu_email());
-        viewHolder.txtTelefone.setText(pessoa.getUsu_telefone());
-        viewHolder.txtResumo.setText("");
+        //viewHolder.txtEmail.setText(pessoa.getUsu_email());
+        //viewHolder.txtTelefone.setText(pessoa.getUsu_telefone());
+        //viewHolder.txtResumo.setText("");
 
         if (mediaVotos != 0) {
             viewHolder.txtMediaNota.setText(String.format("%.1f", mediaVotos) + "/5");
@@ -98,10 +98,10 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
     private static class ViewHolder {
         ImageView imgCapa;
         TextView txtNome;
-        TextView txtEmail;
-        TextView txtTelefone;
-        TextView txtResumo;
+        //TextView txtEmail;
+        //TextView txtTelefone;
+        //TextView txtResumo;
         TextView txtMediaNota;
-        TextView txt_nota;
+        //TextView txt_nota;
     }
 }

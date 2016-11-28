@@ -31,9 +31,9 @@
         android:id="@+id/fab_pesquisa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="65dp"
-        android:layout_alignEnd="@id/frame_lista_pessoas"
+        android:layout_margin="8dp"
+        android:layout_alignBottom="@+id/frame_lista_pessoas"
+        android:layout_alignRight="@+id/frame_lista_pessoas"
         android:src="@drawable/ic_buscar_artista"
         android:tint="@android:color/white" />
 

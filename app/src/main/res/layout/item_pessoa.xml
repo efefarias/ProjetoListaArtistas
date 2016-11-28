@@ -7,14 +7,14 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/view2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
         android:elevation="12dp"
         android:innerRadius="0dp"
         android:shape="ring"
         android:thicknessRatio="1.9"
-        app:cardCornerRadius="40dp">
+        app:cardCornerRadius="50dp">
     <ImageView
         android:id="@+id/img_capa"
         android:layout_width="130dp"
@@ -36,46 +36,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/txt_estado_cidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_nome"
-        android:layout_marginLeft="98dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="14dp" />
-
-    <TextView
-        android:id="@+id/txt_bio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_estado_cidade"
-        android:layout_marginLeft="98dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="14dp" />
-
-    <TextView
-        android:id="@+id/txt_resumo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_nota"
-        android:layout_marginLeft="250dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="12dp" />
-
-    <TextView
         android:id="@+id/txt_media_geral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgAvalie"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="205dp"
+        android:layout_marginTop="50dp"
         android:text="Média Geral"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -93,29 +58,8 @@
         android:id="@+id/imageView"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_below="@+id/imgAvalie"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="50dp"
         android:src="@android:drawable/btn_star_big_on" />
-
-    <ImageView
-        android:id="@+id/imgAvalie"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_below="@+id/txt_bio"
-        android:layout_marginLeft="200dp"
-        android:src="@android:drawable/btn_star_big_off"/>
-
-    <TextView
-        android:id="@+id/txt_nota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgAvalie"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="2dp"
-        android:layout_toEndOf="@+id/imgAvalie"
-        android:layout_toRightOf="@+id/imgAvalie"
-        android:text="Sua nota:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
