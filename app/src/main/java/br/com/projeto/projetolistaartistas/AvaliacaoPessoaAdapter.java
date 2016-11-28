@@ -40,6 +40,12 @@ public class AvaliacaoPessoaAdapter extends ArrayAdapter<Avaliacao> {
         }
         String title = (avaliacao.getAva_titulo() != null) ? avaliacao.getAva_titulo() : "Rating";
         viewholder.title.setText(title);
+        if (avaliacao.getAva_descricao().length() > 15) {
+            String desc = avaliacao.getAva_descricao().substring(0, 14);
+            viewholder.descricao.setText(desc + "...");
+        } else {
+            viewholder.descricao.setText(avaliacao.getAva_descricao());
+        }
         viewholder.descricao.setText(avaliacao.getAva_descricao());
         viewholder.ratingBar.setRating((float) avaliacao.getAva_nota());
         return convertView;

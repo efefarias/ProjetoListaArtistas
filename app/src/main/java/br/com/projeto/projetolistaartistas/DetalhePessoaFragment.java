@@ -69,6 +69,10 @@ public class DetalhePessoaFragment extends Fragment {
     FloatingActionButton fabFavorito2;
     @Bind(R.id.list_obras)
     TwoWayView mlistObras;
+    @Bind(R.id.txt_obra_empty)
+    TextView mtxt_obra_empty;
+    @Bind(R.id.txt_ava_empty)
+    TextView mtxt_ava_empty;
     @Bind(R.id.list_avaliacoes)
     TwoWayView mlistAvaliacoes;
     @Bind(R.id.img_full)
@@ -410,11 +414,19 @@ public class DetalhePessoaFragment extends Fragment {
                 }
             }
 
-            if (entrou == false) {
-                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
-                adapterAvaliacao = new AvaliacaoPessoaAdapter(getContext(), pessoa.getAvaliacao());
-                adapterObras.notifyDataSetChanged();
-                adapterAvaliacao.notifyDataSetChanged();
+            if (!entrou) {
+                if (pessoa.getObra().size() != 0) {
+                    adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
+                    adapterObras.notifyDataSetChanged();
+                } else {
+                    mtxt_obra_empty.setText("Esse Artista não possui nenhuma obra para ser listada!");
+                }
+                if (pessoa.getAvaliacao().size() != 0) {
+                    adapterAvaliacao = new AvaliacaoPessoaAdapter(getContext(), pessoa.getAvaliacao());
+                    adapterAvaliacao.notifyDataSetChanged();
+                } else {
+                    mtxt_ava_empty.setText("Esse Artista não possui nenhuma avaliação para se listada!");
+                }
                 entrou = true;
             }
 
