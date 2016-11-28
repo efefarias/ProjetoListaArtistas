@@ -420,12 +420,14 @@ public class DetalhePessoaFragment extends Fragment {
                     adapterObras.notifyDataSetChanged();
                 } else {
                     mtxt_obra_empty.setText("Esse Artista não possui nenhuma obra para ser listada!");
+                    mtxt_obra_empty.setPadding(5, 5, 5, 5);
                 }
                 if (pessoa.getAvaliacao().size() != 0) {
                     adapterAvaliacao = new AvaliacaoPessoaAdapter(getContext(), pessoa.getAvaliacao());
                     adapterAvaliacao.notifyDataSetChanged();
                 } else {
                     mtxt_ava_empty.setText("Esse Artista não possui nenhuma avaliação para se listada!");
+                    mtxt_ava_empty.setPadding(5, 5, 5, 5);
                 }
                 entrou = true;
             }
