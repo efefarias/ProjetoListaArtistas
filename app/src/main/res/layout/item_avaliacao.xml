@@ -39,5 +39,30 @@
             android:clickable="true"
             android:isIndicator="true"
             android:stepSize="1" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorBlack" />
     </android.support.v7.widget.CardView>
+
 </android.support.design.widget.CoordinatorLayout>
