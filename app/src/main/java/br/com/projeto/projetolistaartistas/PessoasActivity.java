@@ -213,9 +213,9 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
     }
 
     //FASF - Criando subclasse para paginação do viewPager de acordo com o fragment
-    class JogoPager extends FragmentPagerAdapter{
+    class PessoasPager extends FragmentPagerAdapter{
 
-        public JogoPager(FragmentManager fm) {
+        public PessoasPager(FragmentManager fm) {
             super(fm);
         }
 
