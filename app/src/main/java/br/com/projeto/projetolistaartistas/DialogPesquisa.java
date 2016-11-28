@@ -81,6 +81,7 @@ public class DialogPesquisa extends DialogFragment {
         spinnerArray.add("Categoria");
         spinnerArray.add("Obra");
         spinnerArray.add("Avaliação");
+        spinnerArray.add("Ateliê");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
 
