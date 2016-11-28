@@ -344,6 +344,9 @@ public class ListaPessoasFragment extends Fragment {
             if(filtroPesquisa == "Avaliação"){
                 buscarArtistaAvaliacao(campoPesquisa);
             }
+            if(filtroPesquisa == "Ateliê"){
+                buscarArtistaAtelie(campoPesquisa);
+            }
         }
     }
 
@@ -437,6 +440,31 @@ public class ListaPessoasFragment extends Fragment {
             foiFiltrado = true;
         }else{
             Toast.makeText(getActivity(), "Avaliação não localizada", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void buscarArtistaAtelie(String nome){
+
+        listPessoasFiltro.clear();
+
+        for(int i = 0; i < listPessoas.size(); i++){
+            for(int j = 0; j < listPessoas.get(i).getAtelie().size(); j++){
+                if(fg.verificarNome(listPessoas.get(i).getAtelie().get(j).getAte_cidade().toString().toLowerCase(), nome.toLowerCase())
+                        || fg.verificarNome(listPessoas.get(i).getAtelie().get(j).getAte_endereco().toString().toLowerCase(), nome.toLowerCase())
+                        || fg.verificarNome(listPessoas.get(i).getAtelie().get(j).getAte_estado().toString().toLowerCase(), nome.toLowerCase()))
+                    listPessoasFiltro.add(listPessoas.get(i));
+            }
+        }
+
+        listPessoasFiltro = fg.removeDuplicados(listPessoasFiltro);
+
+        if(listPessoasFiltro.size() != 0) {
+            adapterPessoasFiltro = new PessoasAdapter(getContext(), listPessoasFiltro);
+            mListView.setAdapter(adapterPessoasFiltro);
+            adapterPessoas.notifyDataSetChanged();
+            foiFiltrado = true;
+        }else{
+            Toast.makeText(getActivity(), "Ateliê não localizada", Toast.LENGTH_LONG).show();
         }
     }
 
