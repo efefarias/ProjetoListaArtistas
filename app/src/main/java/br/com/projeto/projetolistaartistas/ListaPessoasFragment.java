@@ -426,7 +426,9 @@ public class ListaPessoasFragment extends Fragment {
 
         for(int i = 0; i < listPessoas.size(); i++){
             for(int j = 0; j < listPessoas.get(i).getAvaliacao().size(); j++){
-                if(fg.verificarNome(listPessoas.get(i).getAvaliacao().get(j).getAva_descricao().toString().toLowerCase(), nome.toLowerCase()))
+                if(fg.verificarNome(listPessoas.get(i).getAvaliacao().get(j).getAva_descricao().toString().toLowerCase(), nome.toLowerCase())
+                        || fg.verificarNome(listPessoas.get(i).getAvaliacao().get(j).getAva_titulo().toString().toLowerCase(), nome.toLowerCase())
+                        || fg.verificarNome(String.valueOf(listPessoas.get(i).getAvaliacao().get(j).getAva_nota()), nome.toLowerCase()))
                     listPessoasFiltro.add(listPessoas.get(i));
             }
         }
