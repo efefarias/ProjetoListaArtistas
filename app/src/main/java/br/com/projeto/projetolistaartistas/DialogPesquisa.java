@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,10 +71,12 @@ public class DialogPesquisa extends DialogFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_dialog_pesquisa, container, false);
 
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         ButterKnife.bind(this, v);
 
         List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("Selecione");
+        spinnerArray.add("Escolha um filtro");
         spinnerArray.add("Nome");
         spinnerArray.add("Categoria");
         spinnerArray.add("Obra");
@@ -99,7 +102,7 @@ public class DialogPesquisa extends DialogFragment {
             Toast.makeText(getActivity(), "Preencha algum campo para refinar a pesquisa.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(spnBusca.getSelectedItem().toString() == "Selecione") {
+        if(spnBusca.getSelectedItem().toString() == "Escolha um filtro") {
             Toast.makeText(getActivity(), "Preencha algum filtro para refinar a pesquisa.", Toast.LENGTH_SHORT).show();
             return false;
         }
