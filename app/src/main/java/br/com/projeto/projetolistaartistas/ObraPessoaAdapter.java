@@ -8,13 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import br.com.projeto.projetolistaartistas.model.Obra;
-import br.com.projeto.projetolistaartistas.Util.FuncoesGenericas;
 
 /**
  * Created by f.soares.de.farias on 9/22/2016.
@@ -43,7 +41,12 @@ public class ObraPessoaAdapter extends ArrayAdapter<Obra> {
             Picasso.with(getContext()).load(obra.getImagens().get(0).getImg_url()).resize(450, 450).into(imgObra);
         }
 
-        txtDescricaoObra.setText(obra.getObr_descricao());
+        if (obra.getObr_descricao().length() > 15) {
+            String desc = obra.getObr_descricao().substring(0, 14);
+            txtDescricaoObra.setText(desc + "...");
+        } else {
+            txtDescricaoObra.setText(obra.getObr_descricao());
+        }
         txtCategoriaObra.setText(obra.getCat_obra_descricao());
 
         return convertView;
