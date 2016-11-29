@@ -24,5 +24,7 @@
     <string name="navigation_drawer_open">Abrir Navegação</string>
     <string name="Artistas">Artistas</string>
     <string name="Artista">Artista</string>
+    <string name="Subject">Dúvidas sobre suas Obras</string>
     <string name="img_dec">Imagem da obra</string>
+    <string name="Email">Escolha por onde você irá enviar o email: </string>
 </resources>

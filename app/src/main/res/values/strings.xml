@@ -34,4 +34,7 @@
     <string name="general">General</string>
     <string name="logout">logout</string>
     <string name="img_dec">Imagem da obra</string>
+    <string name="Subject">Questions about your Work</string>
+    <string name="Email">Choose your Email Client: </string>
+
 </resources>

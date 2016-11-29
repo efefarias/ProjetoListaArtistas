@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -91,6 +92,12 @@ public class DetalhePessoaFragment extends Fragment {
     TextView mNome_Usuario;
     @Bind(R.id.usu_desc)
     TextView mDesc_Usuario;
+    @Bind(R.id.usu_email)
+    TextView mEmail_Usuario;
+    @Bind(R.id.usu_telefone)
+    TextView mTelefone_Usuario;
+    @Bind(R.id.usu_celular)
+    TextView mCelular_Usuario;
     List<Obra> listObras;
     List<Avaliacao> listAvaliacoes;
     PessoaDAO pessoaDAO;
@@ -170,6 +177,44 @@ public class DetalhePessoaFragment extends Fragment {
             }
             if (pessoa.getUsu_desc() != null) {
                 mDesc_Usuario.setText(pessoa.getUsu_desc());
+            }
+            if (pessoa.getUsu_email() != null) {
+                mEmail_Usuario.setText(pessoa.getUsu_email());
+                mEmail_Usuario.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.setType("message/rfc822");
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, R.string.Subject);
+                        startActivity(Intent.createChooser(emailIntent, "Choose your Email Client:"));
+                    }
+                });
+            }
+            if (pessoa.getUsu_telefone() != null) {
+                mTelefone_Usuario.setText(pessoa.getUsu_telefone());
+                mTelefone_Usuario.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String phone_no = mTelefone_Usuario.getText().toString().replaceAll("-", "");
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse(phone_no));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(callIntent);
+                    }
+                });
+            }
+            if (pessoa.getUsu_celular() != null) {
+                mCelular_Usuario.setText(pessoa.getUsu_celular());
+                mCelular_Usuario.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String phone_no = mTelefone_Usuario.getText().toString().replaceAll("-", "");
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse(phone_no));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(callIntent);
+                    }
+                });
             }
             //Obras
             if (pessoa.getObra() != null) {
