@@ -167,7 +167,7 @@
             android:tint="@android:color/white"
             app:fabSize="normal"
             app:layout_anchor="@id/scrollView"
-            app:layout_anchorGravity="bottom||left" />
+            app:layout_anchorGravity="bottom|left" />
     </android.support.design.widget.CoordinatorLayout>
 
 <!-- FULL DA OBRA -->
