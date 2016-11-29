@@ -17,5 +17,6 @@ public interface PessoaContract extends BaseColumns{
     String USU_IMAGEM = "usu_imagem";
     String USU_TELEFONE = "usu_telefone";
     String USU_CELULAR = "usu_celular";
+    String USU_DESCRICAO = "usu_descricao";
 
 }

@@ -87,6 +87,7 @@ public class PessoaDAO {
             int indexImagem           = cursor.getColumnIndex(PessoaContract.USU_IMAGEM);
             int indexTelefone           = cursor.getColumnIndex(PessoaContract.USU_TELEFONE);
             int indexCelular           = cursor.getColumnIndex(PessoaContract.USU_CELULAR);
+            int indexDescricao           = cursor.getColumnIndex(PessoaContract.USU_DESCRICAO);
 
 
             while (cursor.moveToNext()) {
@@ -101,6 +102,7 @@ public class PessoaDAO {
                 pessoa.setUsu_imagem(cursor.getString(indexImagem));
                 pessoa.setUsu_telefone(cursor.getString(indexTelefone));
                 pessoa.setUsu_celular(cursor.getString(indexCelular));
+                pessoa.setUsu_desc(cursor.getString(indexDescricao));
 
                 pessoas.add(pessoa);
             }
@@ -139,7 +141,7 @@ public class PessoaDAO {
             int indexImagem           = cursor.getColumnIndex(PessoaContract.USU_IMAGEM);
             int indexTelefone           = cursor.getColumnIndex(PessoaContract.USU_TELEFONE);
             int indexCelular           = cursor.getColumnIndex(PessoaContract.USU_CELULAR);
-
+            int indexDescricao           = cursor.getColumnIndex(PessoaContract.USU_DESCRICAO);
 
             while (cursor.moveToNext()) {
                 Pessoa pessoa = new Pessoa();
@@ -153,6 +155,7 @@ public class PessoaDAO {
                 pessoa.setUsu_imagem(cursor.getString(indexImagem));
                 pessoa.setUsu_telefone(cursor.getString(indexTelefone));
                 pessoa.setUsu_celular(cursor.getString(indexCelular));
+                pessoa.setUsu_desc(cursor.getString(indexDescricao));
 
                 pessoas.add(pessoa);
             }
@@ -168,7 +171,6 @@ public class PessoaDAO {
     private ContentValues valuesFromPessoa(Pessoa pessoa){
         ContentValues values = new ContentValues();
 
-        //values.put(JogoContract.NOME,             jogo.getNome());
         values.put(PessoaContract.USU_EMAIL,             pessoa.getUsu_email());
         values.put(PessoaContract.USU_CPF,              pessoa.getUsu_cpf());
         values.put(PessoaContract.USU_GENERO,              pessoa.getUsu_genero());
@@ -177,7 +179,7 @@ public class PessoaDAO {
         values.put(PessoaContract.USU_IMAGEM,         pessoa.getUsu_imagem());
         values.put(PessoaContract.USU_TELEFONE,         pessoa.getUsu_telefone());
         values.put(PessoaContract.USU_CELULAR,            pessoa.getUsu_celular());
-
+        values.put(PessoaContract.USU_DESCRICAO,            pessoa.getUsu_desc());
 
         return values;
     }

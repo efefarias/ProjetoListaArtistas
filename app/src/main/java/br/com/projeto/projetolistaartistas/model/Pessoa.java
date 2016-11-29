@@ -18,6 +18,7 @@ public class Pessoa{
     private String usu_imagem;
     private String usu_celular;
     private String usu_telefone;
+    private String usu_descricao;
     private List<Obra> obra;
     private List<Avaliacao> avaliacao;
     private List<Atelie> atelie;
@@ -25,7 +26,7 @@ public class Pessoa{
     public Pessoa(){
     }
 
-    public Pessoa(long usu_id, String usu_email, String usu_cpf, String usu_genero, String usu_nome, String usu_data_nascimento, String usu_imagem, String usu_celular, String usu_telefone, List<Obra> obra, List<Avaliacao> avaliacao, List<Atelie> atelie) {
+    public Pessoa(long usu_id, String usu_email, String usu_cpf, String usu_genero, String usu_nome, String usu_data_nascimento, String usu_imagem, String usu_celular, String usu_telefone, String usu_descricao,List<Obra> obra, List<Avaliacao> avaliacao, List<Atelie> atelie) {
         this.usu_id = usu_id;
         this.usu_email = usu_email;
         this.usu_cpf = usu_cpf;
@@ -35,6 +36,7 @@ public class Pessoa{
         this.usu_imagem = usu_imagem;
         this.usu_celular = usu_celular;
         this.usu_telefone = usu_telefone;
+        this.usu_descricao = usu_descricao;
         this.obra = obra;
         this.avaliacao = avaliacao;
         this.atelie = atelie;
@@ -134,5 +136,13 @@ public class Pessoa{
 
     public void setAtelie(List<Atelie> atelie) {
         this.atelie = atelie;
+    }
+
+    public String getUsu_desc() {
+        return usu_descricao;
+    }
+
+    public void setUsu_desc(String usu_desc) {
+        this.usu_descricao = usu_desc;
     }
 }

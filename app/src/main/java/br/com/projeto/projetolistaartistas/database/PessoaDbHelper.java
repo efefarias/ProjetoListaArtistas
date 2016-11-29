@@ -29,6 +29,7 @@ public class PessoaDbHelper extends SQLiteOpenHelper {
                 PessoaContract.USU_DATA_NASCIMENTO      +" TEXT, " +
                 PessoaContract.USU_IMAGEM               +" TEXT, " +
                 PessoaContract.USU_TELEFONE             +" TEXT, " +
+                PessoaContract.USU_DESCRICAO                 +" TEXT, " +
                 PessoaContract.USU_CELULAR              +" TEXT)");
 
         db.execSQL("CREATE TABLE "+ ObraContract.TABLE_NAME +" (" +
