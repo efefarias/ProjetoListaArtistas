@@ -17,6 +17,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,6 +87,10 @@ public class DetalhePessoaFragment extends Fragment {
     FloatingActionButton fab_mapa;
     @Bind(R.id.scrollView)
     ScrollView scrollView;
+    @Bind(R.id.usu_name)
+    TextView mNome_Usuario;
+    @Bind(R.id.usu_desc)
+    TextView mDesc_Usuario;
     List<Obra> listObras;
     List<Avaliacao> listAvaliacoes;
     PessoaDAO pessoaDAO;
@@ -158,24 +163,28 @@ public class DetalhePessoaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detalhe_pessoa, container, false);
 
         ButterKnife.bind(this, view);
-
-        //txtDetalhesPessoa.setText("           " + pessoa.getUsu_nome() + ", clique nas obras para obter detalhes. "  );
-
-        //Foto do artista
-        Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
-
-        //Obras
-        //adapterObras = new ObraPessoaAdapter(getContext(), listObras);
-        if(pessoa.getObra() != null) {
-            adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
-            adapterObras.notifyDataSetChanged();
-        }else{
-            baixarJson();
+        try {
+            Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
+            if (pessoa.getUsu_nome() != null) {
+                mNome_Usuario.setText(pessoa.getUsu_nome());
+            }
+            if (pessoa.getUsu_desc() != null) {
+                mDesc_Usuario.setText(pessoa.getUsu_desc());
+            }
+            //Obras
+            if (pessoa.getObra() != null) {
+                adapterObras = new ObraPessoaAdapter(getContext(), pessoa.getObra());
+                adapterObras.notifyDataSetChanged();
+            } else {
+                baixarJson();
+            }
+            mlistObras.setEmptyView(view.findViewById(R.id.empty));
+            mlistObras.setAdapter(adapterObras);
+            imgFullObra.setClickable(false);
+            alteraFavorito();
+        } catch (Exception e) {
+            Log.e("ERRO AO CARREGAR", e.getMessage());
         }
-        mlistObras.setEmptyView(view.findViewById(R.id.empty));
-        mlistObras.setAdapter(adapterObras);
-        imgFullObra.setClickable(false);
-        alteraFavorito();
 
         return view;
     }
