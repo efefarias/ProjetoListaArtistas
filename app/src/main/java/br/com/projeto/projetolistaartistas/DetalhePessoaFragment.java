@@ -197,7 +197,7 @@ public class DetalhePessoaFragment extends Fragment {
                     public void onClick(View v) {
                         String phone_no = mTelefone_Usuario.getText().toString().replaceAll("-", "");
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse(phone_no));
+                        callIntent.setData(Uri.parse("tel:" + phone_no));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
                     }
@@ -210,7 +210,7 @@ public class DetalhePessoaFragment extends Fragment {
                     public void onClick(View v) {
                         String phone_no = mTelefone_Usuario.getText().toString().replaceAll("-", "");
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse(phone_no));
+                        callIntent.setData(Uri.parse("tel:" + phone_no));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(callIntent);
                     }
