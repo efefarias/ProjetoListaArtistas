@@ -41,6 +41,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     private double latitude = -8.127990;
     private double longitude = -34.914597;
     private View layout = null;
+    GoogleMap googleMap;
 
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
     }
@@ -59,7 +60,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
-        loadArtistClouser();
+        //loadArtistClouser();
 
         return layout;
     }
@@ -68,14 +69,17 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     //Ao carregar o mapa, seto o ponto onde a pessoa está e seto o marcador no mapa
     public void onMapReady(GoogleMap googleMap) {
 
+        loadArtistClouser();
+
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
-        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        map.addMarker(new MarkerOptions()
-                .title("Você está aqui!")
-                .snippet("Recife")
-                .position(new LatLng(latitude, longitude)))
-                .showInfoWindow();
+        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
+        //map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        //map.addMarker(new MarkerOptions()
+        //        .title("Você está aqui!")
+        //        .snippet("Recife")
+        //        .position(new LatLng(latitude, longitude)))
+         //       .showInfoWindow();
 
     }
 
@@ -180,6 +184,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
 
                 double lat = latitude;
                 double lng = longitude;
+
                 for (final Pessoa pessoa : listPessoas) {
 
                     //capturando latitude e longitude do serviçi
@@ -197,6 +202,13 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
                             .showInfoWindow();
                     }
                 }
+
+                map.addMarker(new MarkerOptions()
+                        .title("Você está aqui!")
+                        .snippet("Recife")
+                        .position(new LatLng(latitude, longitude)))
+                        .showInfoWindow();
+
             }
         };
         task.execute();
