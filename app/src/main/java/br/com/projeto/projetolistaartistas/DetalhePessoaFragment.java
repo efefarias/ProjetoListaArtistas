@@ -149,7 +149,7 @@ public class DetalhePessoaFragment extends Fragment {
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
         Intent it = new Intent(Intent.ACTION_SEND);
-        it.putExtra(Intent.EXTRA_TEXT, pessoa.getUsu_nome());
+        it.putExtra(Intent.EXTRA_TEXT, "https://www.doocati.com.br/tcc/client/detalhar_artista.php?artista_id=" + pessoa.getUsu_id());
         it.setType("text/plain");
         mShareActionProvider.setShareIntent(it);
     }
