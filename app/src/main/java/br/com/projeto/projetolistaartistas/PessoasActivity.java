@@ -67,13 +67,21 @@ public class PessoasActivity extends AppCompatActivity implements CliqueiNaPesso
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        setTitle(R.string.app_name);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         headerview = navigationView.inflateHeaderView(R.layout.nav_header_main);
         setupDrawerContent(navigationView);
         if (intent != null) {
             carregardadosUsuario(intent);
+        }
+        try {
+            Class fragmentClass = MapaFragment.class;
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        } catch (Exception e) {
+            Log.e("ERRO AO CARREGAR PESSOA", e.getMessage());
         }
 
     }
