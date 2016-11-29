@@ -60,7 +60,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
-        //loadArtistClouser();
+        loadArtistClouser();
 
         return layout;
     }
@@ -69,7 +69,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback, Locati
     //Ao carregar o mapa, seto o ponto onde a pessoa está e seto o marcador no mapa
     public void onMapReady(GoogleMap googleMap) {
 
-        loadArtistClouser();
+        //loadArtistClouser();
 
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
