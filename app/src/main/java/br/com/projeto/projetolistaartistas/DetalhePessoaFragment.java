@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +84,8 @@ public class DetalhePessoaFragment extends Fragment {
     LinearLayout frameConteudo;
     @Bind(R.id.fab_Mapa)
     FloatingActionButton fab_mapa;
+    @Bind(R.id.scrollView)
+    ScrollView scrollView;
     List<Obra> listObras;
     List<Avaliacao> listAvaliacoes;
     PessoaDAO pessoaDAO;
@@ -121,6 +124,7 @@ public class DetalhePessoaFragment extends Fragment {
         listAvaliacoes = new ArrayList<>();
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
+        scrollView.requestFocus();
     }
 
     @Override
