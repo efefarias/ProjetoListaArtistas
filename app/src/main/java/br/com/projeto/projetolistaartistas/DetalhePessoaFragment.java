@@ -129,7 +129,7 @@ public class DetalhePessoaFragment extends Fragment {
         listAvaliacoes = new ArrayList<>();
         listObras = new ArrayList<>();
         imgFullObra = new ImageView(getActivity());
-        scrollView.requestFocus();
+
     }
 
     @Override
@@ -181,6 +181,7 @@ public class DetalhePessoaFragment extends Fragment {
             mlistObras.setEmptyView(view.findViewById(R.id.empty));
             mlistObras.setAdapter(adapterObras);
             imgFullObra.setClickable(false);
+            scrollView.requestFocus();
             alteraFavorito();
         } catch (Exception e) {
             Log.e("ERRO AO CARREGAR", e.getMessage());
