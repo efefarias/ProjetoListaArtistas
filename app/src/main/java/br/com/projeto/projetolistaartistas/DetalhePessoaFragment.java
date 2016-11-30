@@ -382,7 +382,8 @@ public class DetalhePessoaFragment extends Fragment {
 
         DialogFragment newFragment = DialogDetalheObra.newInstance(pessoa.getObra().get(p).getImagens().get(0).getImg_url(),
                                                                    pessoa.getObra().get(p).getCat_obra_descricao(),
-                                                                   pessoa.getObra().get(p).getObr_descricao());
+                                                                   pessoa.getObra().get(p).getObr_descricao(),
+                                                                   pessoa.getObra().get(p).getObr_titulo());
         newFragment.show(getFragmentManager(), "dialog");
 
         /*//Fade out no layout de fundo

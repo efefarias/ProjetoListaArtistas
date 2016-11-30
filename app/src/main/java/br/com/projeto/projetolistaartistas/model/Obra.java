@@ -9,14 +9,16 @@ import java.util.List;
 public class Obra {
 
     private String obr_id;
+    private String obr_titulo;
     private String obr_descricao;
     private String cat_obra_descricao;
     private List<Imagens> imagens;
 
     public Obra(){}
 
-    public Obra(String obr_id, String obr_descricao, String cat_obra_descricao, List<Imagens> imagens) {
+    public Obra(String obr_id, String obr_titulo,String obr_descricao, String cat_obra_descricao, List<Imagens> imagens) {
         this.obr_id = obr_id;
+        this.obr_titulo = obr_titulo;
         this.obr_descricao = obr_descricao;
         this.cat_obra_descricao = cat_obra_descricao;
         this.imagens = imagens;
@@ -52,5 +54,13 @@ public class Obra {
 
     public void setImagens(List<Imagens> imagens) {
         this.imagens = imagens;
+    }
+
+    public String getObr_titulo() {
+        return obr_titulo;
+    }
+
+    public void setObr_titulo(String obr_titulo) {
+        this.obr_titulo = obr_titulo;
     }
 }

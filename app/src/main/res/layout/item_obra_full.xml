@@ -15,7 +15,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/txt_titulo_obra"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/txt_descricao_obra"
+            android:layout_below="@+id/txt_titulo_obra"
             android:layout_margin="8dp"/>
 
         <TextView

@@ -41,15 +41,19 @@ public class DialogDetalheObra extends DialogFragment {
     TextView txtDescricaoObra;
     @Bind(R.id.txt_categoria_obra)
     TextView txtCategoriaObra;
+    @Bind(R.id.txt_titulo_obra)
+    TextView txtTituloObra;
+
     @Bind(R.id.btnOk_obra)
     Button btnOk;
 
+    String titulo_obra;
     String url_img;
     String descricao_obra;
     String categoria_obra;
 
 
-    static DialogDetalheObra newInstance(String url_img, String categoria_obra, String descricao_obra) {
+    static DialogDetalheObra newInstance(String url_img, String categoria_obra, String descricao_obra, String titulo_obra) {
 
         DialogDetalheObra dialogObra = new DialogDetalheObra();
 
@@ -57,6 +61,7 @@ public class DialogDetalheObra extends DialogFragment {
         args.putString("url_img", url_img);
         args.putString("obra_desc", descricao_obra);
         args.putString("obra_cat", categoria_obra);
+        args.putString("obra_titulo", titulo_obra);
 
         dialogObra.setArguments(args);
 
@@ -70,6 +75,7 @@ public class DialogDetalheObra extends DialogFragment {
         url_img = getArguments().getString("url_img");
         descricao_obra = getArguments().getString("obra_desc");
         categoria_obra = getArguments().getString("obra_cat");
+        titulo_obra = getArguments().getString("obra_titulo");
 
     }
 
@@ -84,6 +90,7 @@ public class DialogDetalheObra extends DialogFragment {
 
         Picasso.with(getContext()).load(url_img).resize(800, 1400).into(img_detalhe_obra);
 
+        txtTituloObra.setText("Título da Obra: " + titulo_obra);
         txtDescricaoObra.setText("Descrição da Obra: " + descricao_obra);
         txtCategoriaObra.setText("Categoria da Obra: " + categoria_obra);
 
