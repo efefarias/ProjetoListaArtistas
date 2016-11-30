@@ -380,7 +380,12 @@ public class DetalhePessoaFragment extends Fragment {
     @OnItemClick(R.id.list_obras)
     void onItemSelected(int p) {
 
-        //Fade out no layout de fundo
+        DialogFragment newFragment = DialogDetalheObra.newInstance(pessoa.getObra().get(p).getImagens().get(0).getImg_url(),
+                                                                   pessoa.getObra().get(p).getCat_obra_descricao(),
+                                                                   pessoa.getObra().get(p).getObr_descricao());
+        newFragment.show(getFragmentManager(), "dialog");
+
+        /*//Fade out no layout de fundo
         frameConteudo.animate().alpha((float) 0.15);
 
         //Nome da obra sendo expandida
@@ -392,11 +397,10 @@ public class DetalhePessoaFragment extends Fragment {
         //Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
         Picasso.with(getContext()).load(pessoa.getObra().get(p).getImagens().get(0).getImg_url()).into(imgFullObra);
         imgFullObra.animate().scaleX(1).scaleY(1);
-        imgFullObra.setClickable(true);
-
+        imgFullObra.setClickable(true);*/
     }
 
-    @OnClick(R.id.img_full)
+    /*@OnClick(R.id.img_full)
     void onClick() {
         if (imgFullObra.isClickable()) {
             //Fade in no layout de fundo
@@ -410,8 +414,7 @@ public class DetalhePessoaFragment extends Fragment {
 
             imgFullObra.setClickable(false);
         }
-
-    }
+    }*/
 
     class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
 
