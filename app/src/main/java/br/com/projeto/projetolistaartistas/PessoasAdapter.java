@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -90,7 +91,13 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
         }
 
         //img do artista
-        Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(viewHolder.imgCapa);
+        if(pessoa.getUsu_imagem().contains("capas")) {
+            Picasso.with(getContext()).load("https://www.doocati.com.br/tcc/client/" + pessoa.getUsu_imagem()).resize(450, 450).into(viewHolder.imgCapa);
+            //Glide.with(getContext()).load("https://www.doocati.com.br/tcc/client/" + pessoa.getUsu_imagem()).into(viewHolder.imgCapa);
+        }else {
+            //Picasso.with(getContext()).load(pessoa.getUsu_imagem()).resize(450, 450).into(viewHolder.imgCapa);
+            Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(viewHolder.imgCapa);
+        }
 
         return convertView;
     }
@@ -98,10 +105,6 @@ public class PessoasAdapter extends ArrayAdapter<Pessoa> {
     private static class ViewHolder {
         ImageView imgCapa;
         TextView txtNome;
-        //TextView txtEmail;
-        //TextView txtTelefone;
-        //TextView txtResumo;
         TextView txtMediaNota;
-        //TextView txt_nota;
     }
 }

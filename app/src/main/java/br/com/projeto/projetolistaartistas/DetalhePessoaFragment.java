@@ -171,7 +171,17 @@ public class DetalhePessoaFragment extends Fragment {
 
         ButterKnife.bind(this, view);
         try {
-            Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
+            //Glide.with(getActivity()).load(pessoa.getUsu_imagem()).into(imgView);
+
+            //img do artista
+            if(pessoa.getUsu_imagem().contains("capas")) {
+                Picasso.with(getContext()).load("https://www.doocati.com.br/tcc/client/" + pessoa.getUsu_imagem()).resize(450, 450).into(imgView);
+                //Glide.with(getContext()).load("https://www.doocati.com.br/tcc/client/" + pessoa.getUsu_imagem()).into(viewHolder.imgCapa);
+            }else {
+                //Picasso.with(getContext()).load(pessoa.getUsu_imagem()).resize(450, 450).into(viewHolder.imgCapa);
+                Glide.with(getContext()).load(pessoa.getUsu_imagem()).into(imgView);
+            }
+
             if (pessoa.getUsu_nome() != null) {
                 mNome_Usuario.setText(pessoa.getUsu_nome());
             }
@@ -380,42 +390,16 @@ public class DetalhePessoaFragment extends Fragment {
     @OnItemClick(R.id.list_obras)
     void onItemSelected(int p) {
 
-        DialogFragment newFragment = DialogDetalheObra.newInstance(pessoa.getObra().get(p).getImagens().get(0).getImg_url(),
-                                                                   pessoa.getObra().get(p).getCat_obra_descricao(),
-                                                                   pessoa.getObra().get(p).getObr_descricao(),
-                                                                   pessoa.getObra().get(p).getObr_titulo());
-        newFragment.show(getFragmentManager(), "dialog");
-
-        /*//Fade out no layout de fundo
-        frameConteudo.animate().alpha((float) 0.15);
-
-        //Nome da obra sendo expandida
-        txtNomeObra.setText(pessoa.getObra().get(p).getObr_descricao());
-        //txtNomeObra.setShadowLayer((float)0.8,(float)0.8,(float)0.8, Color.BLACK);
-        txtNomeObra.animate().scaleX(1).scaleY(1);
-
-        //Imagem da Obra sendo expandida
-        //Picasso.with(getContext()).load(pessoa.getObra().get(p).getImg_url()).into(imgFullObra);
-        Picasso.with(getContext()).load(pessoa.getObra().get(p).getImagens().get(0).getImg_url()).into(imgFullObra);
-        imgFullObra.animate().scaleX(1).scaleY(1);
-        imgFullObra.setClickable(true);*/
-    }
-
-    /*@OnClick(R.id.img_full)
-    void onClick() {
-        if (imgFullObra.isClickable()) {
-            //Fade in no layout de fundo
-            frameConteudo.animate().alpha((float) 1);
-
-            //Nome da obra sendo recolhido
-            txtNomeObra.animate().scaleX(0).scaleY(0);
-
-            //Imagem da obra sendo recolhida
-            imgFullObra.animate().scaleX(0).scaleY(0);
-
-            imgFullObra.setClickable(false);
+        if(pessoa.getObra().get(p).getImagens().size() != 0) {
+            DialogFragment newFragment = DialogDetalheObra.newInstance(pessoa.getObra().get(p).getImagens().get(0).getImg_url(),
+                    pessoa.getObra().get(p).getCat_obra_descricao(),
+                    pessoa.getObra().get(p).getObr_descricao(),
+                    pessoa.getObra().get(p).getObr_titulo());
+            newFragment.show(getFragmentManager(), "dialog");
+        }else{
+            Toast.makeText(getActivity(), "Problemas ao acessar a imagem do artista, tente novamente mais tarde", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
     class PessoaTask extends AsyncTask<Void, Void, ListPessoas> {
 
